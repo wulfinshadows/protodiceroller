@@ -1,24 +1,45 @@
 import { useContext } from "react";
 import { DieContext } from "../Context/DieContext";
 import { ThemeContext } from "../Context/ThemeContext";
+import { useDiceRenderer } from "../Hooks/useDiceRenderer";
 import DieComponent from "../Components/DieComponent";
+import HistoryComponent from "./HistoryComponent";
+import { DiceFX } from "../../Assets/Sound/Legacy/DiceFX";
 import d20 from "../../Assets/d20.svg";
 import themes from "../Context/themes";
-import { useDiceRenderer } from "../Hooks/useDiceRenderer";
 
 function Playmat() {
-  const { handleAddDie, handleRemoveDie, isRolling } = useContext(DieContext);
+  const { dice, handleAddDie, handleRemoveDie, isRolling } =
+    useContext(DieContext);
   const { triggerDiceRolls, currentDieFaces, updateDieFaces } =
     useDiceRenderer();
 
   const { themeName, setThemeName } = useContext(ThemeContext);
   const theme = themes[themeName];
 
+  const dicePutFX = new Audio(DiceFX[0]);
+  dicePutFX.playbackRate = 0.75;
+  const diceRollFX = new Audio(DiceFX[1]);
+  const diceTakeFX = new Audio(DiceFX[2]);
+
   const handleRollClick = () => {
-    triggerDiceRolls();
+    if (dice.length !== 0) {
+      diceRollFX.play();
+      triggerDiceRolls();
+    }
   };
   const handleAddDieClick = (dieType) => {
-    !isRolling && handleAddDie(dieType);
+    if (!isRolling) {
+      dicePutFX.play();
+      handleAddDie(dieType);
+    }
+  };
+  const handleRemoveDieClick = (index) => {
+    if (!isRolling) {
+      diceTakeFX.play();
+      handleRemoveDie(index);
+      updateDieFaces();
+    }
   };
 
   return (
@@ -105,8 +126,7 @@ function Playmat() {
             <DieComponent
               currentDieFaces={currentDieFaces}
               onDieClick={(index) => {
-                handleRemoveDie(index);
-                updateDieFaces();
+                handleRemoveDieClick(index);
               }}
             />
           </div>

@@ -33,9 +33,8 @@ export function useDiceRenderer() {
   };
 
   const triggerDiceRolls = () => {
-    if (isRolling) return;
+    if (isRolling || dice.length === 0) return;
     setIsRolling(true);
-
     const diceWithSkins = dice.map((die) => {
       let dieType = die.getDieType();
       let dieAssets = getDieAssets(dieType);
@@ -45,7 +44,8 @@ export function useDiceRenderer() {
     });
 
     let frame = 0;
-    const maxFrames = 25;
+    const maxFrames = 20;
+    const initialDelayFrames = 5;
     let lastUpdateTime = 0;
 
     function getFrameDuration(frame) {
