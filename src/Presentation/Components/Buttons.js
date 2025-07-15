@@ -10,7 +10,7 @@ function Buttons({ onInfoClick }) {
   
   return (
     <div className="button-container">
-      <button onClick={onInfoClick} className={`theme-${themeName}`}> 
+      <button onClick={onInfoClick} className={`theme-${themeName}`}>
         <img
           width={50}
           height={50}

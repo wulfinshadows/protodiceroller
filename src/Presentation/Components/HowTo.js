@@ -1,14 +1,16 @@
 import "./HowTo.css";
+
 function HowTo({ onExit = () => {} }) {
   return (
     <div className="how-to-container">
       <div>
-        <h2>HOW TO PLAY</h2>
+        <h2 className="font-[TWBOZ]">HOW TO PLAY</h2>
         <hr></hr>
-        <li>Click a dice to add in the PlayMat</li>
+        <li>Click on a dice to add it to the dice tray</li>
         <li>Click the “Roll” button to roll</li>
-        <li>Navigate dice options with the arrows</li>
-        <li>Click on a dice on the PlayMat to remove them</li>
+        <li>If you're on mobile, alternatively you can shake to roll!</li>
+        <li>Check the results in History</li>
+        <li>Choosing themes will change the dice and dice tray skins</li>
         <button onClick={() => onExit()}>✕</button>
       </div>
     </div>

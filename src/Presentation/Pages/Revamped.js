@@ -15,13 +15,13 @@ function Revamped() {
       <div className="page-container">
         {/* Title */}
         <div className="header-container">
-          <div>
+          <div className="flex-auto">
             <img width={100} height={100} src={HaloHaloLogo} alt="Halo Halo Logo" className="mx-2"/>
           </div>
-          <div className="title">
+          <div className="title flex-auto flex-nowrap">
             <h1 className={`title-text theme-${themeName}`}>DICE ROLLER</h1>
           </div>
-          <div className="button-container">
+          <div className="button-container flex-auto">
             <Buttons onInfoClick={() => setShowModal(true)} />
           </div>
         </div>
