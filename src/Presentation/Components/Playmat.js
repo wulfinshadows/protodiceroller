@@ -207,6 +207,7 @@ function Playmat() {
           <div className="column-three">
             <div className="history-container">
               <div className="history-title">HISTORY</div>
+              <HistoryComponent />
               <div className="history-details"></div>
             </div>
           </div> */}

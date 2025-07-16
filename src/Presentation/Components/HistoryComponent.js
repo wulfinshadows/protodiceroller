@@ -1,8 +1,41 @@
 import { useState } from "react";
 
+const dieInfo = {
+  rolledDice: "1d6, 1d20, 2d10",
+  diceValues: [
+    { dieType: "1d6", value: 4 },
+    { dieType: "1d20", value: 9 },
+    { dieType: "2d10", value: 12 },
+  ],
+  totalValue: 25,
+};
+
+const jsonObj = { rollHistory: [dieInfo, dieInfo] };
+
 export default function HistoryComponent() {
-  const [rollHistory, setRollHistory] = useState([]);
-  return <div>{rollHistory.map(() => {})}</div>;
+  const [rollHistory, setRollHistory] = useState([dieInfo, dieInfo]);
+  return (
+    <div className="w-full text-black pl-4">
+      {rollHistory.map((historyObj) => {
+        let rollTypes = historyObj.rolledDice;
+        let dievalues = historyObj.diceValues.map((rollInfo) => {
+          let dieType = rollInfo.dieType;
+          let value = rollInfo.value;
+          return dieType + " = " + value;
+        });
+        let totalValue = historyObj.totalValue;
+        return (
+          <div className="h-fit p-2 mt-4 bg-white rounded-md">
+            <p>{rollTypes}</p>
+            {dievalues.map((rollInfo) => {
+              return <p>{rollInfo}</p>;
+            })}
+            <p>Total: {totalValue}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 /*
 [
