@@ -4,6 +4,7 @@ import HaloHaloLogo from "../assets/HaloHaloApp.png";
 import Image from "next/image";
 import Buttons from "../presentation/components/Buttons";
 import HowTo from "../presentation/components/HowTo";
+import Playmat from "../presentation/components/Playmat";
 
 export default function FrontPage() {
   const [showModal, setShowModal] = useState(false);
@@ -31,7 +32,7 @@ export default function FrontPage() {
           </div>
         </div>
 
-        {/* <Playmat /> */}
+        <Playmat />
 
         {showModal && <HowTo onExit={() => setShowModal(false)} />}
       </div>
