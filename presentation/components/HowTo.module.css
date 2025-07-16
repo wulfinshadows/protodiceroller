@@ -1,0 +1,18 @@
+@tailwind utilities;
+@reference "tailwindcss";
+
+.how-to-container {
+  @apply fixed inset-0 z-50 bg-black/50 flex items-center justify-center;
+}
+
+.how-to-container div {
+  @apply bg-gray-500 rounded-xl p-6 max-w-lg w-full relative text-white;
+}
+
+.how-to-container div h2 {
+  @apply text-white text-4xl font-bold;
+}
+
+.how-to-container div button {
+  @apply absolute top-2 right-4 text-black font-bold cursor-pointer;
+}

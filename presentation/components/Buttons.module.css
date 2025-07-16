@@ -1,0 +1,12 @@
+@tailwind utilities;
+@reference "tailwindcss";
+
+.button-box {
+  @apply flex flex-row items-center justify-center;
+}
+
+.button-box button {
+  @apply h-auto w-fit rounded-[20px] p-3 m-2 hover:scale-105 transition cursor-pointer;
+  background-color: var(--theme-primary);
+  color: var(--theme-text);
+}

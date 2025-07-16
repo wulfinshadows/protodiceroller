@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@layer base {
+  @font-face {
+    font-family: TWBOZ;
+    src: url("../assets/fonts/TheWildBreathOfZelda-15Lv.ttf");
+  }
+}
+
+.theme-default {
+  --theme-primary: #c23838;
+  --theme-text: white;
+  --theme-bg: #0e102c;
+}
+
+.theme-ocean {
+  --theme-primary: #3b82f6;
+  --theme-text: white;
+  --theme-bg: #146264;
+}
+
+.theme-sand {
+  --theme-primary: #facc15;
+  --theme-text: white;
+  --theme-bg: #4f3e04;
+}
+
+.themes-container,
+.history-container,
+.sidebar-container,
+.sidebar-container-button {
+  background-color: var(--theme-primary);
+  color: var(--theme-text);
+}
+
+.screen-container {
+  @apply flex bg-[#0e102c] h-screen transition;
+  background-color: var(--theme-bg);
+}
+.screen-container .page-container {
+  @apply flex-col w-full h-full;
+}
+.screen-container .page-container .header-container {
+  @apply hidden md:grid grid-cols-3 h-auto items-center justify-between p-5;
+}
+.screen-container .page-container .header-container .title {
+  @apply flex justify-center;
+}
+.screen-container .page-container .header-container .title .title-text {
+  @apply text-white text-6xl font-[TWBOZ];
+  color: var(--theme-text);
+}
+.screen-container .page-container .header-container .button-container {
+  @apply flex justify-end items-center;
+}
+
+.playmat-container {
+  @apply flex flex-row w-full h-fit justify-center items-center;
+}
+.playmat-container .playmat-background-container {
+  @apply hidden md:grid grid-cols-9 bg-contain bg-center w-fit h-fit bg-no-repeat;
+}
+.playmat-container .playmat-background-container .column-one {
+  @apply flex xl:col-span-1 xl:col-start-8 xl:row-start-1 xl:items-end md:col-span-3 md:row-start-2 md:col-start-4;
+}
+.playmat-container .playmat-background-container .column-one .themes-container {
+  @apply flex flex-col rounded-md w-full h-5/6 text-white p-2 m-1 drop-shadow-lg transition;
+}
+.playmat-container
+  .playmat-background-container
+  .column-one
+  .themes-container
+  .themes-title {
+  @apply flex flex-row w-full h-auto p-3 justify-center text-[30px] font-[TWBOZ];
+}
+.themes-select {
+  @apply grid grid-cols-3 grid-rows-1 overflow-hidden w-full lg:h-full md:h-24 p-3 items-center place-items-center;
+}
+.theme-button {
+  @apply w-20 h-20 rounded-md text-black hover:scale-105 active:scale-110 transition font-[TWBOZ] drop-shadow-lg;
+}
+.playmat-container .playmat-background-container .column-one .roll-button {
+  @apply p-5 w-full rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110;
+}
+.playmat-container .playmat-background-container .dice-container {
+  @apply flex flex-col col-span-1 p-5 items-center place-content-center place-items-center ml-5 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
+}
+.playmat-container .playmat-background-container .column-two {
+  @apply col-span-3;
+}
+.playmat-container
+  .playmat-background-container
+  .column-two
+  .display-dice-container {
+  @apply flex col-span-3 break-all overflow-hidden py-32 px-20 max-h-[100%];
+}
+.playmat-container .playmat-background-container .column-three {
+  @apply flex-col col-span-2 p-3 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
+}
+.playmat-container
+  .playmat-background-container
+  .column-three
+  .history-container {
+  @apply flex flex-col rounded-md w-full h-full text-white p-2 drop-shadow-lg transition;
+}
+.playmat-container
+  .playmat-background-container
+  .column-three
+  .history-container
+  .history-title {
+  @apply flex flex-row w-full h-auto p-3 justify-center text-[30px] font-[TWBOZ];
+}
+.playmat-container
+  .playmat-background-container
+  .column-three
+  .history-container
+  .history-details {
+  @apply flex flex-row w-full h-full p-3;
+}
+.dummy-col {
+  @apply 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
+}
