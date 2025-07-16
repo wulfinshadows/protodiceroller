@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { DieContext } from "../Context/DieContext";
+import { DieContext } from "../../Presentation/Context/DieContext";
 export function useCollectHistory() {
   const { dice } = useContext(DieContext);
   const [history, setHistory] = useState();
@@ -13,15 +13,6 @@ export function useCollectHistory() {
     ],
     totalValue: 25,
   };
-
-  function collectDiceValues() {
-    const dieValues = dice.map((die) => {
-      const dieType = die.getDieType();
-      const dieValue = die.getDieValue() + 1;
-      return [dieType, dieValue];
-    });
-    return dieValues;
-  }
 
   function createJsonHistory() {
     let historyMap = new Map();
