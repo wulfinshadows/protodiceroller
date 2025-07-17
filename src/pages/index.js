@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { ThemeContext } from "../presentation/context/ThemeContext";
-import HaloHaloLogo from "../assets/HaloHaloApp.png";
+//import HaloHaloLogo from "./HaloHaloApp.png";
 import Image from "next/image";
 import Buttons from "../presentation/components/Buttons";
 import HowTo from "../presentation/components/HowTo";
@@ -17,7 +17,7 @@ export default function FrontPage() {
         <div className="header-container">
           <div className="flex-auto">
             <Image
-              src={HaloHaloLogo}
+              src={"/HaloHaloApp.png"}
               alt="Halo Halo Logo"
               width={100}
               height={100}

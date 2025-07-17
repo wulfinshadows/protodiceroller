@@ -17,7 +17,7 @@ code {
 @layer base {
   @font-face {
     font-family: TWBOZ;
-    src: url("../assets/fonts/TheWildBreathOfZelda-15Lv.ttf");
+    src: url("/fonts/TheWildBreathOfZelda-15Lv.ttf");
   }
 }
 
