@@ -8,7 +8,6 @@ import styles from "./Buttons.module.css";
 
 function Buttons({ onInfoClick }) {
   const { themeName } = useContext(ThemeContext);
-  console.log(styles);
 
   return (
     <div className={styles["button-box"]}>

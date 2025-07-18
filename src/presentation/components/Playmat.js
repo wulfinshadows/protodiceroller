@@ -9,6 +9,7 @@ import { DiceFX } from "../../assets/sound/legacy/DiceFX";
 import d20 from "../../assets/d20.svg";
 import themes from "../context/themes";
 import Sidebar from "./Sidebar";
+import { useCollectHistory } from "../hooks/useCollectHistory";
 
 function Playmat() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,6 +19,8 @@ function Playmat() {
     useContext(DieContext);
   const { triggerDiceRolls, currentDieFaces, updateDieFaces } =
     useDiceRenderer();
+  const { history, updateHistoryJson, updateHistoryState } =
+    useCollectHistory();
 
   const { themeName, setThemeName } = useContext(ThemeContext);
   const theme = themes[themeName];
@@ -27,10 +30,12 @@ function Playmat() {
   // const diceRollFX = new Audio(DiceFX[1]);
   // const diceTakeFX = new Audio(DiceFX[2]);
 
-  const handleRollClick = () => {
+  const handleRollClick = async () => {
     if (dice.length !== 0) {
       //diceRollFX.play();
-      triggerDiceRolls();
+      const rolledDice = await triggerDiceRolls();
+      updateHistoryJson(rolledDice);
+      updateHistoryState();
     }
   };
   const handleAddDieClick = (dieType) => {
@@ -122,7 +127,9 @@ function Playmat() {
               }}
             />
           </div>
-          <div></div>
+          <div>
+            <HistoryComponent history={history} />
+          </div>
           {/* <div className="column-one">
             <div className="themes-container">
               <div className="themes-title">THEMES</div>

@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { DieContext } from "../../presentation/context/DieProvider";
+import { useState } from "react";
 import {
   appendHistoryJson,
   getFullHistory,
@@ -7,21 +6,30 @@ import {
 } from "../../domain/functions/historyUtils";
 
 export function useCollectHistory() {
-  const { dice } = useContext(DieContext);
   const [history, setHistory] = useState([]);
 
-  function historizeRoll() {
-    return generateHistoryMap(dice);
-  }
-
-  function updateHistoryJson() {
-    appendHistoryJson(historizeRoll());
+  function updateHistoryJson(currentDice) {
+    console.log("Added history to JSON");
+    const newRollHistory = generateHistoryMap(currentDice);
+    appendHistoryJson(newRollHistory);
   }
 
   function updateHistoryState() {
-    const fullRollHistory = getFullHistory();
-    setHistory(fullRollHistory);
+    const collectedHistory = getFullHistory();
+    const fullHistory = collectedHistory.map((rollEntry) => {
+      let localSum = 0;
+      const sortedEntries = Object.entries(rollEntry).sort(
+        ([a], [b]) => parseInt(a) - parseInt(b)
+      );
+      const rollStrings = sortedEntries.map(([dieType, value]) => {
+        localSum += value.result;
+        return `${value.quantity}D${dieType} = ${value.result}`;
+      });
+      return { rolls: rollStrings, total: localSum };
+    });
+    setHistory(fullHistory);
+    console.log("Retrieved from JSON");
   }
 
-  return { history, historizeRoll, updateHistoryJson, updateHistoryState };
+  return { history, updateHistoryJson, updateHistoryState };
 }

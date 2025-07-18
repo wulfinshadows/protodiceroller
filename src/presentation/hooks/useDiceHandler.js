@@ -7,7 +7,6 @@ export function useDiceHandler() {
 
   const handleAddDie = (dieType) => {
     const newDie = new Die(dieType);
-    console.log("Adding d" + dieType);
     setDice([...dice, newDie]);
   };
   const handleRemoveDie = (index) => {
@@ -17,18 +16,27 @@ export function useDiceHandler() {
   };
 
   const handleRollDice = () => {
-    if (isRolling) return;
-    setIsRolling(true);
-    const updatedDice = dice.map((die) => {
-      const clonedDie = Object.assign(
-        Object.create(Object.getPrototypeOf(die)),
-        die
-      );
-      clonedDie.roll();
-      return clonedDie;
+    return new Promise((resolve) => {
+      if (isRolling) return resolve();
+
+      setIsRolling(true);
+
+      const updatedDice = dice.map((die) => {
+        const clonedDie = Object.assign(
+          Object.create(Object.getPrototypeOf(die)),
+          die
+        );
+        clonedDie.roll();
+        return clonedDie;
+      });
+
+      setDice(updatedDice);
+
+      setTimeout(() => {
+        setIsRolling(false);
+        resolve(updatedDice);
+      }, 0);
     });
-    setDice(updatedDice);
-    setIsRolling(false);
   };
 
   const handleResetDice = () => {

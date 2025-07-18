@@ -19,6 +19,18 @@ function getFullHistory() {
   if (!checkHistoryJson()) {
     createHistoryJson();
   }
+  //[
+  // {
+  //  "6": {quantity: 1, result: 5},
+  //  "4": {quantity: 4, result: 4},
+  // }
+  // {
+  //  "20": {quantity: 2, result: 25},
+  //  "6": {quantity: 1, result: 6},
+  //  "10": {quantity: 2, result: 15},
+  //  "4": {quantity: 1, result: 4},
+  // }
+  //]
   return JSON.parse(localStorage.getItem("rollHistory"));
 }
 
@@ -34,7 +46,7 @@ function generateHistoryMap(dice) {
       mappedDieType = historyMap.get(dieType);
     }
     mappedDieType.quantity++;
-    mappedDieType.result += dieValue;
+    mappedDieType.result += dieValue + 1;
   });
   return Object.fromEntries(historyMap);
 }
