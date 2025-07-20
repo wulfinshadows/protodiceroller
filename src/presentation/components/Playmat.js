@@ -120,7 +120,7 @@ function Playmat() {
               />
             </div>
           </div>
-          <div className="xl:col-start-4 lg:col-start-4 md:col-start-3 row-start-1 xl:col-span-3 lg:col-span-4 md:col-span-5 xl:pl-7 lg:px-0 lg:pr-12 md:pl-16 py-20 break-all">
+          <div className="xl:col-start-4 lg:col-start-4 md:col-start-3 row-start-1 xl:col-span-3 lg:col-span-4 md:col-span-5 xl:pl-7 xl:pr-0 lg:px-0 lg:pr-12 md:pl-16 py-20 break-all">
             <DieComponent
               currentDieFaces={currentDieFaces}
               onDieClick={(index) => {
