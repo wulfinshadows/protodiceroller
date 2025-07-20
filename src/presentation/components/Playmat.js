@@ -9,11 +9,15 @@ import { DiceFX } from "../../assets/sound/legacy/DiceFX";
 import d20 from "../../assets/d20.svg";
 import themes from "../context/themes";
 import Sidebar from "./Sidebar";
+import RSidebar from "./RSidebar";
+import Mobile from "./Mobile";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 
 function Playmat() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+  const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
+  const toggleRSidebar = () => setIsRSidebarOpen((prev) => !prev);
 
   const { dice, handleAddDie, handleRemoveDie, isRolling } =
     useContext(DieContext);
@@ -55,11 +59,9 @@ function Playmat() {
   return (
     <>
       <div className="playmat-container">
-        {/* Playmat Image 
-        style={{ backgroundImage: `url(${theme.backgroundImage})` }}
-        */}
         <div className="playmat-background-container">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+          <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} history={history} />
           <div className="column-one">
             <button
               className="roll-button"
@@ -118,7 +120,7 @@ function Playmat() {
               />
             </div>
           </div>
-          <div className="flex-col inline-block items-center lg:col-start-4 md:col-start-3 row-start-1 col-span-3 break-all overflow-hidden max-h-[41rem] px-7 py-20">
+          <div className="xl:col-start-4 lg:col-start-4 md:col-start-3 row-start-1 xl:col-span-3 lg:col-span-4 md:col-span-5 xl:pl-7 lg:px-0 lg:pr-12 md:pl-16 py-20 break-all">
             <DieComponent
               currentDieFaces={currentDieFaces}
               onDieClick={(index) => {
@@ -127,108 +129,9 @@ function Playmat() {
               }}
             />
           </div>
-          <div>
-            <HistoryComponent history={history} />
-          </div>
-          {/* <div className="column-one">
-            <div className="themes-container">
-              <div className="themes-title">THEMES</div>
-              <div className="themes-select">
-                <button
-                  className="bg-red-200 theme-button"
-                  onClick={() => setThemeName("default")}
-                >
-                  DUNGEON
-                </button>
-                <button
-                  className="bg-blue-200 theme-button"
-                  onClick={() => setThemeName("ocean")}
-                >
-                  OCEAN
-                </button>
-                <button
-                  className="bg-yellow-200 theme-button"
-                  onClick={() => setThemeName("sand")}
-                >
-                  SAND
-                </button>
-              </div>
-            </div>
-            <button
-              className="roll-button"
-              onClick={() => {
-                handleRollClick();
-              }}
-            >
-              <img width={40} height={40} src={d20} alt="Roll Dice" />
-              ROLL
-            </button>
-          </div>
-          <div className="dice-container">
-            <DieComponent
-              dieType={4}
-              onDieClick={() => {
-                handleAddDieClick(4);
-              }}
-            />
-            <DieComponent
-              dieType={6}
-              onDieClick={() => {
-                handleAddDieClick(6);
-              }}
-            />
-            <DieComponent
-              dieType={8}
-              onDieClick={() => {
-                handleAddDieClick(8);
-              }}
-            />
-            <DieComponent
-              dieType={12}
-              onDieClick={() => {
-                handleAddDieClick(12);
-              }}
-            />
-            <DieComponent
-              dieType={20}
-              onDieClick={() => {
-                handleAddDieClick(20);
-              }}
-            />
-            <DieComponent
-              dieType={100}
-              onDieClick={() => {
-                handleAddDieClick(100);
-              }}
-            />
-          </div>
-          <div className="column-two">
-            <DieComponent
-              currentDieFaces={currentDieFaces}
-              onDieClick={(index) => {
-                handleRemoveDieClick(index);
-              }}
-            />
-          </div>
-          <div className="col-span-1 dummy-col"></div>
-          <div className="column-three">
-            <div className="history-container">
-              <div className="history-title">HISTORY</div>
-              <HistoryComponent />
-              <div className="history-details"></div>
-            </div>
-          </div> */}
-        </div>
+      </div>
 
-        {/* Responsive Code
-
-        <div className="flex flex-row md:hidden">
-          <img
-            src={playmatrotated}
-            alt="PlayMat Rotated"
-            className="w-[400px] h-auto p-3"
-          />
-        </div> */}
+      <Mobile />
       </div>
     </>
   );

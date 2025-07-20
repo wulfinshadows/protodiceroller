@@ -11,14 +11,14 @@ function Buttons({ onInfoClick }) {
 
   return (
     <div className={styles["button-box"]}>
-      <button onClick={onInfoClick} className={`theme-${themeName}`}>
-        <Image src={information} alt="Information" width={50} height={50} />
+      <button onClick={onInfoClick} className={`cursor-pointer theme-${themeName}`}>
+        <Image src={information} className="w-6 sm:w-8 md:w-10 lg:w-12" alt="Information" width={50} height={50} />
       </button>
-      <button className={`theme-${themeName}`}>
-        <Image src={consoleSVG} alt="console" width={50} height={50} />
+      <button className={`cursor-pointer theme-${themeName}`}>
+        <Image src={consoleSVG} className="w-6 sm:w-8 md:w-10 lg:w-12" alt="console" width={50} height={50} />
       </button>
-      <button className={`theme-${themeName}`}>
-        <Image src={histogram} alt="histogram" width={50} height={50} />
+      <button className={`cursor-pointer theme-${themeName}`}>
+        <Image src={histogram} className="w-6 sm:w-8 md:w-10 lg:w-12" alt="histogram" width={50} height={50} />
       </button>
     </div>
   );

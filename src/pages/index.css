@@ -47,15 +47,20 @@ code {
   color: var(--theme-text);
 }
 
+.history-details-container{
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+}
+
 .screen-container {
-  @apply flex bg-[#0e102c] h-screen transition;
+  @apply flex bg-[#0e102c] transition;
   background-color: var(--theme-bg);
 }
 .screen-container .page-container {
   @apply flex-col w-full h-full;
 }
 .screen-container .page-container .header-container {
-  @apply hidden md:grid grid-cols-3 h-auto items-center justify-between p-5;
+  @apply flex flex-col sm:flex-row justify-between items-center w-full p-2;
 }
 .screen-container .page-container .header-container .title {
   @apply flex justify-center;
@@ -69,7 +74,7 @@ code {
 }
 
 .playmat-container {
-  @apply flex flex-row w-full h-fit justify-center items-center;
+  @apply flex flex-row w-full justify-center;
 }
 .playmat-container .playmat-background-container {
   @apply hidden md:grid grid-cols-9 bg-contain bg-center w-fit h-fit bg-no-repeat;
@@ -88,10 +93,10 @@ code {
   @apply flex flex-row w-full h-auto p-3 justify-center text-[30px] font-[TWBOZ];
 }
 .themes-select {
-  @apply grid grid-cols-3 grid-rows-1 overflow-hidden w-full lg:h-full md:h-24 p-3 items-center place-items-center;
+  @apply grid lg:grid-cols-3 md:grid-cols-2 grid-rows-2 overflow-hidden w-full lg:h-full md:h-full p-3 items-center place-items-center gap-5;
 }
 .theme-button {
-  @apply w-20 h-20 rounded-md text-black hover:scale-105 active:scale-110 transition font-[TWBOZ] drop-shadow-lg;
+  @apply w-20 h-20 rounded-md text-black hover:scale-105 active:scale-110 transition font-[TWBOZ] drop-shadow-lg cursor-pointer;
 }
 .playmat-container .playmat-background-container .column-one .roll-button {
   @apply p-5 w-full rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110;
@@ -99,15 +104,11 @@ code {
 .playmat-container .playmat-background-container .dice-container {
   @apply flex flex-col col-span-1 p-5 items-center place-content-center place-items-center ml-5 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
 }
-.playmat-container .playmat-background-container .column-two {
-  @apply col-span-3;
+
+.display-dice-container {
+  @apply flex flex-wrap gap-2 h-fit w-full justify-start items-start;
 }
-.playmat-container
-  .playmat-background-container
-  .column-two
-  .display-dice-container {
-  @apply flex col-span-3 break-all overflow-hidden py-32 px-20 max-h-[100%];
-}
+
 .playmat-container .playmat-background-container .column-three {
   @apply flex-col col-span-2 p-3 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
 }

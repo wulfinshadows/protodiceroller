@@ -9,14 +9,14 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
   return (
     <div
-      className={`sidebar-container fixed top-0 left-0 w-full max-w-[400px] h-full bg-[#c23838] z-50 transition-transform duration-300 ${
+      className={`sidebar-container fixed top-0 left-0 w-full lg:max-w-[400px] md:max-w-[300px] h-full z-50 transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="absolute justify-end p-4 top-96 -right-36 -rotate-90">
+      <div className="absolute justify-end p-4 top-1/2 -right-36 -rotate-90">
         <button
           onClick={toggleSidebar}
-          className="sidebar-container-button bg-[#c23838] text-white text-4xl px-10 py-4 rounded-md font-[TWBOZ] hover:scale-105 transition"
+          className="sidebar-container-button text-white text-4xl px-10 py-4 rounded-md font-[TWBOZ] hover:scale-105 transition cursor-pointer"
         >
           THEMES
         </button>
