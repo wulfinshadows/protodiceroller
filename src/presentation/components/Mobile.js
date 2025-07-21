@@ -53,14 +53,14 @@ export default function Mobile() {
         <section className="grid grid-rows-7 grid-cols-9 md:hidden">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} history={history} />
-            <div className="row-start-1 col-start-2 row-span-6 col-span-7">
+            <div className="row-start-1 col-start-2 row-span-6 col-span-7 max-[410px]:row-start-1 max-[410px]:col-start-1 max-[410px]:row-span-7 max-[410px]:col-span-9">
                 <img
                     src={"/SpiritTrayRotated.png"}
                     className="w-full h-fit"
                     alt="Dice Tray"
                 />
             </div>
-            <div className="row-start-1 col-start-3 col-span-5 mt-7 items-center justify-center place-content-center place-items-center">
+            <div className="row-start-1 sm:col-start-3 sm:col-span-5 col-span-7 col-start-2 sm:mt-7 max-[410px]:mt-7 mt-2.5 max-[410px]:col-span-9 max-[410px]:col-start-1 items-center justify-center place-content-center place-items-center">
                 <div className="flex">
                     <DieComponent
                         dieType={4}
@@ -100,7 +100,7 @@ export default function Mobile() {
                     />
                 </div>
             </div>
-            <div className="row-start-2 col-start-3 row-span-4 col-span-5 pt-10">
+            <div className="row-start-2 col-start-3 row-span-4 col-span-5 pt-10 max-[410px]:row-span-5 max-[410px]:col-span-7 max-[410px]:row-start-2 max-[410px]:col-start-2">
                 <DieComponent
                     currentDieFaces={currentDieFaces}
                     onDieClick={(index) => {
@@ -109,7 +109,7 @@ export default function Mobile() {
                     }}
                 />
             </div>
-            <div className="row-start-7 col-start-5">
+            <div className="row-start-7 col-start-4 col-span-3 max-[410px]:row-start-8 max-[410px]:col-start-4 max-[410px]:col-span-3">
                 <button
                     className="roll-button"
                     onClick={() => {

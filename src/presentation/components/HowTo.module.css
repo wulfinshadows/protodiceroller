@@ -2,7 +2,7 @@
 @reference "tailwindcss";
 
 .how-to-container {
-  @apply fixed inset-0 z-50 bg-black/50 flex items-center justify-center;
+  @apply fixed inset-0 z-50 bg-black/50 flex items-center justify-center md:p-0 p-6;
 }
 
 .how-to-container div {

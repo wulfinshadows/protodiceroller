@@ -17,7 +17,7 @@ export default function DieComponent({
   if (isStatic) {
     return (
       <Image
-        className="relative 2xl:w-16 2xl:h-16 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-12 md:h-12 sm:w-14 sm:h-14 w-12 h-12 cursor-pointer hover:scale-110 active:scale-125 transition"
+        className="relative 2xl:w-16 2xl:h-16 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-12 md:h-12 sm:w-14 sm:h-14 w-10 h-10 cursor-pointer hover:scale-110 active:scale-125 transition"
         src={staticDieFace}
         alt={`D${dieType}`}
         onClick={() => {
@@ -32,7 +32,7 @@ export default function DieComponent({
           return (
             <Image
               key={index}
-              className="relative 2xl:w-16 2xl:h-16 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-12 md:h-12 sm:w-14 sm:h-14 w-12 h-12 cursor-pointer hover:scale-110 active:scale-125 transition"
+              className="relative 2xl:w-16 2xl:h-16 xl:w-14 xl:h-14 lg:w-12 lg:h-12 md:w-12 md:h-12 sm:w-14 sm:h-14 w-10 h-10 cursor-pointer hover:scale-110 active:scale-125 transition"
               src={dieFace}
               alt={`D${dieType}`}
               onClick={() => {

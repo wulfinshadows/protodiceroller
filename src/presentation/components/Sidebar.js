@@ -13,10 +13,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="absolute justify-end p-4 top-1/2 -right-36 -rotate-90">
+      <div className="absolute justify-end p-4 top-1/2 xl:-right-36 lg:-right-32 md:-right-28 -right-28 -rotate-90">
         <button
           onClick={toggleSidebar}
-          className="sidebar-container-button text-white text-4xl px-10 py-4 rounded-md font-[TWBOZ] hover:scale-105 transition cursor-pointer"
+          className="sidebar-container-button text-white xl:text-4xl lg:text-3xl md:text-2xl text-2xl px-10 py-4 rounded-md font-[TWBOZ] hover:scale-105 transition cursor-pointer"
         >
           THEMES
         </button>
