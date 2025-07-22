@@ -54,8 +54,8 @@ export default function Mobile() {
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} history={history} />
             <div className="row-start-1 col-start-2 row-span-6 col-span-7 max-[410px]:row-start-1 max-[410px]:col-start-1 max-[410px]:row-span-7 max-[410px]:col-span-9">
-                <img
-                    src={"/SpiritTrayRotated.png"}
+                <Image
+                    src={theme.rotatedBackground}
                     className="w-full h-fit"
                     alt="Dice Tray"
                 />
@@ -100,7 +100,7 @@ export default function Mobile() {
                     />
                 </div>
             </div>
-            <div className="row-start-2 col-start-3 row-span-4 col-span-5 pt-10 max-[410px]:row-span-5 max-[410px]:col-span-7 max-[410px]:row-start-2 max-[410px]:col-start-2">
+            <div className="row-start-2 col-start-3 row-span-4 col-span-5 overflow-y-auto pt-10 max-[410px]:row-span-5 max-[410px]:col-span-7 max-[410px]:row-start-2 max-[410px]:col-start-2">
                 <DieComponent
                     currentDieFaces={currentDieFaces}
                     onDieClick={(index) => {

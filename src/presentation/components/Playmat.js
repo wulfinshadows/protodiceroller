@@ -74,8 +74,8 @@ function Playmat() {
             </button>
           </div>
           <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center">
-            <img
-              src={"/SpiritTray.png"}
+            <Image
+              src={theme.backgroundImage}
               className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[80%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
               alt="Dice Tray"
             />

@@ -106,7 +106,7 @@ code {
 }
 
 .display-dice-container {
-  @apply flex flex-wrap gap-2 h-fit w-full justify-center items-start;
+  @apply flex flex-wrap gap-2 h-fit overflow-y-auto w-full justify-center items-start;
 }
 
 .playmat-container .playmat-background-container .column-three {
