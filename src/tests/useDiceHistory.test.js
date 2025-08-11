@@ -123,6 +123,7 @@ describe("Testing historyUtil functions", () => {
     });
     const genObj = generateHistoryMap(testDice);
     appendHistoryJson(genObj);
+    
     const history = JSON.parse(localStorage.getItem("rollHistory"));
     const latestEntry = history[history.length - 1];
     expect(latestEntry["6"]).toEqual(
@@ -144,4 +145,5 @@ describe("Testing historyUtil functions", () => {
       expect(Object.keys(history).sort()).toEqual(["20", "4", "6"].sort());
     });
   });
+  
 });
