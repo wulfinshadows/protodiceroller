@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import DieSkin from "../../domain/objects/DieSkin";
+import DieSkin from "../domain/objects/DieSkin";
 import { useDieSkinHandler } from "../hooks/useDieSkinHandler";
 
 export const DieSkinContext = createContext(new DieSkin());

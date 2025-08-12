@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Die from "../../domain/objects/Die";
+import Die from "../domain/objects/Die";
 
 export function useDiceHandler() {
   const [dice, setDice] = useState([new Die(20)]);

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { useDiceHandler } from "../hooks/useDiceHandler";
-import Die from "../../domain/objects/Die";
+import Die from "../domain/objects/Die";
 
 export const DieContext = createContext([new Die(20)]);
 

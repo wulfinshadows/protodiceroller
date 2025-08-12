@@ -1,7 +1,7 @@
-import defaultBG from "../../assets/SpiritTray.png";
-import cursedBamboo from "../../assets/CursedBamboo.png";
-import defaultBGrotated from "../../assets/SpiritTrayRotated.png";
-import cursedBGrotated from "../../assets/CursedBambooRotated.png";
+import defaultBG from "../assets/SpiritTray.png";
+import cursedBamboo from "../assets/CursedBamboo.png";
+import defaultBGrotated from "../assets/SpiritTrayRotated.png";
+import cursedBGrotated from "../assets/CursedBambooRotated.png";
 
 const themes = {
   default: {

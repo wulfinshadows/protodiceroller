@@ -5,8 +5,8 @@ import { ThemeContext } from "../context/ThemeContext";
 import { useDiceRenderer } from "../hooks/useDiceRenderer";
 import DieComponent from "../components/DieComponent";
 import HistoryComponent from "./HistoryComponent";
-import { DiceFX } from "../../assets/sound/legacy/DiceFX";
-import d20 from "../../assets/d20.svg";
+import { DiceFX } from "../assets/sound/legacy/DiceFX";
+import d20 from "../assets/d20.svg";
 import themes from "../context/themes";
 import Sidebar from "./Sidebar";
 import RSidebar from "./RSidebar";
@@ -61,7 +61,11 @@ function Playmat() {
       <div className="playmat-container">
         <div className="playmat-background-container">
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} history={history} />
+          <RSidebar
+            isOpen={isRSidebarOpen}
+            toggleSidebar={toggleRSidebar}
+            history={history}
+          />
           <div className="column-one">
             <button
               className="roll-button"
@@ -129,9 +133,9 @@ function Playmat() {
               }}
             />
           </div>
-      </div>
+        </div>
 
-      <Mobile />
+        <Mobile />
       </div>
     </>
   );

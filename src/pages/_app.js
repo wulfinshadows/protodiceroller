@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { ThemeProvider } from "../presentation/context/ThemeContext";
-import { DieSkinProvider } from "../presentation/context/DieSkinProvider";
-import { DieProvider } from "../presentation/context/DieProvider";
+import { ThemeProvider } from "../context/ThemeContext";
+import { DieSkinProvider } from "../context/DieSkinProvider";
+import { DieProvider } from "../context/DieProvider";
 import FrontPage from "./index";
 import "./index.css";
 

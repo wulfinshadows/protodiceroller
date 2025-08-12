@@ -3,7 +3,7 @@ import {
   appendHistoryJson,
   getFullHistory,
   generateHistoryMap,
-} from "../../domain/functions/historyUtils";
+} from "../domain/functions/historyUtils";
 
 export function useCollectHistory() {
   const [history, setHistory] = useState([]);
