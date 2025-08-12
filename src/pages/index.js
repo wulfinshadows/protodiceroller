@@ -3,6 +3,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import Playmat from "../components/Playmat";
 import TopBar from "../components/TopBar";
 import ThreeDTest from "../components/ThreeDTest";
+import DiceCanvas from "../components/DiceCanvas";
 
 export default function FrontPage() {
   const { themeName } = useContext(ThemeContext);
@@ -11,7 +12,8 @@ export default function FrontPage() {
       <div className="page-container">
         <TopBar />
         {/* <Playmat /> */}
-        <ThreeDTest />
+        {/* <ThreeDTest /> */}
+        <DiceCanvas />
       </div>
     </div>
   );
