@@ -1,10 +1,12 @@
 import { useContext, useRef, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
+import Image from "next/image";
 import { DieContext } from "../context/DieProvider";
 import DieModel from "./DieModel";
 import RotatableDie from "./RotatableDice";
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import * as THREE from "three";
+import diceTray from "../assets/SpiritTray.png";
 
 export default function DiceCanvas() {
   const {
@@ -26,8 +28,10 @@ export default function DiceCanvas() {
   }, []);
 
   return (
-    <div className="bg-[url('/SpiritTray.png')]">
-      <div className=" h-screen">
+    <div className="flex flex-row w-full justify-center">
+      <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
+        <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 md:ml-10 row-start-1 right-auto ml-0 relative h-full">
+          <div className="h-full">
         <Canvas>
           <ambientLight />
           <OrthographicCamera
@@ -107,7 +111,16 @@ export default function DiceCanvas() {
             </line>
           </group>
         </Canvas>
-      </div>
+        </div>
+        </div>
+        <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center">
+            <Image
+              src={diceTray}
+              className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
+              alt="Dice Tray"
+            />
+        </div>
+        </div>
     </div>
   );
 }
