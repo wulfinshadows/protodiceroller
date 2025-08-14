@@ -2,11 +2,12 @@ import { useGLTF } from "@react-three/drei";
 import { GAYUMA_MODEL_PATH } from "../domain/GAYUMA_MODEL_PATH";
 import { useMemo } from "react";
 import * as THREE from "three";
+import { radToDeg } from "three/src/math/MathUtils.js";
 
-function cloneAndFullyCenter(scene) {
+function cloneAndFullyCenter(scene, dieType) {
   const cloned = scene.clone(true);
 
-  // Step 1: Per-mesh local centering
+  // Step 1: Local mesh centering
   cloned.traverse((child) => {
     if (child.isMesh && child.geometry) {
       child.geometry.computeBoundingBox();
@@ -33,25 +34,59 @@ function cloneAndFullyCenter(scene) {
     }
   });
   const centroid = vertexSum.divideScalar(vertexCount);
-
-  // Step 3: Shift entire model to center
   cloned.position.sub(centroid);
 
-  // Step 4 (optional for D4 and similar): Move pivot to center of bounding box height
-  const box = new THREE.Box3().setFromObject(cloned);
-  const height = box.max.y - box.min.y;
-  const boxCenterY = (box.max.y + box.min.y) / 2;
+  // Step 3: Special handling for d4
+  if (dieType === 4) {
+    const originalRotation = cloned.rotation.clone();
 
-  // You can decide conditionally per dieType if you want this shift
-  cloned.position.y -= boxCenterY; // moves pivot to vertical center
+    let bestAngle = 0;
+    let smallestDiff = Infinity;
 
+    // Try small rotations around Y-axis to make box square
+    for (let deg = 0; deg < 90; deg += 0.5) {
+      // 0.5° precision
+      cloned.rotation.set(
+        originalRotation.x,
+        THREE.MathUtils.degToRad(deg),
+        originalRotation.z
+      );
+      cloned.updateMatrixWorld(true);
+
+      const box = new THREE.Box3().setFromObject(cloned);
+      const size = new THREE.Vector3();
+      box.getSize(size);
+
+      const diff = Math.abs(size.x - size.z);
+      if (diff < smallestDiff) {
+        smallestDiff = diff;
+        bestAngle = deg;
+      }
+    }
+
+    // Apply the best found rotation
+    cloned.rotation.set(
+      originalRotation.x,
+      THREE.MathUtils.degToRad(bestAngle),
+      originalRotation.z
+    );
+
+    // Recenter after rotation
+    const box = new THREE.Box3().setFromObject(cloned);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    cloned.position.sub(center);
+    cloned.position.x += 0.0015;
+    cloned.position.z += -0.0015;
+    cloned.position.y += 0.0015; // Adjust to avoid z-fighting
+  }
   return cloned;
 }
 export default function DieModel({ dieType, position = [0, 0, 0], ...props }) {
   const path = GAYUMA_MODEL_PATH[dieType];
   const { scene } = useGLTF(path);
   const { centered, helper } = useMemo(() => {
-    const centeredModel = cloneAndFullyCenter(scene);
+    const centeredModel = cloneAndFullyCenter(scene, dieType);
 
     // Compute bounding box for the centered model
     const box = new THREE.Box3().setFromObject(centeredModel);
