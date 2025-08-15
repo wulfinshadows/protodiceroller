@@ -135,14 +135,14 @@ export default function DiceCanvas() {
             </Canvas>
           </div>
         </div>
-        <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center relative w-full h-full">
-          {/* <Image
+        <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center">
+          <Image
             src={diceTray}
-            className="absolute inset-0 w-full h-full object-contain -z-10"
+            className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
             alt="Dice Tray"
-          /> */}
-          <div className="top-0 left-0 h-screen flex items-center justify-center ml-4 mt-[200px]">
-            <Canvas className="absolute inset-0">
+          />
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+            <Canvas>
               <ambientLight />
               <OrthographicCamera
                 makeDefault
