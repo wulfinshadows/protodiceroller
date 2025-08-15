@@ -8,6 +8,7 @@ import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import * as THREE from "three";
 import diceTray from "../assets/SpiritTray.png";
 import degToRad from "../domain/functions/degToRad";
+import useBreakpoint from "./useBreakpoint";
 
 export default function DiceCanvas() {
   const {
@@ -18,7 +19,30 @@ export default function DiceCanvas() {
     handleResetDice,
   } = useContext(DieContext);
   const cameraRef = useRef();
+  const breakpoint = useBreakpoint();
   const target = [0, -15, 0]; // where we want to look
+
+  let cameraPosition = [0, -15, 20];
+  let cameraZoom = 20;
+  let cameraRotation = [0, 0, 0];
+
+  if (breakpoint === "base") {
+    cameraPosition = [0, -10, 20];
+    cameraZoom = 10;
+    //cameraRotation = [0, 0, Math.PI / 8];
+  } else if (breakpoint === "md") {
+    cameraPosition = [-0.2, -25, 20];
+    cameraZoom = 12;
+  } else if (breakpoint === "lg") {
+    cameraPosition = [-0.1, -17, 20];
+    cameraZoom = 14;
+  } else if (breakpoint === "xl") {
+    cameraPosition = [-0.5, -20, 20];
+    cameraZoom = 15;
+  } else if (breakpoint === "xxl") {
+    cameraPosition = [-0.5, -20, 20];
+    cameraZoom = 15;
+  }
 
   useEffect(() => {
     if (cameraRef.current) {
@@ -29,15 +53,17 @@ export default function DiceCanvas() {
   return (
     <div className="flex flex-row w-full justify-center">
       <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
-        <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 md:ml-10 row-start-1 right-auto ml-0 relative h-full">
-          <div className="h-full">
+        <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 md:ml-10 row-start-1 right-auto ml-0 items-start">
+          <div className="flex-col h-full">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
                 makeDefault
                 ref={cameraRef}
-                position={[0, -15, 20]}
-                zoom={20}
+                position={cameraPosition}
+                zoom={cameraZoom}
+                rotation={cameraRotation}
+                /* play with zoom and position */
               />
 
               <DieModel
