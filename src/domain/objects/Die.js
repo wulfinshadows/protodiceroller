@@ -4,7 +4,7 @@ class Die {
       throw new TypeError("faceCount must be an Integer!");
     }
     this.dieType = dieType;
-    this.dieValue = 0;
+    this.dieValue = 1;
   }
 
   getDieType() {

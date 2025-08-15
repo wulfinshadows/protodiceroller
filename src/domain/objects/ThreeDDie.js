@@ -22,11 +22,22 @@ class ThreeDDie {
         };
         break;
       case 6:
-        this.faceRotations = { 1: [[], [], []] };
+        this.faceRotations = {
+          1: [degToRad(90), degToRad(0), degToRad(0)],
+          2: [degToRad(180), degToRad(90), degToRad(180)],
+          3: [degToRad(0), degToRad(0), degToRad(-90)],
+          4: [degToRad(180), degToRad(0), degToRad(90)],
+          5: [degToRad(0), degToRad(-90), degToRad(0)],
+          6: [degToRad(-90), degToRad(0), degToRad(0)],
+        };
+        break;
       default: // D20
         this.faceRotations = {
           1: [degToRad(-101.04), degToRad(43.75), degToRad(18.02)],
         };
+        break;
     }
   }
 }
+
+module.exports = ThreeDDie;

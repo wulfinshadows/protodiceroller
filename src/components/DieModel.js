@@ -3,6 +3,7 @@ import { GAYUMA_MODEL_PATH } from "../domain/GAYUMA_MODEL_PATH";
 import { useMemo } from "react";
 import * as THREE from "three";
 import { radToDeg } from "three/src/math/MathUtils.js";
+import ThreeDDie from "../domain/objects/ThreeDDie";
 
 function cloneAndFullyCenter(scene, dieType) {
   const cloned = scene.clone(true);
@@ -82,9 +83,24 @@ function cloneAndFullyCenter(scene, dieType) {
   }
   return cloned;
 }
-export default function DieModel({ dieType, position = [0, 0, 0], ...props }) {
-  const path = GAYUMA_MODEL_PATH[dieType];
+export default function DieModel({
+  dieType,
+  dieValue,
+  position = [0, 0, 0],
+  ...props
+}) {
+  const dieModel = new ThreeDDie(dieType);
+
+  const path = dieModel.modelPath;
+
   const { scene } = useGLTF(path);
+
+  var rotation = [0, 0, 0];
+  if (dieValue) {
+    // if dieValue is provided, use it to set rotation
+    rotation = dieModel.faceRotations[dieValue];
+  }
+
   const { centered, helper } = useMemo(() => {
     const centeredModel = cloneAndFullyCenter(scene, dieType);
 
@@ -103,7 +119,7 @@ export default function DieModel({ dieType, position = [0, 0, 0], ...props }) {
   }, [scene]);
   return (
     <group position={position}>
-      <primitive object={centered} {...props} />
+      <primitive object={centered} rotation={rotation} {...props} />
     </group>
   );
 }

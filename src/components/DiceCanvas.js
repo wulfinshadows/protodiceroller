@@ -71,17 +71,19 @@ export default function DiceCanvas() {
                 scale={200}
                 position={[0, 0, 0]}
                 rotation={[degToRad(-89.11), degToRad(30.54), degToRad(-0.22)]}
-                onClick={(e) => {
-                  e.stopPropagation();
+                onClick={() => {
                   console.log("clicked");
                 }}
               />
 
               <DieModel
                 dieType={6}
+                dieValue={1}
                 scale={200}
                 position={[0, -5, 0]}
-                rotation={[degToRad(90), degToRad(0), degToRad(0)]}
+                onClick={() => {
+                  console.log("clicked");
+                }}
               />
               <DieModel
                 dieType={8}
@@ -118,7 +120,7 @@ export default function DiceCanvas() {
                   <sphereGeometry args={[0.2, 16, 16]} />
                   <meshStandardMaterial color="red" />
                 </mesh>
-                <line>
+                {/* <line>
                   <bufferGeometry
                     attach="geometry"
                     // Create geometry from an array of points
@@ -128,36 +130,48 @@ export default function DiceCanvas() {
                     ])}
                   />
                   <lineBasicMaterial attach="material" color="red" />
-                </line>
+                </line> */}
               </group>
             </Canvas>
           </div>
         </div>
-        <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center">
-          <Image
+        <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center relative w-full h-full">
+          {/* <Image
             src={diceTray}
-            className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
+            className="absolute inset-0 w-full h-full object-contain -z-10"
             alt="Dice Tray"
-          />
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-            <Canvas>
+          /> */}
+          <div className="top-0 left-0 h-screen flex items-center justify-center ml-4 mt-[200px]">
+            <Canvas className="absolute inset-0">
               <ambientLight />
               <OrthographicCamera
                 makeDefault
                 ref={cameraRef}
                 position={[0, -15, 20]}
-                zoom={40}
+                zoom={20}
               />
-              {/* <RotatableDie
-              dieType={4}
-              position={[-0.5, 0, 0]}
-              rotation={[degToRad(-44.38), degToRad(0), degToRad(0)]}
-            /> */}
+
+              {/* <DieModel
+                dieType={20}
+                dieValue={1}
+                scale={200}
+                position={[0, -10, 0]}
+              /> */}
+
               <RotatableDie
-                dieType={4}
+                dieType={6}
                 position={[0, -14, 0]}
                 rotation={[degToRad(0), degToRad(0), degToRad(0)]}
               />
+              {dice.map((die, idx) => (
+                <DieModel
+                  key={idx}
+                  dieType={die.getDieType()}
+                  dieValue={die.getDieValue()}
+                  scale={200}
+                  position={[idx * 2, 0, 0]} // Example: space out dice
+                />
+              ))}
               {/* <OrbitControls /> */}
             </Canvas>
           </div>
