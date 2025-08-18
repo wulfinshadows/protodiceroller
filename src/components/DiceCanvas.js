@@ -31,16 +31,16 @@ export default function DiceCanvas() {
     cameraZoom = 10;
     //cameraRotation = [0, 0, Math.PI / 8];
   } else if (breakpoint === "md") {
-    cameraPosition = [-0.2, -25, 20];
-    cameraZoom = 12;
+    cameraPosition = [-1.5, -30, 20];
+    cameraZoom = 10.5;
   } else if (breakpoint === "lg") {
-    cameraPosition = [-0.1, -17, 20];
+    cameraPosition = [-1.8, -20.5, 20];
     cameraZoom = 14;
   } else if (breakpoint === "xl") {
-    cameraPosition = [-0.5, -20, 20];
-    cameraZoom = 15;
+    cameraPosition = [0, -23, 20];
+    cameraZoom = 12;
   } else if (breakpoint === "xxl") {
-    cameraPosition = [-0.5, -20, 20];
+    cameraPosition = [0, -19, 20];
     cameraZoom = 15;
   }
 
@@ -53,8 +53,8 @@ export default function DiceCanvas() {
   return (
     <div className="flex flex-row w-full justify-center">
       <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
-        <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 md:ml-10 row-start-1 right-auto ml-0 items-start">
-          <div className="flex-col h-full bg-amber-200 bg-opacity-50">
+        <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 row-start-1 right-auto ml-0 items-start">
+          <div className="flex-col h-full bg-opacity-50 justify-center items-center ">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
@@ -141,6 +141,7 @@ export default function DiceCanvas() {
             className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
             alt="Dice Tray"
           />
+        {/*
           <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
             <Canvas>
               <ambientLight />
@@ -156,8 +157,8 @@ export default function DiceCanvas() {
                 dieValue={1}
                 scale={200}
                 position={[0, -10, 0]}
-              /> */}
-
+              /> 
+            
               <RotatableDie
                 dieType={4}
                 position={[0, -14, 0]}
@@ -173,9 +174,10 @@ export default function DiceCanvas() {
                   position={[idx * 2, 0, 0]} // Example: space out dice
                 />
               ))}
-              {/* <OrbitControls /> */}
+              {/* <OrbitControls /> 
             </Canvas>
           </div>
+          */}
         </div>
       </div>
     </div>
