@@ -38,49 +38,49 @@ function cloneAndFullyCenter(scene, dieType) {
   cloned.position.sub(centroid);
 
   // Step 3: Special handling for d4
-  if (dieType === 4) {
-    const originalRotation = cloned.rotation.clone();
+  // if (dieType === 4) {
+  //   const originalRotation = cloned.rotation.clone();
 
-    let bestAngle = 0;
-    let smallestDiff = Infinity;
+  //   let bestAngle = 0;
+  //   let smallestDiff = Infinity;
 
-    // Try small rotations around Y-axis to make box square
-    for (let deg = 0; deg < 90; deg += 0.5) {
-      // 0.5° precision
-      cloned.rotation.set(
-        originalRotation.x,
-        THREE.MathUtils.degToRad(deg),
-        originalRotation.z
-      );
-      cloned.updateMatrixWorld(true);
+  //   // Try small rotations around Y-axis to make box square
+  //   for (let deg = 0; deg < 90; deg += 0.5) {
+  //     // 0.5° precision
+  //     cloned.rotation.set(
+  //       originalRotation.x,
+  //       THREE.MathUtils.degToRad(deg),
+  //       originalRotation.z
+  //     );
+  //     cloned.updateMatrixWorld(true);
 
-      const box = new THREE.Box3().setFromObject(cloned);
-      const size = new THREE.Vector3();
-      box.getSize(size);
+  //     const box = new THREE.Box3().setFromObject(cloned);
+  //     const size = new THREE.Vector3();
+  //     box.getSize(size);
 
-      const diff = Math.abs(size.x - size.z);
-      if (diff < smallestDiff) {
-        smallestDiff = diff;
-        bestAngle = deg;
-      }
-    }
+  //     const diff = Math.abs(size.x - size.z);
+  //     if (diff < smallestDiff) {
+  //       smallestDiff = diff;
+  //       bestAngle = deg;
+  //     }
+  //   }
 
-    // Apply the best found rotation
-    cloned.rotation.set(
-      originalRotation.x,
-      THREE.MathUtils.degToRad(bestAngle),
-      originalRotation.z
-    );
+  //   // Apply the best found rotation
+  //   cloned.rotation.set(
+  //     originalRotation.x,
+  //     THREE.MathUtils.degToRad(bestAngle),
+  //     originalRotation.z
+  //   );
 
-    // Recenter after rotation
-    const box = new THREE.Box3().setFromObject(cloned);
-    const center = new THREE.Vector3();
-    box.getCenter(center);
-    cloned.position.sub(center);
-    cloned.position.x += 0.0015;
-    cloned.position.z += -0.0015;
-    cloned.position.y += 0.0015; // Adjust to avoid z-fighting
-  }
+  //   // Recenter after rotation
+  //   const box = new THREE.Box3().setFromObject(cloned);
+  //   const center = new THREE.Vector3();
+  //   box.getCenter(center);
+  //   cloned.position.sub(center);
+  //   cloned.position.x += 0.0015;
+  //   cloned.position.z += -0.0015;
+  //   cloned.position.y += 0.0015; // Adjust to avoid z-fighting
+  // }
   return cloned;
 }
 export default function DieModel({

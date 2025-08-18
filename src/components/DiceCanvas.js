@@ -54,7 +54,7 @@ export default function DiceCanvas() {
     <div className="flex flex-row w-full justify-center">
       <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
         <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 md:ml-10 row-start-1 right-auto ml-0 items-start">
-          <div className="flex-col h-full">
+          <div className="flex-col h-full bg-amber-200 bg-opacity-50">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
@@ -148,7 +148,7 @@ export default function DiceCanvas() {
                 makeDefault
                 ref={cameraRef}
                 position={[0, -15, 20]}
-                zoom={20}
+                zoom={30}
               />
 
               {/* <DieModel
@@ -159,9 +159,10 @@ export default function DiceCanvas() {
               /> */}
 
               <RotatableDie
-                dieType={6}
+                dieType={4}
                 position={[0, -14, 0]}
                 rotation={[degToRad(0), degToRad(0), degToRad(0)]}
+                scale={500}
               />
               {dice.map((die, idx) => (
                 <DieModel
