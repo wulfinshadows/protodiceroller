@@ -50,6 +50,10 @@ export default function DiceCanvas() {
     }
   }, []);
 
+  const handleAddDieClick = (dieType) => {
+    handleAddDie(dieType);
+  };
+
   return (
     <div className="flex flex-row w-full justify-center">
       <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
@@ -71,7 +75,8 @@ export default function DiceCanvas() {
                 scale={200}
                 position={[0, 0, 0]}
                 rotation={[degToRad(-89.11), degToRad(30.54), degToRad(-0.22)]}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   console.log("clicked");
                 }}
               />
@@ -141,7 +146,7 @@ export default function DiceCanvas() {
             className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
             alt="Dice Tray"
           />
-        {/*
+
           <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
             <Canvas>
               <ambientLight />
@@ -152,13 +157,13 @@ export default function DiceCanvas() {
                 zoom={30}
               />
 
-              {/* <DieModel
+              <DieModel
                 dieType={20}
                 dieValue={1}
                 scale={200}
                 position={[0, -10, 0]}
-              /> 
-            
+              />
+
               <RotatableDie
                 dieType={4}
                 position={[0, -14, 0]}
@@ -174,10 +179,9 @@ export default function DiceCanvas() {
                   position={[idx * 2, 0, 0]} // Example: space out dice
                 />
               ))}
-              {/* <OrbitControls /> 
+              <OrbitControls />
             </Canvas>
           </div>
-          */}
         </div>
       </div>
     </div>
