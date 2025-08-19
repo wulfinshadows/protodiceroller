@@ -27,20 +27,20 @@ export default function DiceCanvas() {
   let cameraRotation = [0, 0, 0];
 
   if (breakpoint === "base") {
-    cameraPosition = [0, -10, 20];
+    cameraPosition = -10;
     cameraZoom = 10;
     //cameraRotation = [0, 0, Math.PI / 8];
   } else if (breakpoint === "md") {
-    cameraPosition = [-1.5, -30, 20];
+    cameraPosition = -30;
     cameraZoom = 10.5;
   } else if (breakpoint === "lg") {
-    cameraPosition = [-1.8, -20.5, 20];
+    cameraPosition = -20.5;
     cameraZoom = 14;
   } else if (breakpoint === "xl") {
-    cameraPosition = [0, -23, 20];
+    cameraPosition = -23;
     cameraZoom = 12;
   } else if (breakpoint === "xxl") {
-    cameraPosition = [0, -19, 20];
+    cameraPosition = -19;
     cameraZoom = 15;
   }
 
@@ -58,13 +58,13 @@ export default function DiceCanvas() {
     <div className="flex flex-row w-full justify-center">
       <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
         <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 row-start-1 right-auto ml-0 items-start">
-          <div className="flex-col h-full bg-opacity-50 justify-center items-center ">
+          <div className="flex-col h-[750px] bg-opacity-50 justify-center items-center xl:ml-0 lg:ml-16 md:ml-10 ml-4 mt-5">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
                 makeDefault
                 ref={cameraRef}
-                position={cameraPosition}
+                position={[0, cameraPosition + 0, 20]}
                 zoom={cameraZoom}
                 rotation={cameraRotation}
                 /* play with zoom and position */
@@ -146,14 +146,14 @@ export default function DiceCanvas() {
             className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
             alt="Dice Tray"
           />
-
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+        </div>
+        <div className="flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] items-center justify-center">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
                 makeDefault
                 ref={cameraRef}
-                position={[0, -15, 20]}
+                position={cameraPosition}
                 zoom={30}
               />
 
@@ -182,7 +182,6 @@ export default function DiceCanvas() {
               <OrbitControls />
             </Canvas>
           </div>
-        </div>
       </div>
     </div>
   );
