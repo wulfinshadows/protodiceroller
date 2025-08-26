@@ -50,8 +50,10 @@ export default function DiceCanvas() {
     }
   }, []);
 
-  const handleAddDieClick = (dieType) => {
+  const handleAddDieClick = (dieType, e) => {
+    e.stopPropagation();
     handleAddDie(dieType);
+    console.log(dice);
   };
 
   return (
@@ -76,8 +78,7 @@ export default function DiceCanvas() {
                 position={[0, 0, 0]}
                 rotation={[degToRad(-89.11), degToRad(30.54), degToRad(-0.22)]}
                 onClick={(e) => {
-                  e.stopPropagation();
-                  console.log("clicked");
+                  handleAddDieClick(4, e);
                 }}
               />
 
@@ -86,8 +87,8 @@ export default function DiceCanvas() {
                 dieValue={1}
                 scale={200}
                 position={[0, -5, 0]}
-                onClick={() => {
-                  console.log("clicked");
+                onClick={(e) => {
+                  handleAddDieClick(6, e);
                 }}
               />
               <DieModel
@@ -148,40 +149,40 @@ export default function DiceCanvas() {
           />
         </div>
         <div className="flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] items-center justify-center">
-            <Canvas>
-              <ambientLight />
-              <OrthographicCamera
-                makeDefault
-                ref={cameraRef}
-                position={cameraPosition}
-                zoom={30}
-              />
+          <Canvas>
+            <ambientLight />
+            <OrthographicCamera
+              makeDefault
+              ref={cameraRef}
+              position={cameraPosition}
+              zoom={30}
+            />
 
+            <DieModel
+              dieType={20}
+              dieValue={1}
+              scale={200}
+              position={[0, -10, 0]}
+            />
+
+            <RotatableDie
+              dieType={4}
+              position={[0, -14, 0]}
+              rotation={[degToRad(0), degToRad(0), degToRad(0)]}
+              scale={500}
+            />
+            {dice.map((die, idx) => (
               <DieModel
-                dieType={20}
-                dieValue={1}
+                key={idx}
+                dieType={die.getDieType()}
+                dieValue={die.getDieValue()}
                 scale={200}
-                position={[0, -10, 0]}
+                position={[idx * 2, 0, 0]} // Example: space out dice
               />
-
-              <RotatableDie
-                dieType={4}
-                position={[0, -14, 0]}
-                rotation={[degToRad(0), degToRad(0), degToRad(0)]}
-                scale={500}
-              />
-              {dice.map((die, idx) => (
-                <DieModel
-                  key={idx}
-                  dieType={die.getDieType()}
-                  dieValue={die.getDieValue()}
-                  scale={200}
-                  position={[idx * 2, 0, 0]} // Example: space out dice
-                />
-              ))}
-              <OrbitControls />
-            </Canvas>
-          </div>
+            ))}
+            <OrbitControls />
+          </Canvas>
+        </div>
       </div>
     </div>
   );
