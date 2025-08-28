@@ -9,10 +9,8 @@ export function useDiceHandler() {
     const newDie = new Die(dieType);
     setDice([...dice, newDie]);
   };
-  const handleRemoveDie = (index) => {
-    const newDieArray = [...dice];
-    newDieArray.splice(index, 1);
-    setDice(newDieArray);
+  const handleRemoveDie = (id) => {
+    setDice((prev) => prev.filter((die) => die.id !== id));
   };
 
   const handleRollDice = () => {

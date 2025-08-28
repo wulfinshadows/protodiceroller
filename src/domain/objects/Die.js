@@ -3,6 +3,7 @@ class Die {
     if (!Number.isInteger(dieType)) {
       throw new TypeError("faceCount must be an Integer!");
     }
+    this.id = crypto.randomUUID();
     this.dieType = dieType;
     this.dieValue = 1;
   }

@@ -8,79 +8,37 @@ import ThreeDDie from "../domain/objects/ThreeDDie";
 function cloneAndFullyCenter(scene, dieType) {
   const cloned = scene.clone(true);
 
-  // Step 1: Local mesh centering
-  cloned.traverse((child) => {
-    if (child.isMesh && child.geometry) {
-      child.geometry.computeBoundingBox();
-      const box = child.geometry.boundingBox;
-      const center = new THREE.Vector3();
-      box.getCenter(center);
-      child.geometry.translate(-center.x, -center.y, -center.z);
-    }
-  });
+  // Ensure world matrices are fresh
+  cloned.updateMatrixWorld(true);
 
-  // Step 2: Vertex-average centroid
-  const vertexSum = new THREE.Vector3();
-  let vertexCount = 0;
-  cloned.traverse((child) => {
-    if (child.isMesh && child.geometry) {
-      const pos = child.geometry.attributes.position;
-      const temp = new THREE.Vector3();
-      for (let i = 0; i < pos.count; i++) {
-        temp.fromBufferAttribute(pos, i);
-        child.localToWorld(temp);
-        vertexSum.add(temp);
-        vertexCount++;
-      }
-    }
-  });
-  const centroid = vertexSum.divideScalar(vertexCount);
-  cloned.position.sub(centroid);
+  // Step 1: Get bounding box of the entire model
+  const box = new THREE.Box3().setFromObject(cloned);
+  const center = new THREE.Vector3();
+  box.getCenter(center);
 
-  // Step 3: Special handling for d4
-  // if (dieType === 4) {
-  //   const originalRotation = cloned.rotation.clone();
+  // Step 2: Subtract box center so object is centered at (0,0,0)
+  cloned.position.sub(center);
 
-  //   let bestAngle = 0;
-  //   let smallestDiff = Infinity;
+  // Step 3: Special handling for d4 (align it flat on Y axis)
+  if (dieType === 4) {
+    // Rotate so one face lies flat
+    cloned.rotation.set(
+      THREE.MathUtils.degToRad(-90), // tilt sideways
+      THREE.MathUtils.degToRad(0), // no spin
+      THREE.MathUtils.degToRad(0) // upright
+    );
 
-  //   // Try small rotations around Y-axis to make box square
-  //   for (let deg = 0; deg < 90; deg += 0.5) {
-  //     // 0.5° precision
-  //     cloned.rotation.set(
-  //       originalRotation.x,
-  //       THREE.MathUtils.degToRad(deg),
-  //       originalRotation.z
-  //     );
-  //     cloned.updateMatrixWorld(true);
+    cloned.updateMatrixWorld(true);
 
-  //     const box = new THREE.Box3().setFromObject(cloned);
-  //     const size = new THREE.Vector3();
-  //     box.getSize(size);
+    // Recompute bounding box after rotation
+    const box4 = new THREE.Box3().setFromObject(cloned);
+    const center4 = new THREE.Vector3();
+    box4.getCenter(center4);
 
-  //     const diff = Math.abs(size.x - size.z);
-  //     if (diff < smallestDiff) {
-  //       smallestDiff = diff;
-  //       bestAngle = deg;
-  //     }
-  //   }
+    cloned.position.sub(center4); // recenter again
+    cloned.position.y -= box4.min.y; // shift up so it sits on ground plane
+  }
 
-  //   // Apply the best found rotation
-  //   cloned.rotation.set(
-  //     originalRotation.x,
-  //     THREE.MathUtils.degToRad(bestAngle),
-  //     originalRotation.z
-  //   );
-
-  //   // Recenter after rotation
-  //   const box = new THREE.Box3().setFromObject(cloned);
-  //   const center = new THREE.Vector3();
-  //   box.getCenter(center);
-  //   cloned.position.sub(center);
-  //   cloned.position.x += 0.0015;
-  //   cloned.position.z += -0.0015;
-  //   cloned.position.y += 0.0015; // Adjust to avoid z-fighting
-  // }
   return cloned;
 }
 export default function DieModel({
@@ -90,36 +48,26 @@ export default function DieModel({
   ...props
 }) {
   const dieModel = new ThreeDDie(dieType);
-
   const path = dieModel.modelPath;
 
   const { scene } = useGLTF(path);
 
-  var rotation = [0, 0, 0];
-  if (dieValue) {
-    // if dieValue is provided, use it to set rotation
-    rotation = dieModel.faceRotations[dieValue];
-  }
+  // Pick rotation for die face
+  const rotation = useMemo(() => {
+    if (dieValue && dieModel.faceRotations[dieValue]) {
+      return dieModel.faceRotations[dieValue];
+    }
+    return [0, 0, 0];
+  }, [dieValue, dieModel]);
 
-  const { centered, helper } = useMemo(() => {
-    const centeredModel = cloneAndFullyCenter(scene, dieType);
+  // Center and clone once
+  const centered = useMemo(() => {
+    return cloneAndFullyCenter(scene, dieType);
+  }, [scene, dieType]);
 
-    // Compute bounding box for the centered model
-    const box = new THREE.Box3().setFromObject(centeredModel);
-
-    // Create a Box3Helper to visualize it
-    const helper = new THREE.Box3Helper(box, 0xff0000); // red outline
-
-    // Keep helper in same group as model
-    const group = new THREE.Group();
-    group.add(centeredModel);
-    group.add(helper);
-
-    return { centered: group, helper };
-  }, [scene]);
   return (
-    <group position={position}>
-      <primitive object={centered} rotation={rotation} {...props} />
+    <group position={position} rotation={rotation} {...props}>
+      <primitive object={centered} />
     </group>
   );
 }

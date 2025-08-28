@@ -175,8 +175,8 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={cameraPosition}
-              zoom={30}
+              position={[10, -10, 20]}
+              zoom={20}
             />
 
             {/* <DieModel
@@ -195,17 +195,17 @@ export default function DiceCanvas() {
 
             {dice.map((die, idx) => (
               <DieModel
-                key={idx}
+                key={die.id}
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
-                scale={200}
-                position={[idx * 8, 0, 0]} // Example: space out dice
+                scale={150}
+                position={[idx * 3, 0, 0]} // Example: space out dice
                 onClick={(e) => {
-                  handleRemoveDieClick(idx, e);
+                  handleRemoveDieClick(die.id, e);
                 }}
               />
             ))}
-            <OrbitControls />
+            {/* <OrbitControls /> */}
           </Canvas>
         </div>
       </div>
