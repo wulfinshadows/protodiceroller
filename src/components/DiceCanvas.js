@@ -56,6 +56,12 @@ export default function DiceCanvas() {
     console.log(dice);
   };
 
+  const handleRemoveDieClick = (index, e) => {
+    e.stopPropagation();
+    handleRemoveDie(index);
+    console.log(dice);
+  };
+
   return (
     <div className="flex flex-row w-full justify-center">
       <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
@@ -96,30 +102,45 @@ export default function DiceCanvas() {
                 scale={200}
                 position={[0, -10, 0]}
                 rotation={[degToRad(21.33), degToRad(-44.98), degToRad(0)]}
+                onClick={(e) => {
+                  handleAddDieClick(8, e);
+                }}
               />
               <DieModel
                 dieType={10}
                 scale={200}
                 position={[0, -15, 0]}
                 rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
+                onClick={(e) => {
+                  handleAddDieClick(10, e);
+                }}
               />
               <DieModel
                 dieType={12}
                 scale={200}
                 position={[0, -20, 0]}
                 rotation={[degToRad(123.17), degToRad(-0.96), degToRad(-180.0)]}
+                onClick={(e) => {
+                  handleAddDieClick(12, e);
+                }}
               />
               <DieModel
                 dieType={20}
                 scale={200}
                 position={[0, -25, 0]}
                 rotation={[degToRad(-101.04), degToRad(43.75), degToRad(18.02)]}
+                onClick={(e) => {
+                  handleAddDieClick(20, e);
+                }}
               />
               <DieModel
                 dieType={100}
                 scale={200}
                 position={[0, -30, 0]}
                 rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
+                onClick={(e) => {
+                  handleAddDieClick(100, e);
+                }}
               />
               <group>
                 <mesh position={[0, 0, 0]}>
@@ -158,7 +179,7 @@ export default function DiceCanvas() {
               zoom={30}
             />
 
-            <DieModel
+            {/* <DieModel
               dieType={20}
               dieValue={1}
               scale={200}
@@ -170,14 +191,18 @@ export default function DiceCanvas() {
               position={[0, -14, 0]}
               rotation={[degToRad(0), degToRad(0), degToRad(0)]}
               scale={500}
-            />
+            /> */}
+
             {dice.map((die, idx) => (
               <DieModel
                 key={idx}
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
                 scale={200}
-                position={[idx * 2, 0, 0]} // Example: space out dice
+                position={[idx * 8, 0, 0]} // Example: space out dice
+                onClick={(e) => {
+                  handleRemoveDieClick(idx, e);
+                }}
               />
             ))}
             <OrbitControls />
