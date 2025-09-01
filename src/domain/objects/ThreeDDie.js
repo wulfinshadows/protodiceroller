@@ -8,21 +8,25 @@ class ThreeDDie {
       case 4:
         this.faceRotations = {
           1: [
-            degToRad(-89.11),
-            degToRad(30.54),
-            degToRad(-0.22),
-            // [degToRad(-54.58), degToRad(1.52), degToRad(-126.31)],
-            // [degToRad(-108.23), degToRad(-30.94), degToRad(108.92)],
+            [degToRad(-90), degToRad(30), degToRad(0)],
+            [degToRad(-45), degToRad(0), degToRad(-120)],
+            [degToRad(-95), degToRad(-30), degToRad(110)],
           ],
           2: [
-            degToRad(133.34),
-            degToRad(-89.06),
-            degToRad(-137.09),
-            // [degToRad(15.05), degToRad(33.92), degToRad(108.86)],
-            // [degToRad(-108.23), degToRad(-30.94), degToRad(108.92)],
+            [degToRad(3), degToRad(-85), degToRad(94)], //degToRad(10), degToRad(-80), degToRad(110)
+            [degToRad(10), degToRad(35), degToRad(110)],
+            [degToRad(-170), degToRad(30), degToRad(-70)],
           ],
-          3: [[], [], []],
-          4: [[], [], []],
+          3: [
+            [degToRad(80), degToRad(30), degToRad(180)],
+            [degToRad(70), degToRad(-30), degToRad(-80)],
+            [degToRad(130), degToRad(0), degToRad(55)],
+          ],
+          4: [
+            [degToRad(20), degToRad(-30), degToRad(0)],
+            [degToRad(180), degToRad(85), degToRad(-160)],
+            [degToRad(-165), degToRad(-30), degToRad(-180)],
+          ],
         };
         break;
       case 6:
@@ -33,6 +37,18 @@ class ThreeDDie {
           4: [degToRad(180), degToRad(0), degToRad(90)],
           5: [degToRad(0), degToRad(-90), degToRad(0)],
           6: [degToRad(-90), degToRad(0), degToRad(0)],
+        };
+        break;
+      case 8:
+        this.faceRotations = {
+          1: [degToRad(20), degToRad(-45), degToRad(0)],
+          2: [degToRad(-160), degToRad(-45), degToRad(0)],
+          3: [degToRad(-160), degToRad(45), degToRad(0)],
+          4: [degToRad(20), degToRad(45), degToRad(0)],
+          5: [degToRad(-160), degToRad(45), degToRad(-180)], //
+          6: [degToRad(20), degToRad(45), degToRad(-180)],
+          7: [degToRad(20), degToRad(-45), degToRad(-180)],
+          8: [degToRad(-160), degToRad(-45), degToRad(-180)],
         };
         break;
       default: // D20

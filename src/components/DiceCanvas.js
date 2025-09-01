@@ -77,7 +77,6 @@ export default function DiceCanvas() {
                 rotation={cameraRotation}
                 /* play with zoom and position */
               />
-
               <DieModel
                 dieType={4}
                 scale={200}
@@ -87,7 +86,6 @@ export default function DiceCanvas() {
                   handleAddDieClick(4, e);
                 }}
               />
-
               <DieModel
                 dieType={6}
                 dieValue={1}
@@ -142,23 +140,6 @@ export default function DiceCanvas() {
                   handleAddDieClick(100, e);
                 }}
               />
-              <group>
-                <mesh position={[0, 0, 0]}>
-                  <sphereGeometry args={[0.2, 16, 16]} />
-                  <meshStandardMaterial color="red" />
-                </mesh>
-                {/* <line>
-                  <bufferGeometry
-                    attach="geometry"
-                    // Create geometry from an array of points
-                    {...new THREE.BufferGeometry().setFromPoints([
-                      new THREE.Vector3(0, -100, 0),
-                      new THREE.Vector3(0, 5, 0),
-                    ])}
-                  />
-                  <lineBasicMaterial attach="material" color="red" />
-                </line> */}
-              </group>
             </Canvas>
           </div>
         </div>
@@ -179,19 +160,18 @@ export default function DiceCanvas() {
               zoom={20}
             />
 
-            {/* <DieModel
-              dieType={20}
-              dieValue={1}
-              scale={200}
-              position={[0, -10, 0]}
-            />
-
             <RotatableDie
               dieType={4}
               position={[0, -14, 0]}
               rotation={[degToRad(0), degToRad(0), degToRad(0)]}
               scale={500}
-            /> */}
+            />
+            <DieModel
+              dieType={4}
+              dieValue={4}
+              scale={150}
+              position={[0, -4, 0]}
+            />
 
             {dice.map((die, idx) => (
               <DieModel
