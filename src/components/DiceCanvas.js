@@ -161,14 +161,14 @@ export default function DiceCanvas() {
             />
 
             <RotatableDie
-              dieType={4}
-              position={[0, -14, 0]}
+              dieType={20}
+              position={[5, -14, 0]}
               rotation={[degToRad(0), degToRad(0), degToRad(0)]}
-              scale={500}
+              scale={1000}
             />
             <DieModel
-              dieType={4}
-              dieValue={4}
+              dieType={100}
+              dieValue={10}
               scale={150}
               position={[0, -4, 0]}
             />
