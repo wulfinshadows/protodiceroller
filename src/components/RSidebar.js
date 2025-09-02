@@ -15,7 +15,7 @@ const RSidebar = ({ isOpen, toggleSidebar, history }) => {
         isOpen ? "-translate-x-0" : "translate-x-full"
       }`}
     >
-      <div className="absolute justify-end p-4 top-1/2 xl:-left-36 lg:-left-32 md:-left-28 -left-28 rotate-90">
+      <div className="absolute justify-end p-4 top-5/12 xl:-left-36 lg:-left-32 md:-left-28 -left-28 rotate-90">
         <button
           onClick={toggleSidebar}
           className="sidebar-container-button text-white xl:text-4xl lg:text-3xl md:text-2xl text-2xl px-10 py-4 rounded-md font-[TWBOZ] hover:scale-105 transition cursor-pointer"

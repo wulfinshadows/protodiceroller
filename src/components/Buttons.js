@@ -23,7 +23,7 @@ function Buttons({ onInfoClick }) {
           height={50}
         />
       </button>
-      <button className={`cursor-pointer theme-${themeName}`}>
+      {/* <button className={`cursor-pointer theme-${themeName}`}>
         <Image
           src={consoleSVG}
           className="w-6 sm:w-8 md:w-10 lg:w-12"
@@ -40,7 +40,7 @@ function Buttons({ onInfoClick }) {
           width={50}
           height={50}
         />
-      </button>
+      </button> */}
     </div>
   );
 }

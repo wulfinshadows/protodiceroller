@@ -21,7 +21,7 @@ export default function TopBar() {
         </div>
         <div className="flex items-center">
           <h1
-            className={`theme-${themeName} text-4xl md:text-5xl lg:text-7xl text-center flex-grow sm:ml-36 m-0 font-[TWBOZ] text-white`}
+            className={`theme-${themeName} text-7xl text-center flex-grow font-[TWBOZ] text-white`}
           >
             DICE ROLLER
           </h1>

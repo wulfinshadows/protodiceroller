@@ -79,9 +79,6 @@ code {
 .playmat-container .playmat-background-container {
   @apply hidden md:grid grid-cols-9 bg-contain bg-center w-fit h-fit bg-no-repeat;
 }
-.playmat-container .playmat-background-container .column-one {
-  @apply flex xl:col-span-1 xl:col-start-8 xl:row-start-1 xl:items-end md:col-span-3 md:row-start-2 md:col-start-4;
-}
 .playmat-container .playmat-background-container .column-one .themes-container {
   @apply flex flex-col rounded-md w-full h-5/6 text-white p-2 m-1 drop-shadow-lg transition;
 }
@@ -99,7 +96,10 @@ code {
   @apply w-20 h-20 rounded-md text-black hover:scale-105 active:scale-110 transition font-[TWBOZ] drop-shadow-lg cursor-pointer;
 }
 .roll-button {
-  @apply p-3 md:p-5 w-full rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110;
+  @apply px-10 py-6 rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110 cursor-pointer;
+}
+.reset-button {
+  @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;
 }
 .playmat-container .playmat-background-container .dice-container {
   @apply flex flex-col col-span-1 p-5 items-center place-content-center place-items-center ml-5 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];

@@ -9,6 +9,10 @@ import * as THREE from "three";
 import diceTray from "../assets/SpiritTray.png";
 import degToRad from "../domain/functions/degToRad";
 import useBreakpoint from "./useBreakpoint";
+import RSidebar from "./RSidebar";
+import { useState } from "react";
+import d20 from "../assets/d20.svg";
+import restart from "../assets/restart.svg";
 
 export default function DiceCanvas() {
   const {
@@ -61,6 +65,9 @@ export default function DiceCanvas() {
     handleRemoveDie(index);
     console.log(dice);
   };
+
+  const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
+  const toggleRSidebar = () => setIsRSidebarOpen((prev) => !prev);
 
   return (
     <div className="flex flex-row w-full justify-center">
@@ -188,7 +195,28 @@ export default function DiceCanvas() {
             {/* <OrbitControls /> */}
           </Canvas>
         </div>
+        <div className="xl:col-span-1 xl:col-start-8 xl:row-start-1 md:col-start-9">
+          <button
+            className="roll-button"
+            onClick={() => {
+            }}>
+              <Image width={40} height={40} src={d20} alt="Roll Dice" />
+            ROLL
+          </button>
+          <button
+            className="reset-button"
+            onClick={() => {
+            }}>
+              <Image width={20} height={20} src={restart} alt="Roll Dice" />
+            RESET
+          </button>
+        </div>
       </div>
+      <RSidebar
+            isOpen={isRSidebarOpen}
+            toggleSidebar={toggleRSidebar}
+            history={history}
+          />
     </div>
   );
 }
