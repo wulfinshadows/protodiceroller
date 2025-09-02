@@ -18,10 +18,10 @@ class Die {
   roll() {
     switch (this.dieType) {
       case 100:
-        this.dieValue = Math.floor((Math.random() * this.dieType) % 10);
+        this.dieValue = Math.floor((Math.random() * this.dieType) % 10) + 1;
         break;
       default:
-        this.dieValue = Math.floor(Math.random() * this.dieType);
+        this.dieValue = Math.floor(Math.random() * this.dieType) + 1;
         break;
     }
   }

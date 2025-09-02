@@ -5,8 +5,9 @@ import themes from "../context/themes";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 import HistoryComponent from "./HistoryComponent";
 
-const RSidebar = ({ isOpen, toggleSidebar, history }) => {
+const RSidebar = ({ isOpen, toggleSidebar }) => {
   const { themeName, setThemeName } = useContext(ThemeContext);
+  const { history } = useCollectHistory();
   const theme = themes[themeName];
 
   return (
@@ -25,15 +26,19 @@ const RSidebar = ({ isOpen, toggleSidebar, history }) => {
       </div>
 
       <div className="p-8 text-white">
-        <h2 className="text-5xl font-bold font-[TWBOZ] flex justify-end">HISTORY</h2>
-          <div className="max-h-[75vh] overflow-y-auto
+        <h2 className="text-5xl font-bold font-[TWBOZ] flex justify-end">
+          HISTORY
+        </h2>
+        <div
+          className="max-h-[75vh] overflow-y-auto
           [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:bg-gray-100
         [&::-webkit-scrollbar-thumb]:bg-neutral-500
           [&::-webkit-scrollbar-track]:rounded-full
-          [&::-webkit-scrollbar-thumb]:rounded-full">
-            <HistoryComponent history={history} />
-          </div>
+          [&::-webkit-scrollbar-thumb]:rounded-full"
+        >
+          <HistoryComponent history={history} />
+        </div>
       </div>
     </div>
   );

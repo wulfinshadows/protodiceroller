@@ -22,6 +22,7 @@ export default function DiceCanvas() {
     handleRollDice,
     handleResetDice,
   } = useContext(DieContext);
+
   const cameraRef = useRef();
   const breakpoint = useBreakpoint();
   const target = [0, -15, 0]; // where we want to look
@@ -54,6 +55,10 @@ export default function DiceCanvas() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("dice updated:", dice);
+  }, [dice]);
+
   const handleAddDieClick = (dieType, e) => {
     e.stopPropagation();
     handleAddDie(dieType);
@@ -64,6 +69,10 @@ export default function DiceCanvas() {
     e.stopPropagation();
     handleRemoveDie(index);
     console.log(dice);
+  };
+
+  const handleRollDiceClick = () => {
+    handleRollDice();
   };
 
   const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
@@ -92,6 +101,12 @@ export default function DiceCanvas() {
                 onClick={(e) => {
                   handleAddDieClick(4, e);
                 }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
               />
               <DieModel
                 dieType={6}
@@ -100,6 +115,12 @@ export default function DiceCanvas() {
                 position={[0, -5, 0]}
                 onClick={(e) => {
                   handleAddDieClick(6, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
                 }}
               />
               <DieModel
@@ -110,6 +131,12 @@ export default function DiceCanvas() {
                 onClick={(e) => {
                   handleAddDieClick(8, e);
                 }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
               />
               <DieModel
                 dieType={10}
@@ -118,6 +145,12 @@ export default function DiceCanvas() {
                 rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
                 onClick={(e) => {
                   handleAddDieClick(10, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
                 }}
               />
               <DieModel
@@ -128,6 +161,12 @@ export default function DiceCanvas() {
                 onClick={(e) => {
                   handleAddDieClick(12, e);
                 }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
               />
               <DieModel
                 dieType={20}
@@ -137,6 +176,12 @@ export default function DiceCanvas() {
                 onClick={(e) => {
                   handleAddDieClick(20, e);
                 }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
               />
               <DieModel
                 dieType={100}
@@ -145,6 +190,12 @@ export default function DiceCanvas() {
                 rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
                 onClick={(e) => {
                   handleAddDieClick(100, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
                 }}
               />
             </Canvas>
@@ -174,8 +225,8 @@ export default function DiceCanvas() {
               scale={1000}
             />
             <DieModel
-              dieType={100}
-              dieValue={10}
+              dieType={12}
+              dieValue={12}
               scale={150}
               position={[0, -4, 0]}
             />
@@ -190,6 +241,12 @@ export default function DiceCanvas() {
                 onClick={(e) => {
                   handleRemoveDieClick(die.id, e);
                 }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
               />
             ))}
             {/* <OrbitControls /> */}
@@ -199,24 +256,24 @@ export default function DiceCanvas() {
           <button
             className="roll-button"
             onClick={() => {
-            }}>
-              <Image width={40} height={40} src={d20} alt="Roll Dice" />
+              handleRollDiceClick();
+            }}
+          >
+            <Image width={40} height={40} src={d20} alt="Roll Dice" />
             ROLL
           </button>
           <button
             className="reset-button"
             onClick={() => {
-            }}>
-              <Image width={20} height={20} src={restart} alt="Roll Dice" />
+              handleResetDice();
+            }}
+          >
+            <Image width={20} height={20} src={restart} alt="Roll Dice" />
             RESET
           </button>
         </div>
       </div>
-      <RSidebar
-            isOpen={isRSidebarOpen}
-            toggleSidebar={toggleRSidebar}
-            history={history}
-          />
+      <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} />
     </div>
   );
 }
