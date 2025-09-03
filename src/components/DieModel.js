@@ -1,9 +1,10 @@
 import { useGLTF } from "@react-three/drei";
 import { GAYUMA_MODEL_PATH } from "../domain/GAYUMA_MODEL_PATH";
-import { useMemo } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import * as THREE from "three";
 import { radToDeg } from "three/src/math/MathUtils.js";
 import ThreeDDie from "../domain/objects/ThreeDDie";
+import { useFrame } from "@react-three/fiber";
 
 function cloneAndFullyCenter(scene, dieType) {
   const cloned = scene.clone(true);
@@ -44,6 +45,7 @@ function cloneAndFullyCenter(scene, dieType) {
   return cloned;
 }
 export default function DieModel({
+  isStatic = false,
   dieType,
   dieValue,
   position = [0, 0, 0],
@@ -51,30 +53,112 @@ export default function DieModel({
 }) {
   const dieModel = new ThreeDDie(dieType);
   const path = dieModel.modelPath;
-
   const { scene } = useGLTF(path);
 
-  // Pick rotation for die face
-  const rotation = useMemo(() => {
-    if (dieValue && dieModel.faceRotations[dieValue]) {
-      if (dieType === 4) {
-        var randomFace = Math.floor(Math.random() * 3);
-        return dieModel.faceRotations[dieValue][randomFace];
-      } else {
-        return dieModel.faceRotations[dieValue];
-      }
-    }
-    return [0, 0, 0];
-  }, [dieValue, dieModel]);
+  const groupRef = useRef();
+
+  const rolling = useRef(false);
+  const spinAxis = useRef(new THREE.Vector3(0, 1, 0));
+
+  const animation = useRef({
+    progress: 0,
+    duration: 3,
+    end: new THREE.Quaternion(),
+    axis: new THREE.Vector3(),
+    totalSpins: 6, // number of random spins before stopping
+  });
 
   // Center and clone once
-  const centered = useMemo(() => {
-    return cloneAndFullyCenter(scene, dieType);
-  }, [scene, dieType]);
-
-  return (
-    <group position={position} rotation={rotation} {...props}>
-      <primitive object={centered} />
-    </group>
+  const centered = useMemo(
+    () => cloneAndFullyCenter(scene, dieType),
+    [scene, dieType]
   );
+
+  // fallback rotation
+  let rotation = dieModel.faceRotations[1];
+  if (dieType === 4) {
+    const randomFace = Math.floor(Math.random() * 3);
+    rotation = dieModel.faceRotations[1][randomFace];
+  }
+
+  // trigger roll on dieValue change
+  useEffect(() => {
+    if (!dieValue || !dieModel.faceRotations[dieValue] || isStatic) return;
+
+    let faceRotation =
+      dieType === 4
+        ? dieModel.faceRotations[dieValue][Math.floor(Math.random() * 3)]
+        : dieModel.faceRotations[dieValue];
+
+    const [x, y, z] = faceRotation;
+    const finalQuat = new THREE.Quaternion().setFromEuler(
+      new THREE.Euler(x, y, z)
+    );
+
+    // pick random spin axis
+    spinAxis.current = new THREE.Vector3(
+      Math.random(),
+      Math.random(),
+      Math.random()
+    ).normalize();
+
+    animation.current = {
+      progress: 0,
+      duration: 3, // total roll duration
+      end: finalQuat,
+      axis: spinAxis.current.clone(),
+      totalSpins: 16, // higher = more chaotic spin before settling
+    };
+
+    rolling.current = true;
+  }, [dieValue, dieModel, dieType, isStatic]);
+
+  // main loop
+  useFrame((state, delta) => {
+    if (!groupRef.current || isStatic) return;
+    if (!rolling.current) return;
+
+    const anim = animation.current;
+
+    if (anim.progress < 1) {
+      anim.progress = Math.min(1, anim.progress + delta / anim.duration);
+
+      const t = anim.progress;
+      const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
+
+      // Spin amount decays to 0
+      const spinAmount = (1 - ease) * Math.PI * anim.totalSpins;
+      const spinQuat = new THREE.Quaternion().setFromAxisAngle(
+        anim.axis,
+        spinAmount
+      );
+
+      // Apply spin offset relative to final target
+      const currentQuat = anim.end.clone().multiply(spinQuat);
+
+      // Interpolate smoothly toward the final face
+      groupRef.current.quaternion.slerpQuaternions(
+        groupRef.current.quaternion,
+        currentQuat,
+        0.3
+      );
+    } else {
+      groupRef.current.quaternion.copy(anim.end);
+      rolling.current = false;
+    }
+  });
+
+  if (isStatic) {
+    return (
+      <group ref={groupRef} position={position} rotation={rotation} {...props}>
+        <primitive object={centered} />
+      </group>
+    );
+  } else {
+    return (
+      <group ref={groupRef} position={position} {...props}>
+        <primitive object={centered} />
+      </group>
+    );
+  }
 }

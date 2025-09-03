@@ -94,6 +94,7 @@ export default function DiceCanvas() {
                 /* play with zoom and position */
               />
               <DieModel
+                isStatic={true}
                 dieType={4}
                 scale={200}
                 position={[0, 0, 0]}
@@ -109,6 +110,7 @@ export default function DiceCanvas() {
                 }}
               />
               <DieModel
+                isStatic={true}
                 dieType={6}
                 dieValue={1}
                 scale={200}
@@ -124,6 +126,7 @@ export default function DiceCanvas() {
                 }}
               />
               <DieModel
+                isStatic={true}
                 dieType={8}
                 scale={200}
                 position={[0, -10, 0]}
@@ -140,6 +143,7 @@ export default function DiceCanvas() {
               />
               <DieModel
                 dieType={10}
+                isStatic={true}
                 scale={200}
                 position={[0, -15, 0]}
                 rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
@@ -154,6 +158,7 @@ export default function DiceCanvas() {
                 }}
               />
               <DieModel
+                isStatic={true}
                 dieType={12}
                 scale={200}
                 position={[0, -20, 0]}
@@ -169,6 +174,7 @@ export default function DiceCanvas() {
                 }}
               />
               <DieModel
+                isStatic={true}
                 dieType={20}
                 scale={200}
                 position={[0, -25, 0]}
@@ -184,6 +190,7 @@ export default function DiceCanvas() {
                 }}
               />
               <DieModel
+                isStatic={true}
                 dieType={100}
                 scale={200}
                 position={[0, -30, 0]}
