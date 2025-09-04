@@ -23,6 +23,8 @@ export default function DiceCanvas() {
     handleResetDice,
   } = useContext(DieContext);
 
+  const diceRefs = useRef({});
+
   const cameraRef = useRef();
   const breakpoint = useBreakpoint();
   const target = [0, -15, 0]; // where we want to look
@@ -71,8 +73,14 @@ export default function DiceCanvas() {
     console.log(dice);
   };
 
-  const handleRollDiceClick = () => {
-    handleRollDice();
+  const handleRollDiceClick = async () => {
+    const updatedDice = await handleRollDice();
+    updatedDice.forEach((die) => {
+      const ref = diceRefs.current[die.id];
+      if (ref && ref.roll) {
+        ref.roll(die.getDieValue());
+      }
+    });
   };
 
   const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
@@ -225,22 +233,12 @@ export default function DiceCanvas() {
               zoom={20}
             />
 
-            <RotatableDie
-              dieType={20}
-              position={[5, -14, 0]}
-              rotation={[degToRad(0), degToRad(0), degToRad(0)]}
-              scale={1000}
-            />
-            <DieModel
-              dieType={12}
-              dieValue={12}
-              scale={150}
-              position={[0, -4, 0]}
-            />
-
             {dice.map((die, idx) => (
               <DieModel
                 key={die.id}
+                ref={(el) => {
+                  if (el) diceRefs.current[die.id] = el;
+                }}
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
                 scale={150}

@@ -1,6 +1,12 @@
 import { useGLTF } from "@react-three/drei";
 import { GAYUMA_MODEL_PATH } from "../domain/GAYUMA_MODEL_PATH";
-import { useMemo, useRef, useEffect } from "react";
+import {
+  useMemo,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  useLayoutEffect,
+} from "react";
 import * as THREE from "three";
 import { radToDeg } from "three/src/math/MathUtils.js";
 import ThreeDDie from "../domain/objects/ThreeDDie";
@@ -44,13 +50,10 @@ function cloneAndFullyCenter(scene, dieType) {
 
   return cloned;
 }
-export default function DieModel({
-  isStatic = false,
-  dieType,
-  dieValue,
-  position = [0, 0, 0],
-  ...props
-}) {
+const DieModel = forwardRef(function DieModel(
+  { isStatic = false, dieType, dieValue = 1, position = [0, 0, 0], ...props },
+  ref
+) {
   const dieModel = new ThreeDDie(dieType);
   const path = dieModel.modelPath;
   const { scene } = useGLTF(path);
@@ -58,62 +61,79 @@ export default function DieModel({
   const groupRef = useRef();
 
   const rolling = useRef(false);
-  const spinAxis = useRef(new THREE.Vector3(0, 1, 0));
-
   const animation = useRef({
-    progress: 0,
-    duration: 3,
-    end: new THREE.Quaternion(),
     axis: new THREE.Vector3(),
-    totalSpins: 6, // number of random spins before stopping
+    end: new THREE.Quaternion(),
+    progress: 1,
+    duration: 2,
+    totalSpins: 5,
   });
 
   // Center and clone once
-  const centered = useMemo(
-    () => cloneAndFullyCenter(scene, dieType),
-    [scene, dieType]
-  );
+  const centered = useMemo(() => {
+    return cloneAndFullyCenter(scene, dieType);
+  }, [scene, dieType]);
 
-  // fallback rotation
-  let rotation = dieModel.faceRotations[1];
-  if (dieType === 4) {
-    const randomFace = Math.floor(Math.random() * 3);
-    rotation = dieModel.faceRotations[1][randomFace];
-  }
+  // 🔑 Store stable d4 orientations so they don't repick on re-render
+  const chosenD4Rotations = useRef({});
 
-  // trigger roll on dieValue change
-  useEffect(() => {
-    if (!dieValue || !dieModel.faceRotations[dieValue] || isStatic) return;
+  useLayoutEffect(() => {
+    if (!groupRef.current || !centered || rolling.current) return;
 
-    let faceRotation =
-      dieType === 4
-        ? dieModel.faceRotations[dieValue][Math.floor(Math.random() * 3)]
-        : dieModel.faceRotations[dieValue];
+    const faceKey = dieValue ?? 1;
+    let faceRotation;
 
-    const [x, y, z] = faceRotation;
-    const finalQuat = new THREE.Quaternion().setFromEuler(
-      new THREE.Euler(x, y, z)
-    );
+    if (dieType === 4 && Array.isArray(dieModel.faceRotations[faceKey])) {
+      if (!chosenD4Rotations.current[faceKey]) {
+        const allOptions = dieModel.faceRotations[faceKey];
+        chosenD4Rotations.current[faceKey] =
+          allOptions[Math.floor(Math.random() * allOptions.length)];
+      }
+      faceRotation = chosenD4Rotations.current[faceKey];
+    } else {
+      faceRotation = dieModel.faceRotations[faceKey];
+    }
 
-    // pick random spin axis
-    spinAxis.current = new THREE.Vector3(
-      Math.random(),
-      Math.random(),
-      Math.random()
-    ).normalize();
+    if (!faceRotation) return;
 
-    animation.current = {
-      progress: 0,
-      duration: 3, // total roll duration
-      end: finalQuat,
-      axis: spinAxis.current.clone(),
-      totalSpins: 16, // higher = more chaotic spin before settling
-    };
+    const [x, y, z] = faceRotation; // radians
+    groupRef.current.quaternion.setFromEuler(new THREE.Euler(x, y, z));
+  }, [centered, dieType, dieValue, dieModel]);
 
-    rolling.current = true;
-  }, [dieValue, dieModel, dieType, isStatic]);
+  // 🔥 Expose roll(value) to parent
+  useImperativeHandle(ref, () => ({
+    roll: (value) => {
+      if (isStatic) return;
 
-  // main loop
+      const faceRotation =
+        dieType === 4
+          ? dieModel.faceRotations[value][
+              Math.floor(Math.random() * dieModel.faceRotations[value].length)
+            ]
+          : dieModel.faceRotations[value];
+
+      const [x, y, z] = faceRotation;
+      const endQuat = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(x, y, z)
+      );
+
+      animation.current = {
+        axis: new THREE.Vector3(
+          Math.random(),
+          Math.random(),
+          Math.random()
+        ).normalize(),
+        end: endQuat,
+        progress: 0,
+        duration: 2.5, // roll duration
+        totalSpins: 8, // spin count
+      };
+
+      rolling.current = true;
+    },
+  }));
+
+  // 🎬 Smooth animation loop
   useFrame((state, delta) => {
     if (!groupRef.current || isStatic) return;
     if (!rolling.current) return;
@@ -148,17 +168,11 @@ export default function DieModel({
     }
   });
 
-  if (isStatic) {
-    return (
-      <group ref={groupRef} position={position} rotation={rotation} {...props}>
-        <primitive object={centered} />
-      </group>
-    );
-  } else {
-    return (
-      <group ref={groupRef} position={position} {...props}>
-        <primitive object={centered} />
-      </group>
-    );
-  }
-}
+  return (
+    <group ref={groupRef} position={position} {...props}>
+      <primitive object={centered} />
+    </group>
+  );
+});
+
+export default DieModel;
