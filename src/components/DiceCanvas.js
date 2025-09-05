@@ -10,6 +10,7 @@ import diceTray from "../assets/SpiritTray.png";
 import degToRad from "../domain/functions/degToRad";
 import useBreakpoint from "./useBreakpoint";
 import RSidebar from "./RSidebar";
+import Mobile from "./Mobile";
 import { useState } from "react";
 import d20 from "../assets/d20.svg";
 import restart from "../assets/restart.svg";
@@ -47,7 +48,7 @@ export default function DiceCanvas() {
     cameraPosition = -23;
     cameraZoom = 12;
   } else if (breakpoint === "xxl") {
-    cameraPosition = -19;
+    cameraPosition = -21;
     cameraZoom = 15;
   }
 
@@ -88,15 +89,15 @@ export default function DiceCanvas() {
 
   return (
     <div className="flex flex-row w-full justify-center">
-      <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-full bg-no-repeat">
+      <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-fit bg-no-repeat">
         <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 row-start-1 right-auto ml-0 items-start">
-          <div className="flex-col h-[750px] bg-opacity-50 justify-center items-center xl:ml-0 lg:ml-16 md:ml-10 ml-4 mt-5">
+          <div className="flex-col h-[600px] bg-opacity-50 justify-end items-center xl:ml-0 lg:ml-16 md:ml-10 ml-4 mt-5">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
                 makeDefault
                 ref={cameraRef}
-                position={[0, cameraPosition + 0, 20]}
+                position={[0, cameraPosition + 7, 20]}
                 zoom={cameraZoom}
                 rotation={cameraRotation}
                 /* play with zoom and position */
@@ -223,7 +224,7 @@ export default function DiceCanvas() {
             alt="Dice Tray"
           />
         </div>
-        <div className="flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] items-center justify-center">
+        <div className="flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] md:mt-14">
           <Canvas>
             <ambientLight />
             <OrthographicCamera
@@ -257,7 +258,7 @@ export default function DiceCanvas() {
             {/* <OrbitControls /> */}
           </Canvas>
         </div>
-        <div className="xl:col-span-1 xl:col-start-8 xl:row-start-1 md:col-start-9">
+        <div className="xl:col-span-1 xl:col-start-8 xl:row-start-1 lg:col-start-9 lg:row-start-1 md:row-start-2 md:col-start-4 md:col-span-3">
           <button
             className="roll-button"
             onClick={() => {
@@ -277,8 +278,9 @@ export default function DiceCanvas() {
             RESET
           </button>
         </div>
+        <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} />
       </div>
-      <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} />
+      <Mobile />
     </div>
   );
 }

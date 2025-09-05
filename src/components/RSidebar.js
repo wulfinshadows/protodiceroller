@@ -32,8 +32,8 @@ const RSidebar = ({ isOpen, toggleSidebar }) => {
         <div
           className="max-h-[75vh] overflow-y-auto
           [&::-webkit-scrollbar]:w-2
-        [&::-webkit-scrollbar-track]:bg-gray-100
-        [&::-webkit-scrollbar-thumb]:bg-neutral-500
+        [&::-webkit-scrollbar-track]:bg-red-200
+        [&::-webkit-scrollbar-thumb]:bg-rose-700
           [&::-webkit-scrollbar-track]:rounded-full
           [&::-webkit-scrollbar-thumb]:rounded-full"
         >
