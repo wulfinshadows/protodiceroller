@@ -96,7 +96,7 @@ code {
   @apply w-20 h-20 rounded-md text-black hover:scale-105 active:scale-110 transition font-[TWBOZ] drop-shadow-lg cursor-pointer;
 }
 .roll-button {
-  @apply px-10 py-6 rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110 cursor-pointer;
+  @apply xl:px-10 xl:py-6 lg:px-8 lg:py-4 px-10 py-6 rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110 cursor-pointer;
 }
 .reset-button {
   @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;

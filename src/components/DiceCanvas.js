@@ -30,26 +30,38 @@ export default function DiceCanvas() {
   const breakpoint = useBreakpoint();
   const target = [0, -15, 0]; // where we want to look
 
-  let cameraPosition = [0, -15, 20];
+  let cameraPosition = 0;
   let cameraZoom = 20;
+  let trayCameraPos = [0, 0, 0];
+  let trayCameraZoom = 0;
   let cameraRotation = [0, 0, 0];
 
   if (breakpoint === "base") {
     cameraPosition = -10;
     cameraZoom = 10;
+    trayCameraPos = [10, 0, 10];
+    trayCameraZoom = 7;
     //cameraRotation = [0, 0, Math.PI / 8];
   } else if (breakpoint === "md") {
     cameraPosition = -30;
     cameraZoom = 10.5;
+    trayCameraPos = [8, -7, 10];
+    trayCameraZoom = 17;
   } else if (breakpoint === "lg") {
-    cameraPosition = -20.5;
-    cameraZoom = 14;
+    cameraPosition = -23;
+    cameraZoom = 13;
+    trayCameraPos = [10, -10, 10];
+    trayCameraZoom = 18;
   } else if (breakpoint === "xl") {
     cameraPosition = -23;
     cameraZoom = 12;
+    trayCameraPos = [10, -10, 10];
+    trayCameraZoom = 18;
   } else if (breakpoint === "xxl") {
     cameraPosition = -21;
     cameraZoom = 15;
+    trayCameraPos = [10, -10, 10];
+    trayCameraZoom = 20;
   }
 
   useEffect(() => {
@@ -230,8 +242,8 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={[10, -10, 20]}
-              zoom={20}
+              position={trayCameraPos}
+              zoom={trayCameraZoom}
             />
 
             {dice.map((die, idx) => (

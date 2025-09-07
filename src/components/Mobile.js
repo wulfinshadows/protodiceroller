@@ -40,23 +40,29 @@ export default function Mobile() {
     let cameraPosition = [0, -15, 20];
     let cameraZoom = 20;
     let cameraRotation = [0, 0, Math.PI / 2];
+    let trayCameraZoom = 0;
   
     if (breakpoint === "base") {
       cameraPosition = -10;
       cameraZoom = 10;
       cameraRotation = [0, 0, Math.PI / -2];
+      trayCameraZoom = 16;
     } else if (breakpoint === "md") {
       cameraPosition = -30;
       cameraZoom = 10.5;
+      trayCameraZoom = 17;
     } else if (breakpoint === "lg") {
       cameraPosition = -20.5;
       cameraZoom = 14;
+      trayCameraZoom = 7;
     } else if (breakpoint === "xl") {
       cameraPosition = -23;
       cameraZoom = 12;
+      trayCameraZoom = 7;
     } else if (breakpoint === "xxl") {
       cameraPosition = -19;
       cameraZoom = 15;
+      trayCameraZoom = 7;
     }
   
     useEffect(() => {
@@ -238,8 +244,8 @@ export default function Mobile() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={[7, -10, 20]}
-              zoom={20}
+              position={[7, -12, 20]}
+              zoom={trayCameraZoom}
             />
 
             {dice.map((die, idx) => (
