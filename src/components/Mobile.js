@@ -36,6 +36,8 @@ export default function Mobile() {
     const cameraRef = useRef();
     const breakpoint = useBreakpoint();
     const target = [0, -15, 0]; // where we want to look
+
+    const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
   
     let cameraPosition = [0, -15, 20];
     let cameraZoom = 20;
@@ -95,6 +97,10 @@ export default function Mobile() {
           ref.roll(die.getDieValue());
         }
       });
+      console.log("🎲 Rolled dice:", updatedDice);
+
+      updateHistoryJson(updatedDice);
+      updateHistoryState();
     };
 
   return (
@@ -103,6 +109,7 @@ export default function Mobile() {
         <RSidebar
           isOpen={isRSidebarOpen}
           toggleSidebar={toggleRSidebar}
+          history={history}
         />
         <div className="row-start-1 col-start-2 row-span-6 col-span-7 max-[410px]:row-start-1 max-[410px]:col-start-1 max-[410px]:row-span-7 max-[410px]:col-span-9 h-[500px]">
           <Image

@@ -9,6 +9,8 @@ import * as THREE from "three";
 import diceTray from "../assets/SpiritTray.png";
 import degToRad from "../domain/functions/degToRad";
 import useBreakpoint from "./useBreakpoint";
+import { useCollectHistory } from "../hooks/useCollectHistory";
+import HistoryComponent from "./HistoryComponent";
 import RSidebar from "./RSidebar";
 import Mobile from "./Mobile";
 import { useState } from "react";
@@ -29,6 +31,8 @@ export default function DiceCanvas() {
   const cameraRef = useRef();
   const breakpoint = useBreakpoint();
   const target = [0, -15, 0]; // where we want to look
+
+  const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
 
   let cameraPosition = 0;
   let cameraZoom = 20;
@@ -88,12 +92,19 @@ export default function DiceCanvas() {
 
   const handleRollDiceClick = async () => {
     const updatedDice = await handleRollDice();
+
     updatedDice.forEach((die) => {
       const ref = diceRefs.current[die.id];
       if (ref && ref.roll) {
         ref.roll(die.getDieValue());
       }
     });
+
+    console.log("🎲 Rolled dice:", updatedDice);
+
+    updateHistoryJson(updatedDice);
+    updateHistoryState();
+    ;
   };
 
   const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
@@ -290,7 +301,7 @@ export default function DiceCanvas() {
             RESET
           </button>
         </div>
-        <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} />
+        <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} history={history}/>
       </div>
       <Mobile />
     </div>

@@ -5,9 +5,8 @@ import themes from "../context/themes";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 import HistoryComponent from "./HistoryComponent";
 
-const RSidebar = ({ isOpen, toggleSidebar }) => {
+const RSidebar = ({ isOpen, toggleSidebar, history }) => {
   const { themeName, setThemeName } = useContext(ThemeContext);
-  const { history } = useCollectHistory();
   const theme = themes[themeName];
 
   return (

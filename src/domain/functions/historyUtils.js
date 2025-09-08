@@ -46,7 +46,7 @@ function generateHistoryMap(dice) {
       mappedDieType = historyMap.get(dieType);
     }
     mappedDieType.quantity++;
-    mappedDieType.result += dieValue + 1;
+    mappedDieType.result += dieValue;
   });
   return Object.fromEntries(historyMap);
 }
