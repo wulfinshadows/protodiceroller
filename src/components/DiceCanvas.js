@@ -1,21 +1,17 @@
-import { useContext, useRef, useEffect } from "react";
+import d20 from "../assets/d20.svg";
+import restart from "../assets/restart.svg";
+import { useContext, useRef, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import Image from "next/image";
+import { OrthographicCamera } from "@react-three/drei";
 import { DieContext } from "../context/DieProvider";
+import { useCollectHistory } from "../hooks/useCollectHistory";
+import Image from "next/image";
 import DieModel from "./DieModel";
-import RotatableDie from "./RotatableDice";
-import { OrbitControls, OrthographicCamera } from "@react-three/drei";
-import * as THREE from "three";
 import diceTray from "../assets/SpiritTray.png";
 import degToRad from "../domain/functions/degToRad";
 import useBreakpoint from "./useBreakpoint";
-import { useCollectHistory } from "../hooks/useCollectHistory";
-import HistoryComponent from "./HistoryComponent";
 import RSidebar from "./RSidebar";
 import Mobile from "./Mobile";
-import { useState } from "react";
-import d20 from "../assets/d20.svg";
-import restart from "../assets/restart.svg";
 
 export default function DiceCanvas() {
   const {
@@ -30,10 +26,15 @@ export default function DiceCanvas() {
 
   const cameraRef = useRef();
   const breakpoint = useBreakpoint();
-  const target = [0, -15, 0]; // where we want to look
+  const target = [0, -15, 0];
+
+  const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
+  const toggleRSidebar = () => setIsRSidebarOpen((prev) => !prev);
 
   const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
 
+  // 3D Camera Pos/Zoom Values
+  
   let cameraPosition = 0;
   let cameraZoom = 20;
   let trayCameraPos = [0, 0, 0];
@@ -45,7 +46,6 @@ export default function DiceCanvas() {
     cameraZoom = 10;
     trayCameraPos = [10, 0, 10];
     trayCameraZoom = 7;
-    //cameraRotation = [0, 0, Math.PI / 8];
   } else if (breakpoint === "md") {
     cameraPosition = -30;
     cameraZoom = 10.5;
@@ -73,6 +73,8 @@ export default function DiceCanvas() {
       cameraRef.current.lookAt(...target);
     }
   }, []);
+
+  // Dice Functions
 
   useEffect(() => {
     console.log("dice updated:", dice);
@@ -107,14 +109,11 @@ export default function DiceCanvas() {
     ;
   };
 
-  const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
-  const toggleRSidebar = () => setIsRSidebarOpen((prev) => !prev);
-
   return (
-    <div className="flex flex-row w-full justify-center">
-      <div className="hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-fit bg-no-repeat">
-        <div className="xl:col-start-3 xl:ml-0 lg:col-start-2 lg:justify-content-end md:col-start-2 row-start-1 right-auto ml-0 items-start">
-          <div className="flex-col h-[600px] bg-opacity-50 justify-end items-center xl:ml-0 lg:ml-16 md:ml-10 ml-4 mt-5">
+    <div className="dice-canvas-container">
+      <div className="desktop-container">
+        <div className="canvas-container">
+          <div className="dice-select-container">
             <Canvas>
               <ambientLight />
               <OrthographicCamera
@@ -123,7 +122,6 @@ export default function DiceCanvas() {
                 position={[0, cameraPosition + 7, 20]}
                 zoom={cameraZoom}
                 rotation={cameraRotation}
-                /* play with zoom and position */
               />
               <DieModel
                 isStatic={true}
@@ -240,14 +238,14 @@ export default function DiceCanvas() {
             </Canvas>
           </div>
         </div>
-        <div className="xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center">
+        <div className="dice-tray-container">
           <Image
             src={diceTray}
-            className="xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] lg:max-h-auto md:max-w-[100%] md:max-h-[100%]"
+            className="dice-tray-image"
             alt="Dice Tray"
           />
         </div>
-        <div className="flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] md:mt-14">
+        <div className="selected-dice">
           <Canvas>
             <ambientLight />
             <OrthographicCamera
@@ -266,7 +264,7 @@ export default function DiceCanvas() {
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
                 scale={150}
-                position={[idx * 3, 0, 0]} // Example: space out dice
+                position={[idx * 3, 0, 0]}
                 onClick={(e) => {
                   handleRemoveDieClick(die.id, e);
                 }}
@@ -278,10 +276,9 @@ export default function DiceCanvas() {
                 }}
               />
             ))}
-            {/* <OrbitControls /> */}
           </Canvas>
         </div>
-        <div className="xl:col-span-1 xl:col-start-8 xl:row-start-1 lg:col-start-9 lg:row-start-1 md:row-start-2 md:col-start-4 md:col-span-3">
+        <div className="button-container">
           <button
             className="roll-button"
             onClick={() => {

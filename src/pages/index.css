@@ -21,6 +21,8 @@ code {
   }
 }
 
+/* Theme Colors */
+
 .theme-default {
   --theme-primary: #c23838;
   --theme-text: white;
@@ -39,8 +41,6 @@ code {
   --theme-bg: #4f3e04;
 }
 
-.themes-container,
-.history-container,
 .sidebar-container,
 .sidebar-container-button {
   background-color: var(--theme-primary);
@@ -52,6 +52,8 @@ code {
   color: var(--theme-text);
 }
 
+/* Main Container and TopBar */
+
 .screen-container {
   @apply flex bg-[#0e102c] transition;
   background-color: var(--theme-bg);
@@ -62,31 +64,83 @@ code {
 .screen-container .page-container .header-container {
   @apply flex flex-col sm:flex-row justify-between items-center w-full p-2;
 }
-.screen-container .page-container .header-container .title {
-  @apply flex justify-center;
+.screen-container .page-container .header-container .halo-halo-image {
+  @apply w-12 sm:w-16 md:w-20 lg:w-24 ml-2;
 }
-.screen-container .page-container .header-container .title .title-text {
-  @apply text-white text-6xl font-[TWBOZ];
-  color: var(--theme-text);
-}
-.screen-container .page-container .header-container .button-container {
-  @apply flex justify-end items-center;
+.screen-container .page-container .header-container .title-text{
+  @apply text-5xl xl:text-7xl sm:text-5xl text-center flex-grow font-[TWBOZ] text-white;
 }
 
-.playmat-container {
+/* Desktop Canvas Dice Select and Tray Containers */
+
+.dice-canvas-container {
   @apply flex flex-row w-full justify-center;
 }
-.playmat-container .playmat-background-container {
-  @apply hidden md:grid grid-cols-9 bg-contain bg-center w-fit h-fit bg-no-repeat;
+.dice-canvas-container .desktop-container {
+  @apply hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-fit bg-no-repeat;
 }
+.dice-canvas-container .desktop-container .canvas-container {
+  @apply xl:col-start-3 xl:ml-0 lg:col-start-2 md:col-start-2 row-start-1 right-auto ml-0 items-start;
+}
+.dice-canvas-container .desktop-container .canvas-container .dice-select-container {
+  @apply flex-col h-[600px] justify-end items-center xl:ml-0 lg:ml-16 md:ml-10 ml-4 mt-5;
+}
+.dice-canvas-container .desktop-container .dice-tray-container {
+  @apply xl:col-start-3 lg:col-start-2 md:col-start-2 row-start-1 xl:col-span-5 lg:col-span-7 md:col-span-7 bg-no-repeat place-items-center;
+}
+.dice-canvas-container .desktop-container .dice-tray-container .dice-tray-image {
+  @apply xl:max-w-[100%] xl:max-h-[100%] lg:max-w-[100%] md:max-w-[100%] md:max-h-[100%];
+}
+.dice-canvas-container .desktop-container .selected-dice {
+  @apply flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] md:mt-14;
+}
+
+/* Roll and Reset Buttons */
+
+.dice-canvas-container .desktop-container .button-container {
+  @apply xl:col-span-1 xl:col-start-8 xl:row-start-1 lg:col-start-9 lg:row-start-1 md:row-start-2 md:col-start-4 md:col-span-3;
+}
+.desktop-container .button-container .roll-button {
+  @apply xl:px-10 xl:py-6 lg:px-8 lg:py-4 px-10 py-6 rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110 cursor-pointer;
+}
+.desktop-container .button-container .reset-button {
+  @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;
+}
+
+/* Mobile Canvas Dice Select and Tray Containers */
+
+.mobile-canvas-container {
+  @apply grid grid-rows-7 grid-cols-9 md:hidden;
+}
+.mobile-canvas-container .mobile-dice-tray {
+  @apply row-start-1 col-start-2 row-span-6 col-span-7 max-[410px]:row-start-1 max-[410px]:col-start-1 max-[410px]:row-span-7 max-[410px]:col-span-9 h-[500px];
+}
+.mobile-canvas-container .mobile-dice-select {
+  @apply relative row-start-1 sm:col-start-3 sm:col-span-5 col-span-7 col-start-2 sm:mt-7 max-[410px]:mt-7 mt-2.5 max-[410px]:col-span-9 max-[410px]:col-start-1 items-center justify-center;
+}
+.mobile-canvas-container .mobile-selected-dice {
+  @apply row-start-2 col-start-3 row-span-4 col-span-5 overflow-y-auto max-[410px]:row-span-5 max-[410px]:col-span-7 max-[410px]:row-start-2 max-[410px]:col-start-2 h-[500px];
+}
+
+
+/* Mobile Roll and Reset Buttons */
+
+.mobile-canvas-container .mobile-button-container {
+  @apply flex row-start-5 col-start-4 col-span-3 mt-10 sm:row-start-5 max-[410px]:col-start-4 max-[410px]:col-span-3 justify-center items-center;
+}
+.mobile-canvas-container .mobile-button-container .roll-button {
+  @apply xl:px-10 xl:py-6 lg:px-8 lg:py-4 px-10 py-6 rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110 cursor-pointer;
+}
+.mobile-canvas-container .mobile-button-container .reset-button {
+  @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;
+}
+
+/* Themes
+
 .playmat-container .playmat-background-container .column-one .themes-container {
   @apply flex flex-col rounded-md w-full h-5/6 text-white p-2 m-1 drop-shadow-lg transition;
 }
-.playmat-container
-  .playmat-background-container
-  .column-one
-  .themes-container
-  .themes-title {
+.playmat-container .playmat-background-container .column-one .themes-container .themes-title {
   @apply flex flex-row w-full h-auto p-3 justify-center text-[30px] font-[TWBOZ];
 }
 .themes-select {
@@ -94,44 +148,4 @@ code {
 }
 .theme-button {
   @apply w-20 h-20 rounded-md text-black hover:scale-105 active:scale-110 transition font-[TWBOZ] drop-shadow-lg cursor-pointer;
-}
-.roll-button {
-  @apply xl:px-10 xl:py-6 lg:px-8 lg:py-4 px-10 py-6 rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-green-700 hover:scale-105 active:scale-110 cursor-pointer;
-}
-.reset-button {
-  @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;
-}
-.playmat-container .playmat-background-container .dice-container {
-  @apply flex flex-col col-span-1 p-5 items-center place-content-center place-items-center ml-5 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
-}
-
-.display-dice-container {
-  @apply flex flex-wrap gap-2 h-fit overflow-y-auto w-full justify-center items-start;
-}
-
-.playmat-container .playmat-background-container .column-three {
-  @apply flex-col col-span-2 p-3 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
-}
-.playmat-container
-  .playmat-background-container
-  .column-three
-  .history-container {
-  @apply flex flex-col rounded-md w-full h-full text-white p-2 drop-shadow-lg transition;
-}
-.playmat-container
-  .playmat-background-container
-  .column-three
-  .history-container
-  .history-title {
-  @apply flex flex-row w-full h-auto p-3 justify-center text-[30px] font-[TWBOZ];
-}
-.playmat-container
-  .playmat-background-container
-  .column-three
-  .history-container
-  .history-details {
-  @apply flex flex-row w-full h-full p-3;
-}
-.dummy-col {
-  @apply 2xl:max-h-[100%] xl:max-h-[90%] lg:max-h-[80%];
-}
+} */

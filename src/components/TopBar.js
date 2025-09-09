@@ -16,12 +16,12 @@ export default function TopBar() {
             alt="Halo Halo Logo"
             width={80}
             height={80}
-            className="w-12 sm:w-16 md:w-20 lg:w-24 ml-2"
+            className="halo-halo-image"
           />
         </div>
         <div className="flex items-center">
           <h1
-            className={`theme-${themeName} text-5xl xl:text-7xl sm:text-5xl text-center flex-grow font-[TWBOZ] text-white`}
+            className={`theme-${themeName} title-text`}
           >
             DICE ROLLER
           </h1>

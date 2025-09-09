@@ -1,20 +1,17 @@
-import Sidebar from "./Sidebar";
-import RSidebar from "./RSidebar";
-import Image from "next/image";
+import d20 from "../assets/d20.svg";
+import restart from "../assets/restart.svg";
 import { useState, useContext, useRef, useEffect } from "react";
 import { DieContext } from "../context/DieProvider";
 import { ThemeContext } from "../context/ThemeContext";
-import { useDiceRenderer } from "../hooks/useDiceRenderer";
-import DieComponent from "../components/DieComponent";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, OrthographicCamera } from "@react-three/drei";
-import degToRad from "../domain/functions/degToRad";
-import useBreakpoint from "./useBreakpoint";
+import { OrthographicCamera } from "@react-three/drei";
+import Image from "next/image";
 import DieModel from "./DieModel";
-import d20 from "../assets/d20.svg";
-import restart from "../assets/restart.svg";
+import degToRad from "../domain/functions/degToRad";
 import themes from "../context/themes";
+import useBreakpoint from "./useBreakpoint";
+import RSidebar from "./RSidebar";
 
 export default function Mobile() {
   const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
@@ -35,10 +32,12 @@ export default function Mobile() {
   
     const cameraRef = useRef();
     const breakpoint = useBreakpoint();
-    const target = [0, -15, 0]; // where we want to look
+    const target = [0, -15, 0];
 
     const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
   
+    // 3D Camera Pos/Zoom Values
+
     let cameraPosition = [0, -15, 20];
     let cameraZoom = 20;
     let cameraRotation = [0, 0, Math.PI / 2];
@@ -66,6 +65,8 @@ export default function Mobile() {
       cameraZoom = 15;
       trayCameraZoom = 7;
     }
+
+    // Dice Functions
   
     useEffect(() => {
       if (cameraRef.current) {
@@ -105,21 +106,20 @@ export default function Mobile() {
 
   return (
     <>
-      <section className="grid grid-rows-7 grid-cols-9 md:hidden">
+      <section className="mobile-canvas-container">
         <RSidebar
           isOpen={isRSidebarOpen}
           toggleSidebar={toggleRSidebar}
           history={history}
         />
-        <div className="row-start-1 col-start-2 row-span-6 col-span-7 max-[410px]:row-start-1 max-[410px]:col-start-1 max-[410px]:row-span-7 max-[410px]:col-span-9 h-[500px]">
+        <div className="mobile-dice-tray">
           <Image
             src={theme.rotatedBackground}
             className="w-full h-fit"
             alt="Dice Tray"
           />
         </div>
-        <div className="relative row-start-1 sm:col-start-3 sm:col-span-5 col-span-7 col-start-2 sm:mt-7 max-[410px]:mt-7 mt-2.5 max-[410px]:col-span-9 max-[410px]:col-start-1 items-center justify-center ">
-          <div className="relative">
+        <div className="mobile-dice-select">
               <Canvas>
               <ambientLight />
               <OrthographicCamera
@@ -128,7 +128,6 @@ export default function Mobile() {
                 position={[-3, cameraPosition - 4, 20]}
                 zoom={cameraZoom}
                 rotation={cameraRotation}
-                /* play with zoom and position */
               />
               <DieModel
                 isStatic={true}
@@ -243,9 +242,8 @@ export default function Mobile() {
                 }}
               />
             </Canvas>
-          </div>
         </div>
-        <div className="row-start-2 col-start-3 row-span-4 col-span-5 overflow-y-auto max-[410px]:row-span-5 max-[410px]:col-span-7 max-[410px]:row-start-2 max-[410px]:col-start-2 h-[500px]">
+        <div className="mobile-selected-dice">
           <Canvas>
             <ambientLight />
             <OrthographicCamera
@@ -264,7 +262,7 @@ export default function Mobile() {
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
                 scale={150}
-                position={[idx * 3, 0, 0]} // Example: space out dice
+                position={[idx * 3, 0, 0]}
                 onClick={(e) => {
                   handleRemoveDieClick(die.id, e);
                 }}
@@ -276,10 +274,9 @@ export default function Mobile() {
                 }}
               />
             ))}
-            {/* <OrbitControls /> */}
           </Canvas>
         </div>
-        <div className="flex row-start-5 col-start-4 col-span-3 mt-10 sm:row-start-5 max-[410px]:col-start-4 max-[410px]:col-span-3 justify-center items-center">
+        <div className="mobile-button-container">
           <button
             className="roll-button"
             onClick={() => {
