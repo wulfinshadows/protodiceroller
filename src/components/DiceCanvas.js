@@ -13,6 +13,14 @@ import useBreakpoint from "./useBreakpoint";
 import RSidebar from "./RSidebar";
 import Mobile from "./Mobile";
 
+function getGridPosition(index, cols = 4, spacing = 3) {
+  const row = Math.floor(index / cols);
+  const col = index % cols;
+  const x = col * spacing;
+  const y = -row * spacing;
+  return [x, y, 0];
+}
+
 export default function DiceCanvas() {
   const {
     dice,
@@ -34,7 +42,8 @@ export default function DiceCanvas() {
   const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
 
   // 3D Camera Pos/Zoom Values
-  
+
+  let cols = 6;
   let cameraPosition = 0;
   let cameraZoom = 20;
   let trayCameraPos = [0, 0, 0];
@@ -44,28 +53,33 @@ export default function DiceCanvas() {
   if (breakpoint === "base") {
     cameraPosition = -10;
     cameraZoom = 10;
-    trayCameraPos = [10, 0, 10];
+    trayCameraPos = [12, 0, 10];
     trayCameraZoom = 7;
+    cols = 5;
   } else if (breakpoint === "md") {
     cameraPosition = -30;
     cameraZoom = 10.5;
     trayCameraPos = [8, -7, 10];
-    trayCameraZoom = 17;
+    trayCameraZoom = 19;
+    cols = 6;
   } else if (breakpoint === "lg") {
     cameraPosition = -23;
     cameraZoom = 13;
     trayCameraPos = [10, -10, 10];
-    trayCameraZoom = 18;
+    trayCameraZoom = 21;
+    cols = 7;
   } else if (breakpoint === "xl") {
     cameraPosition = -23;
     cameraZoom = 12;
-    trayCameraPos = [10, -10, 10];
-    trayCameraZoom = 18;
+    trayCameraPos = [12, -10, 10];
+    trayCameraZoom = 20;
+    cols = 8;
   } else if (breakpoint === "xxl") {
     cameraPosition = -21;
     cameraZoom = 15;
-    trayCameraPos = [10, -10, 10];
-    trayCameraZoom = 20;
+    trayCameraPos = [13, -10, 10];
+    trayCameraZoom = 22;
+    cols = 8;
   }
 
   useEffect(() => {
@@ -264,7 +278,7 @@ export default function DiceCanvas() {
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
                 scale={150}
-                position={[idx * 3, 0, 0]}
+                position={getGridPosition(idx, cols, 3)}
                 onClick={(e) => {
                   handleRemoveDieClick(die.id, e);
                 }}

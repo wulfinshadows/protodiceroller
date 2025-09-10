@@ -13,6 +13,14 @@ import themes from "../context/themes";
 import useBreakpoint from "./useBreakpoint";
 import RSidebar from "./RSidebar";
 
+function getGridPosition(index, cols = 4, spacing = 3) {
+  const row = Math.floor(index / cols);
+  const col = index % cols;
+  const x = col * spacing;
+  const y = -row * spacing;
+  return [x, y, 0];
+}
+
 export default function Mobile() {
   const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
   const toggleRSidebar = () => setIsRSidebarOpen((prev) => !prev);
@@ -38,6 +46,7 @@ export default function Mobile() {
   
     // 3D Camera Pos/Zoom Values
 
+    let cols = 6;
     let cameraPosition = [0, -15, 20];
     let cameraZoom = 20;
     let cameraRotation = [0, 0, Math.PI / 2];
@@ -48,23 +57,17 @@ export default function Mobile() {
       cameraZoom = 10;
       cameraRotation = [0, 0, Math.PI / -2];
       trayCameraZoom = 16;
+      cols = 5;
     } else if (breakpoint === "md") {
       cameraPosition = -30;
       cameraZoom = 10.5;
       trayCameraZoom = 17;
+      cols = 5;
     } else if (breakpoint === "lg") {
       cameraPosition = -20.5;
       cameraZoom = 14;
-      trayCameraZoom = 7;
-    } else if (breakpoint === "xl") {
-      cameraPosition = -23;
-      cameraZoom = 12;
-      trayCameraZoom = 7;
-    } else if (breakpoint === "xxl") {
-      cameraPosition = -19;
-      cameraZoom = 15;
-      trayCameraZoom = 7;
-    }
+      trayCameraZoom = 10;
+    } 
 
     // Dice Functions
   
@@ -249,7 +252,7 @@ export default function Mobile() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={[7, -12, 20]}
+              position={[6, -13, 20]}
               zoom={trayCameraZoom}
             />
 
@@ -262,7 +265,7 @@ export default function Mobile() {
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
                 scale={150}
-                position={[idx * 3, 0, 0]}
+                position={getGridPosition(idx, cols, 3)}
                 onClick={(e) => {
                   handleRemoveDieClick(die.id, e);
                 }}
