@@ -7,7 +7,6 @@
 
 .button-box button {
   @apply h-auto w-fit sm:rounded-[20px] rounded-[5px] p-1 sm:p-3 m-0.5 sm:m-1 md:m-2 hover:scale-105 transition cursor-pointer;
-  background-color: var(--theme-primary);
-  color: var(--theme-text);
+  background-color: var(--color-primary);
+  color: var(--color-text);
 }
-
