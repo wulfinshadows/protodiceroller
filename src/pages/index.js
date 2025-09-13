@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import Playmat from "../components/Playmat";
 import TopBar from "../components/TopBar";
 import ThreeDTest from "../components/ThreeDTest";
 import DiceCanvas from "../components/DiceCanvas";

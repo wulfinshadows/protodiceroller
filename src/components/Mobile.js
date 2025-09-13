@@ -1,5 +1,3 @@
-import d20 from "../assets/d20.svg";
-import restart from "../assets/restart.svg";
 import { useState, useContext, useRef, useEffect } from "react";
 import { DieContext } from "../context/DieProvider";
 import { ThemeContext } from "../context/ThemeContext";
@@ -29,83 +27,84 @@ export default function Mobile() {
   const theme = themes[themeName];
 
   const {
-      dice,
-      handleAddDie,
-      handleRemoveDie,
-      handleRollDice,
-      handleResetDice,
-    } = useContext(DieContext);
-  
-    const diceRefs = useRef({});
-  
-    const cameraRef = useRef();
-    const breakpoint = useBreakpoint();
-    const target = [0, -15, 0];
+    dice,
+    handleAddDie,
+    handleRemoveDie,
+    handleRollDice,
+    handleResetDice,
+  } = useContext(DieContext);
 
-    const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
-  
-    // 3D Camera Pos/Zoom Values
+  const diceRefs = useRef({});
 
-    let cols = 6;
-    let cameraPosition = [0, -15, 20];
-    let cameraZoom = 20;
-    let cameraRotation = [0, 0, Math.PI / 2];
-    let trayCameraZoom = 0;
-  
-    if (breakpoint === "base") {
-      cameraPosition = -10;
-      cameraZoom = 10;
-      cameraRotation = [0, 0, Math.PI / -2];
-      trayCameraZoom = 16;
-      cols = 5;
-    } else if (breakpoint === "md") {
-      cameraPosition = -30;
-      cameraZoom = 10.5;
-      trayCameraZoom = 17;
-      cols = 5;
-    } else if (breakpoint === "lg") {
-      cameraPosition = -20.5;
-      cameraZoom = 14;
-      trayCameraZoom = 10;
-    } 
+  const cameraRef = useRef();
+  const breakpoint = useBreakpoint();
+  const target = [0, -15, 0];
 
-    // Dice Functions
-  
-    useEffect(() => {
-      if (cameraRef.current) {
-        cameraRef.current.lookAt(...target);
+  const { history, updateHistoryJson, updateHistoryState } =
+    useCollectHistory();
+
+  // 3D Camera Pos/Zoom Values
+
+  let cols = 6;
+  let cameraPosition = [0, -15, 20];
+  let cameraZoom = 20;
+  let cameraRotation = [0, 0, Math.PI / 2];
+  let trayCameraZoom = 0;
+
+  if (breakpoint === "base") {
+    cameraPosition = -10;
+    cameraZoom = 10;
+    cameraRotation = [0, 0, Math.PI / -2];
+    trayCameraZoom = 16;
+    cols = 5;
+  } else if (breakpoint === "md") {
+    cameraPosition = -30;
+    cameraZoom = 10.5;
+    trayCameraZoom = 17;
+    cols = 5;
+  } else if (breakpoint === "lg") {
+    cameraPosition = -20.5;
+    cameraZoom = 14;
+    trayCameraZoom = 10;
+  }
+
+  // Dice Functions
+
+  useEffect(() => {
+    if (cameraRef.current) {
+      cameraRef.current.lookAt(...target);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("dice updated:", dice);
+  }, [dice]);
+
+  const handleAddDieClick = (dieType, e) => {
+    e.stopPropagation();
+    handleAddDie(dieType);
+    console.log(dice);
+  };
+
+  const handleRemoveDieClick = (index, e) => {
+    e.stopPropagation();
+    handleRemoveDie(index);
+    console.log(dice);
+  };
+
+  const handleRollDiceClick = async () => {
+    const updatedDice = await handleRollDice();
+    updatedDice.forEach((die) => {
+      const ref = diceRefs.current[die.id];
+      if (ref && ref.roll) {
+        ref.roll(die.getDieValue());
       }
-    }, []);
-  
-    useEffect(() => {
-      console.log("dice updated:", dice);
-    }, [dice]);
-  
-    const handleAddDieClick = (dieType, e) => {
-      e.stopPropagation();
-      handleAddDie(dieType);
-      console.log(dice);
-    };
-  
-    const handleRemoveDieClick = (index, e) => {
-      e.stopPropagation();
-      handleRemoveDie(index);
-      console.log(dice);
-    };
-  
-    const handleRollDiceClick = async () => {
-      const updatedDice = await handleRollDice();
-      updatedDice.forEach((die) => {
-        const ref = diceRefs.current[die.id];
-        if (ref && ref.roll) {
-          ref.roll(die.getDieValue());
-        }
-      });
-      console.log("🎲 Rolled dice:", updatedDice);
+    });
+    console.log("🎲 Rolled dice:", updatedDice);
 
-      updateHistoryJson(updatedDice);
-      updateHistoryState();
-    };
+    updateHistoryJson(updatedDice);
+    updateHistoryState();
+  };
 
   return (
     <>
@@ -118,133 +117,135 @@ export default function Mobile() {
         <div className="mobile-dice-tray">
           <Image
             src={theme.rotatedBackground}
+            width={1080}
+            height={1454}
             className="w-full h-fit"
             alt="Dice Tray"
           />
         </div>
         <div className="mobile-dice-select">
-              <Canvas>
-              <ambientLight />
-              <OrthographicCamera
-                makeDefault
-                ref={cameraRef}
-                position={[-3, cameraPosition - 4, 20]}
-                zoom={cameraZoom}
-                rotation={cameraRotation}
-              />
-              <DieModel
-                isStatic={true}
-                dieType={4}
-                scale={200}
-                position={[0, 0, 0]}
-                onClick={(e) => {
-                  handleAddDieClick(4, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-              <DieModel
-                isStatic={true}
-                dieType={6}
-                dieValue={1}
-                scale={200}
-                position={[0, -5, 0]}
-                rotation={[0, Math.PI / 2, 0]}
-                onClick={(e) => {
-                  handleAddDieClick(6, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-              <DieModel
-                isStatic={true}
-                dieType={8}
-                scale={200}
-                position={[0, -10, 0]}
-                rotation={[degToRad(21.33), degToRad(-44.98), degToRad(0)]}
-                onClick={(e) => {
-                  handleAddDieClick(8, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-              <DieModel
-                dieType={10}
-                isStatic={true}
-                scale={200}
-                position={[0, -15, 0]}
-                rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
-                onClick={(e) => {
-                  handleAddDieClick(10, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-              <DieModel
-                isStatic={true}
-                dieType={12}
-                scale={200}
-                position={[0, -20, 0]}
-                rotation={[degToRad(123.17), degToRad(-0.96), degToRad(-180.0)]}
-                onClick={(e) => {
-                  handleAddDieClick(12, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-              <DieModel
-                isStatic={true}
-                dieType={20}
-                scale={200}
-                position={[0, -25, 0]}
-                rotation={[degToRad(-101.04), degToRad(43.75), degToRad(18.02)]}
-                onClick={(e) => {
-                  handleAddDieClick(20, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-              <DieModel
-                isStatic={true}
-                dieType={100}
-                scale={200}
-                position={[0, -30, 0]}
-                rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
-                onClick={(e) => {
-                  handleAddDieClick(100, e);
-                }}
-                onPointerOver={(e) => {
-                  document.body.style.cursor = "pointer";
-                }}
-                onPointerOut={(e) => {
-                  document.body.style.cursor = "default";
-                }}
-              />
-            </Canvas>
+          <Canvas>
+            <ambientLight />
+            <OrthographicCamera
+              makeDefault
+              ref={cameraRef}
+              position={[-3, cameraPosition - 4, 20]}
+              zoom={cameraZoom}
+              rotation={cameraRotation}
+            />
+            <DieModel
+              isStatic={true}
+              dieType={4}
+              scale={200}
+              position={[0, 0, 0]}
+              onClick={(e) => {
+                handleAddDieClick(4, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+            <DieModel
+              isStatic={true}
+              dieType={6}
+              dieValue={1}
+              scale={200}
+              position={[0, -5, 0]}
+              rotation={[0, Math.PI / 2, 0]}
+              onClick={(e) => {
+                handleAddDieClick(6, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+            <DieModel
+              isStatic={true}
+              dieType={8}
+              scale={200}
+              position={[0, -10, 0]}
+              rotation={[degToRad(21.33), degToRad(-44.98), degToRad(0)]}
+              onClick={(e) => {
+                handleAddDieClick(8, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+            <DieModel
+              dieType={10}
+              isStatic={true}
+              scale={200}
+              position={[0, -15, 0]}
+              rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
+              onClick={(e) => {
+                handleAddDieClick(10, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+            <DieModel
+              isStatic={true}
+              dieType={12}
+              scale={200}
+              position={[0, -20, 0]}
+              rotation={[degToRad(123.17), degToRad(-0.96), degToRad(-180.0)]}
+              onClick={(e) => {
+                handleAddDieClick(12, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+            <DieModel
+              isStatic={true}
+              dieType={20}
+              scale={200}
+              position={[0, -25, 0]}
+              rotation={[degToRad(-101.04), degToRad(43.75), degToRad(18.02)]}
+              onClick={(e) => {
+                handleAddDieClick(20, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+            <DieModel
+              isStatic={true}
+              dieType={100}
+              scale={200}
+              position={[0, -30, 0]}
+              rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
+              onClick={(e) => {
+                handleAddDieClick(100, e);
+              }}
+              onPointerOver={(e) => {
+                document.body.style.cursor = "pointer";
+              }}
+              onPointerOut={(e) => {
+                document.body.style.cursor = "default";
+              }}
+            />
+          </Canvas>
         </div>
         <div className="mobile-selected-dice">
           <Canvas>
@@ -286,8 +287,13 @@ export default function Mobile() {
               handleRollDiceClick();
             }}
           >
-            <Image width={40} height={40} src={d20} alt="Roll Dice"/>
-              ROLL
+            <Image
+              width={40}
+              height={40}
+              src="/assets/d20.svg"
+              alt="Roll Dice"
+            />
+            ROLL
           </button>
           <button
             className="reset-button"
@@ -295,8 +301,13 @@ export default function Mobile() {
               handleResetDice();
             }}
           >
-            <Image width={20} height={20} src={restart} alt="Roll Dice" />
-              RESET
+            <Image
+              width={20}
+              height={20}
+              src="assets/restart.svg"
+              alt="Roll Dice"
+            />
+            RESET
           </button>
         </div>
       </section>

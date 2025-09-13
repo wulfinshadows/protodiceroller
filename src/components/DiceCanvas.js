@@ -1,5 +1,3 @@
-import d20 from "../assets/d20.svg";
-import restart from "../assets/restart.svg";
 import { useContext, useRef, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
@@ -7,7 +5,6 @@ import { DieContext } from "../context/DieProvider";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 import Image from "next/image";
 import DieModel from "./DieModel";
-import diceTray from "../assets/SpiritTray.png";
 import degToRad from "../domain/functions/degToRad";
 import useBreakpoint from "./useBreakpoint";
 import RSidebar from "./RSidebar";
@@ -39,7 +36,8 @@ export default function DiceCanvas() {
   const [isRSidebarOpen, setIsRSidebarOpen] = useState(false);
   const toggleRSidebar = () => setIsRSidebarOpen((prev) => !prev);
 
-  const { history, updateHistoryJson, updateHistoryState } = useCollectHistory();
+  const { history, updateHistoryJson, updateHistoryState } =
+    useCollectHistory();
 
   // 3D Camera Pos/Zoom Values
 
@@ -120,7 +118,6 @@ export default function DiceCanvas() {
 
     updateHistoryJson(updatedDice);
     updateHistoryState();
-    ;
   };
 
   return (
@@ -254,7 +251,9 @@ export default function DiceCanvas() {
         </div>
         <div className="dice-tray-container">
           <Image
-            src={diceTray}
+            src="/assets/SpiritTray.png"
+            width={1440}
+            height={1061}
             className="dice-tray-image"
             alt="Dice Tray"
           />
@@ -299,7 +298,12 @@ export default function DiceCanvas() {
               handleRollDiceClick();
             }}
           >
-            <Image width={40} height={40} src={d20} alt="Roll Dice" />
+            <Image
+              width={40}
+              height={40}
+              src="assets/d20.svg"
+              alt="Roll Dice"
+            />
             ROLL
           </button>
           <button
@@ -308,11 +312,20 @@ export default function DiceCanvas() {
               handleResetDice();
             }}
           >
-            <Image width={20} height={20} src={restart} alt="Roll Dice" />
+            <Image
+              width={20}
+              height={20}
+              src="assets/restart.svg"
+              alt="Roll Dice"
+            />
             RESET
           </button>
         </div>
-        <RSidebar isOpen={isRSidebarOpen} toggleSidebar={toggleRSidebar} history={history}/>
+        <RSidebar
+          isOpen={isRSidebarOpen}
+          toggleSidebar={toggleRSidebar}
+          history={history}
+        />
       </div>
       <Mobile />
     </div>
