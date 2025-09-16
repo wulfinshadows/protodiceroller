@@ -28,22 +28,67 @@
     --text-color: white;
     --bg: #0e102c;
   }
-  .ocean {
-    --primary: #3b82f6;
-    --text-color: white;
-    --bg: #146264;
-  }
-  .sand {
-    --primary: #facc15;
-    --text-color: white;
-    --bg: #4f3e04;
-  }
+
   body {
     margin: 0;
   }
 }
 
-/* Theme Colors */
+@layer components {
+  /* Index Page Containers */
+  .screen-container {
+    @apply flex bg-[#0e102c] transition;
+  }
+  .screen-container .page-container {
+    @apply flex-col w-full h-full;
+  }
+  /* TopBar Containers */
+  .topbar-container {
+    @apply flex flex-row justify-between items-center w-full p-2 my-4;
+  }
+  .topbar-container .halo-halo-image {
+    @apply w-12 sm:w-16 md:w-20 lg:w-24 ml-2;
+  }
+  .topbar-container .title-text {
+    @apply text-5xl md:text-6xl lg:text-8xl text-center flex-grow font-[TWBOZ] text-white;
+  }
+  .info-box {
+    @apply flex flex-row items-center justify-end;
+  }
+
+  .info-box button {
+    @apply h-auto w-fit sm:rounded-[20px] rounded-[5px] p-1 sm:p-3 m-0.5 sm:m-1 md:m-2 hover:scale-105 transition cursor-pointer;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+  }
+  /* HowTo Containers */
+  .how-to-container {
+    @apply fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-6 md:p-0;
+  }
+
+  .how-to-container div {
+    @apply bg-gray-500 rounded-xl p-6 max-w-5xl w-full lg:w-1/2 lg:p-12 relative text-white;
+  }
+
+  .how-to-container div h2 {
+    @apply text-white text-4xl lg:text-6xl font-bold;
+  }
+
+  .how-to-container div hr {
+    @apply border-t-4 border-white my-4;
+  }
+  .how-to-container div li {
+    @apply text-lg md:text-3xl mb-4;
+  }
+
+  .how-to-container div button {
+    @apply absolute top-2 right-4 size-4 md:text-2xl lg:text-3xl lg:size-8 text-black font-bold cursor-pointer;
+  }
+  /* Canvas Containers */
+  .canvas-container {
+    @apply w-full h-full justify-center items-center;
+  }
+}
 
 .sidebar-container,
 .sidebar-container-button {
@@ -54,25 +99,6 @@
 .history-details-container {
   background-color: var(--color-bg);
   color: var(--color-text);
-}
-
-/* Main Container and TopBar */
-
-.screen-container {
-  @apply flex bg-[#0e102c] transition;
-  background-color: var(--color-bg);
-}
-.screen-container .page-container {
-  @apply flex-col w-full h-full;
-}
-.screen-container .page-container .header-container {
-  @apply flex flex-col sm:flex-row justify-between items-center w-full p-2;
-}
-.screen-container .page-container .header-container .halo-halo-image {
-  @apply w-12 sm:w-16 md:w-20 lg:w-24 ml-2;
-}
-.screen-container .page-container .header-container .title-text {
-  @apply text-5xl xl:text-7xl sm:text-5xl text-center flex-grow font-[TWBOZ] text-white;
 }
 
 /* Desktop Canvas Dice Select and Tray Containers */

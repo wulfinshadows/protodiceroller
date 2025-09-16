@@ -1,9 +1,6 @@
-import styles from "./HowTo.module.css";
-
-function HowTo({ onExit = () => {} }) {
-  console.log(styles);
+export default function HowTo({ onExit = () => {} }) {
   return (
-    <div className={styles["how-to-container"]}>
+    <div className="how-to-container">
       <div>
         <h2 className="font-[TWBOZ]">HOW TO PLAY</h2>
         <hr></hr>
@@ -17,5 +14,3 @@ function HowTo({ onExit = () => {} }) {
     </div>
   );
 }
-
-export default HowTo;

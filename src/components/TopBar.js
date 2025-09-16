@@ -2,17 +2,15 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import HowTo from "./HowTo";
 import Image from "next/image";
-import Buttons from "./Buttons";
 
 export default function TopBar() {
   const [showModal, setShowModal] = useState(false);
-  const { themeName } = useContext(ThemeContext);
   return (
     <>
-      <nav className="header-container">
+      <nav className="topbar-container">
         <div className="flex-shrink-0">
           <Image
-            src={"/HaloHaloApp.png"}
+            src="/HaloHaloApp.png"
             alt="Halo Halo Logo"
             width={80}
             height={80}
@@ -20,14 +18,18 @@ export default function TopBar() {
           />
         </div>
         <div className="flex items-center">
-          <h1
-            className={`theme-${themeName} title-text`}
-          >
-            DICE ROLLER
-          </h1>
+          <h1 className="title-text">DICE ROLLER</h1>
         </div>
-        <div className="flex-shrink-0">
-          <Buttons onInfoClick={() => setShowModal(true)} />
+        <div className="info-box flex-shrink-0">
+          <button onClick={setShowModal.bind(this, true)}>
+            <Image
+              src="assets/information.svg"
+              className="w-6 sm:w-8 md:w-10 lg:w-12"
+              alt="Information"
+              width={50}
+              height={50}
+            />
+          </button>
         </div>
       </nav>
       {showModal && <HowTo onExit={() => setShowModal(false)} />}

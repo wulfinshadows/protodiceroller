@@ -331,14 +331,3 @@ export default function DiceCanvas() {
     </div>
   );
 }
-
-{
-  /* {dice.map((die, idx) => (
-          <DieModel
-            key={idx}
-            dieType={die.getDieType()}
-            scale={500}
-            position={[idx * 3, 0, 0]} // Example: space out dice
-          />
-        ))} */
-}
