@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import { DieContext } from "../context/DieProvider";
 import { useCollectHistory } from "../hooks/useCollectHistory";
+import MediaQuery from "react-responsive";
 import Image from "next/image";
 import DieModel from "./DieModel";
 import degToRad from "../domain/functions/degToRad";
@@ -131,8 +132,7 @@ export default function DiceCanvas() {
         <Image
           src="/assets/SpiritTrayRotated.png"
           alt="Dice Tray"
-          width={1080}
-          height={1454}
+          fill
           className="tray-image"
         />
         <div className="dice-select">
