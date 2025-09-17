@@ -28,6 +28,7 @@
     --text-color: white;
     --bg: #0e102c;
     margin: 0;
+    @apply h-full w-full;
   }
 
   body {
@@ -38,7 +39,7 @@
 @layer components {
   /* Index Page Container */
   .screen-container {
-    @apply flex flex-col items-center bg-[#0e102c] w-full min-h-screen transition;
+    @apply flex flex-col items-center bg-[#0e102c] min-w-[320px] min-h-[568px] w-full h-screen transition;
   }
 
   /* TopBar Containers */
@@ -89,7 +90,7 @@
     sm:max-w-xl;
   }
   .dice-tray {
-    @apply relative flex flex-col grow justify-start max-w-[390px] w-screen max-h-[588px] items-center
+    @apply relative flex flex-col grow justify-start min-w-[390px] w-screen max-h-[588px] items-center
     sm:max-w-[600px] sm:max-h-[900px]
     md:max-w-[800px] md:max-h-[1200px]
     lg:max-w-[1000px] lg:max-h-[1500px];

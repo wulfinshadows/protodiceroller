@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import { DieContext } from "../context/DieProvider";
 import { useCollectHistory } from "../hooks/useCollectHistory";
-import MediaQuery from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 import DieModel from "./DieModel";
 import degToRad from "../domain/functions/degToRad";
@@ -27,6 +27,11 @@ export default function DiceCanvas() {
     handleRollDice,
     handleResetDice,
   } = useContext(DieContext);
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
 
   const diceRefs = useRef({});
 
@@ -121,6 +126,8 @@ export default function DiceCanvas() {
     updateHistoryState();
   };
 
+  if (!mounted) return null;
+
   return (
     <div className="canvas-container">
       <RSidebar
@@ -130,8 +137,12 @@ export default function DiceCanvas() {
       />
       <div className="dice-tray">
         <Image
-          src="/assets/SpiritTrayRotated.png"
-          alt="Dice Tray"
+          src={
+            isPortrait
+              ? "/assets/SpiritTrayRotated.png"
+              : "/assets/SpiritTray.png"
+          }
+          alt={isPortrait ? "Portrait Dice Tray" : "Landscape Dice Tray"}
           fill
           className="tray-image"
         />

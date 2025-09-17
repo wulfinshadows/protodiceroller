@@ -10,7 +10,7 @@ export default function TopBar() {
       <nav className="topbar-container">
         <div className="flex-shrink-0">
           <Image
-            src="/HaloHaloApp.png"
+            src="/assets/HaloHaloApp.png"
             alt="Halo Halo Logo"
             width={80}
             height={80}
