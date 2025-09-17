@@ -108,167 +108,37 @@ export default function Mobile() {
 
   return (
     <>
-      <section className="mobile-canvas-container">
+      <div className="canvas-container">
         <RSidebar
           isOpen={isRSidebarOpen}
           toggleSidebar={toggleRSidebar}
           history={history}
         />
-        <div className="mobile-dice-tray">
+        <div className="dice-tray">
           <Image
-            src={theme.rotatedBackground}
+            src="/assets/SpiritTrayRotated.png"
+            alt="Dice Tray"
             width={1080}
             height={1454}
-            className="w-full h-fit"
-            alt="Dice Tray"
+            className="tray-image"
           />
-        </div>
-        <div className="mobile-dice-select">
-          <Canvas>
-            <ambientLight />
-            <OrthographicCamera
-              makeDefault
-              ref={cameraRef}
-              position={[-3, cameraPosition - 4, 20]}
-              zoom={cameraZoom}
-              rotation={cameraRotation}
-            />
-            <DieModel
-              isStatic={true}
-              dieType={4}
-              scale={200}
-              position={[0, 0, 0]}
-              onClick={(e) => {
-                handleAddDieClick(4, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-            <DieModel
-              isStatic={true}
-              dieType={6}
-              dieValue={1}
-              scale={200}
-              position={[0, -5, 0]}
-              rotation={[0, Math.PI / 2, 0]}
-              onClick={(e) => {
-                handleAddDieClick(6, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-            <DieModel
-              isStatic={true}
-              dieType={8}
-              scale={200}
-              position={[0, -10, 0]}
-              rotation={[degToRad(21.33), degToRad(-44.98), degToRad(0)]}
-              onClick={(e) => {
-                handleAddDieClick(8, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-            <DieModel
-              dieType={10}
-              isStatic={true}
-              scale={200}
-              position={[0, -15, 0]}
-              rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
-              onClick={(e) => {
-                handleAddDieClick(10, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-            <DieModel
-              isStatic={true}
-              dieType={12}
-              scale={200}
-              position={[0, -20, 0]}
-              rotation={[degToRad(123.17), degToRad(-0.96), degToRad(-180.0)]}
-              onClick={(e) => {
-                handleAddDieClick(12, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-            <DieModel
-              isStatic={true}
-              dieType={20}
-              scale={200}
-              position={[0, -25, 0]}
-              rotation={[degToRad(-101.04), degToRad(43.75), degToRad(18.02)]}
-              onClick={(e) => {
-                handleAddDieClick(20, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-            <DieModel
-              isStatic={true}
-              dieType={100}
-              scale={200}
-              position={[0, -30, 0]}
-              rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
-              onClick={(e) => {
-                handleAddDieClick(100, e);
-              }}
-              onPointerOver={(e) => {
-                document.body.style.cursor = "pointer";
-              }}
-              onPointerOut={(e) => {
-                document.body.style.cursor = "default";
-              }}
-            />
-          </Canvas>
-        </div>
-        <div className="mobile-selected-dice">
-          <Canvas>
-            <ambientLight />
-            <OrthographicCamera
-              makeDefault
-              ref={cameraRef}
-              position={[6, -13, 20]}
-              zoom={trayCameraZoom}
-            />
-
-            {dice.map((die, idx) => (
+          <div className="dice-select">
+            <Canvas>
+              <ambientLight />
+              <OrthographicCamera
+                makeDefault
+                ref={cameraRef}
+                position={[-1, -14, 20]}
+                zoom={8}
+                rotation={cameraRotation}
+              />
               <DieModel
-                key={die.id}
-                ref={(el) => {
-                  if (el) diceRefs.current[die.id] = el;
-                }}
-                dieType={die.getDieType()}
-                dieValue={die.getDieValue()}
-                scale={150}
-                position={getGridPosition(idx, cols, 3)}
+                isStatic={true}
+                dieType={4}
+                scale={250}
+                position={[0, 0, 0]}
                 onClick={(e) => {
-                  handleRemoveDieClick(die.id, e);
+                  handleAddDieClick(4, e);
                 }}
                 onPointerOver={(e) => {
                   document.body.style.cursor = "pointer";
@@ -277,10 +147,141 @@ export default function Mobile() {
                   document.body.style.cursor = "default";
                 }}
               />
-            ))}
-          </Canvas>
+              <DieModel
+                isStatic={true}
+                dieType={6}
+                dieValue={1}
+                scale={250}
+                position={[0, -5, 0]}
+                rotation={[0, Math.PI / 2, 0]}
+                onClick={(e) => {
+                  handleAddDieClick(6, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
+              />
+              <DieModel
+                isStatic={true}
+                dieType={8}
+                scale={250}
+                position={[0, -10, 0]}
+                rotation={[degToRad(21.33), degToRad(-44.98), degToRad(0)]}
+                onClick={(e) => {
+                  handleAddDieClick(8, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
+              />
+              <DieModel
+                dieType={10}
+                isStatic={true}
+                scale={250}
+                position={[0, -15, 0]}
+                rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
+                onClick={(e) => {
+                  handleAddDieClick(10, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
+              />
+              <DieModel
+                isStatic={true}
+                dieType={12}
+                scale={250}
+                position={[0, -20, 0]}
+                rotation={[degToRad(123.17), degToRad(-0.96), degToRad(-180.0)]}
+                onClick={(e) => {
+                  handleAddDieClick(12, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
+              />
+              <DieModel
+                isStatic={true}
+                dieType={20}
+                scale={250}
+                position={[0, -25, 0]}
+                rotation={[degToRad(-101.04), degToRad(43.75), degToRad(18.02)]}
+                onClick={(e) => {
+                  handleAddDieClick(20, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
+              />
+              <DieModel
+                isStatic={true}
+                dieType={100}
+                scale={250}
+                position={[0, -30, 0]}
+                rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
+                onClick={(e) => {
+                  handleAddDieClick(100, e);
+                }}
+                onPointerOver={(e) => {
+                  document.body.style.cursor = "pointer";
+                }}
+                onPointerOut={(e) => {
+                  document.body.style.cursor = "default";
+                }}
+              />
+            </Canvas>
+          </div>
+          <div className="selected-dice">
+            <Canvas>
+              <ambientLight />
+              <OrthographicCamera
+                makeDefault
+                ref={cameraRef}
+                position={[6, -10, 20]}
+                zoom={trayCameraZoom}
+              />
+
+              {dice.map((die, idx) => (
+                <DieModel
+                  key={die.id}
+                  ref={(el) => {
+                    if (el) diceRefs.current[die.id] = el;
+                  }}
+                  dieType={die.getDieType()}
+                  dieValue={die.getDieValue()}
+                  scale={150}
+                  position={getGridPosition(idx, cols, 3)}
+                  onClick={(e) => {
+                    handleRemoveDieClick(die.id, e);
+                  }}
+                  onPointerOver={(e) => {
+                    document.body.style.cursor = "pointer";
+                  }}
+                  onPointerOut={(e) => {
+                    document.body.style.cursor = "default";
+                  }}
+                />
+              ))}
+            </Canvas>
+          </div>
         </div>
-        <div className="mobile-button-container">
+
+        <div className="button-container">
           <button
             className="roll-button"
             onClick={() => {
@@ -310,7 +311,7 @@ export default function Mobile() {
             RESET
           </button>
         </div>
-      </section>
+      </div>
     </>
   );
 }

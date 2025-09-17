@@ -40,7 +40,7 @@
     @apply flex bg-[#0e102c] transition;
   }
   .screen-container .page-container {
-    @apply flex-col w-full h-full;
+    @apply flex flex-col w-full h-screen;
   }
   /* TopBar Containers */
   .topbar-container {
@@ -86,7 +86,29 @@
   }
   /* Canvas Containers */
   .canvas-container {
-    @apply w-full h-full justify-center items-center;
+    @apply flex flex-col flex-1 w-full h-full justify-stretch items-center;
+  }
+  .dice-tray {
+    @apply relative flex flex-col justify-start w-screen items-center m-0;
+    aspect-ratio: 1080 / 1454;
+  }
+  .dice-tray .tray-image {
+    @apply absolute w-full h-full z-0 m-0;
+  }
+  .dice-tray .dice-select {
+    @apply flex-none w-fit h-16 mt-8 z-10;
+  }
+  .dice-tray .selected-dice {
+    @apply flex-grow z-10;
+  }
+  .canvas-container .button-container {
+    @apply flex gap-x-4 justify-center w-full p-4;
+  }
+  .canvas-container .button-container .roll-button {
+    @apply grow-2 bg-green-700 text-white rounded-md px-10 py-4 font-[TWBOZ] place-items-center;
+  }
+  .canvas-container .button-container .reset-button {
+    @apply grow-1 bg-red-700 text-white rounded-md px-2 font-[TWBOZ] place-items-center;
   }
 }
 
@@ -104,7 +126,7 @@
 /* Desktop Canvas Dice Select and Tray Containers */
 
 .dice-canvas-container {
-  @apply flex flex-row w-full justify-center;
+  @apply flex flex-col flex-1 w-full justify-center;
 }
 .dice-canvas-container .desktop-container {
   @apply hidden md:grid grid-cols-9 col-start-1 bg-contain bg-center w-screen h-fit bg-no-repeat;
