@@ -154,7 +154,7 @@ export default function DiceCanvas() {
               ref={cameraRef}
               position={[-1, -14, 20]}
               zoom={8}
-              rotation={cameraRotation}
+              rotation={isPortrait ? [0, 0, Math.PI / -2] : [0, 0, 0]}
             />
             <DieModel
               isStatic={true}

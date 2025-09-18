@@ -39,18 +39,18 @@
 @layer components {
   /* Index Page Container */
   .screen-container {
-    @apply flex flex-col items-center bg-[#0e102c] min-w-[320px] min-h-[568px] w-full h-screen transition;
+    @apply flex flex-col items-center bg-[#0e102c] min-w-xs w-full h-screen max-w-dvw max-h-dvh transition aspect-auto overflow-hidden;
   }
 
   /* TopBar Containers */
   .topbar-container {
-    @apply flex flex-row justify-between items-center w-full p-2 my-4;
+    @apply flex flex-row justify-between items-center w-full max-h-[20dvh] p-2 my-4;
   }
   .topbar-container .halo-halo-image {
     @apply w-12 sm:w-16 md:w-20 lg:w-24 ml-2;
   }
   .topbar-container .title-text {
-    @apply text-5xl md:text-6xl lg:text-8xl text-center flex-grow font-[TWBOZ] text-white;
+    @apply text-4xl md:text-6xl lg:text-8xl text-center flex-grow font-[TWBOZ] text-white;
   }
   .info-box {
     @apply flex flex-row items-center justify-end;
@@ -86,29 +86,31 @@
   }
   /* Canvas Containers */
   .canvas-container {
-    @apply flex flex-col grow max-w-xs max-h-screen mb-8 justify-stretch items-center
-    sm:max-w-xl;
+    @apply flex flex-col grow max-w-dvw max-h-[80dvh] mb-8 justify-around items-center w-screen h-full;
+    @apply landscape:flex-row landscape:mb-0 landscape:pl-8 landscape:pr-8;
   }
   .dice-tray {
-    @apply relative flex flex-col grow justify-start min-w-[390px] w-screen max-h-[588px] items-center
-    sm:max-w-[600px] sm:max-h-[900px]
-    md:max-w-[800px] md:max-h-[1200px]
-    lg:max-w-[1000px] lg:max-h-[1500px];
+    @apply relative grow flex flex-col justify-start min-w-xs w-screen items-center object-contain;
+    @apply landscape:flex-row;
   }
   .dice-tray .tray-image {
-    @apply absolute aspect-[1080/1454] object-contain z-0 -translate-y-8;
+    @apply absolute min-w-xs max-h-fit aspect-[1080/1454] object-contain z-0;
   }
   .dice-tray .dice-select {
     @apply flex-none w-fit h-16 mt-8 z-10;
+    @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pl-4 landscape:pt-12 landscape:pb-16;
   }
   .dice-tray .selected-dice {
-    @apply grow pb-32 pt-2 z-10;
+    @apply flex-1 w-full h-screen pt-2 z-10;
+    @apply landscape:h-[80dvh] landscape:p-8 landscape:pr-16 landscape:pb-16 landscape:pt-12 landscape:overflow-y-auto;
   }
   .canvas-container .button-container {
     @apply flex gap-x-4 justify-center w-full p-4;
+    @apply landscape:flex-col landscape:h-full landscape:flex-1/5 landscape:gap-y-4 landscape:justify-around;
   }
   .canvas-container .button-container .roll-button {
     @apply grow-2 bg-green-700 text-white rounded-md px-10 py-4 font-[TWBOZ] place-items-center;
+    @apply landscape:py-10 landscape:px-2;
   }
   .canvas-container .button-container .reset-button {
     @apply grow-1 bg-red-700 text-white rounded-md px-2 font-[TWBOZ] place-items-center;
