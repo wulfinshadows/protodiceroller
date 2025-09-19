@@ -1,9 +1,12 @@
+"use client";
+
 import { useContext, useRef, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrthographicCamera } from "@react-three/drei";
 import { DieContext } from "../context/DieProvider";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 import { useMediaQuery } from "react-responsive";
+import RotatableDice from "./RotatableDice";
 import Image from "next/image";
 import DieModel from "./DieModel";
 import degToRad from "../domain/functions/degToRad";
@@ -32,6 +35,8 @@ export default function DiceCanvas() {
   useEffect(() => setMounted(true), []);
 
   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const xsBreakpoint = useMediaQuery({ query: "(max-width: 320px)" });
 
   const diceRefs = useRef({});
 
@@ -152,15 +157,15 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={[-1, -14, 20]}
-              zoom={8}
-              rotation={isPortrait ? [0, 0, Math.PI / -2] : [0, 0, 0]}
+              position={[-3, 0, 20]}
+              zoom={6}
             />
+
             <DieModel
               isStatic={true}
               dieType={4}
               scale={250}
-              position={[0, 0, 0]}
+              position={xsBreakpoint ? [-16, 3, 0] : [0, 0, 0]}
               onClick={(e) => {
                 handleAddDieClick(4, e);
               }}
@@ -176,8 +181,7 @@ export default function DiceCanvas() {
               dieType={6}
               dieValue={1}
               scale={250}
-              position={[0, -5, 0]}
-              rotation={[0, Math.PI / 2, 0]}
+              position={xsBreakpoint ? [-10, 3.5, 0] : [0, -6, 0]}
               onClick={(e) => {
                 handleAddDieClick(6, e);
               }}
@@ -192,8 +196,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={8}
               scale={250}
-              position={[0, -10, 0]}
-              rotation={[degToRad(21.33), degToRad(-44.98), degToRad(0)]}
+              position={xsBreakpoint ? [-4, 3.5, 0] : [0, -12, 0]}
               onClick={(e) => {
                 handleAddDieClick(8, e);
               }}
@@ -208,8 +211,7 @@ export default function DiceCanvas() {
               dieType={10}
               isStatic={true}
               scale={250}
-              position={[0, -15, 0]}
-              rotation={[degToRad(-153.7), degToRad(-33.86), degToRad(1.73)]}
+              position={[0, -18, 0]}
               onClick={(e) => {
                 handleAddDieClick(10, e);
               }}
@@ -224,8 +226,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={12}
               scale={250}
-              position={[0, -20, 0]}
-              rotation={[degToRad(123.17), degToRad(-0.96), degToRad(-180.0)]}
+              position={[0, -24, 0]}
               onClick={(e) => {
                 handleAddDieClick(12, e);
               }}
@@ -240,8 +241,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={20}
               scale={250}
-              position={[0, -25, 0]}
-              rotation={[degToRad(-101.04), degToRad(43.75), degToRad(18.02)]}
+              position={[0, -30, 0]}
               onClick={(e) => {
                 handleAddDieClick(20, e);
               }}
@@ -256,8 +256,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={100}
               scale={250}
-              position={[0, -30, 0]}
-              rotation={[degToRad(20.94), degToRad(-71.38), degToRad(179.13)]}
+              position={[0, -36, 0]}
               onClick={(e) => {
                 handleAddDieClick(100, e);
               }}
@@ -279,7 +278,7 @@ export default function DiceCanvas() {
               position={[6, -10, 20]}
               zoom={16}
             />
-
+            <RotatableDice dieType={6} position={[5, -5, 0]} />
             {dice.map((die, idx) => (
               <DieModel
                 key={die.id}

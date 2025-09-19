@@ -1,18 +1,37 @@
 import { TransformControls } from "@react-three/drei";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import DieModel from "./DieModel";
 
 export default function RotatableDie({ dieType, position }) {
-  const dieRef = useRef();
+  const groupRef = useRef();
+  const controlsRef = useRef();
+  const hasAttached = useRef(false);
+
+  // Try to attach after the first frame when group is ready
+  useFrame(() => {
+    if (!hasAttached.current && groupRef.current && controlsRef.current) {
+      groupRef.current.updateMatrixWorld(); // ensure position is baked in
+      controlsRef.current.attach(groupRef.current);
+      hasAttached.current = true;
+    }
+  });
+
+  useEffect(() => {
+    return () => {
+      controlsRef.current?.detach();
+    };
+  }, []);
 
   return (
     <>
       <TransformControls
-        object={dieRef}
+        ref={controlsRef}
         mode="rotate"
         onObjectChange={() => {
-          const euler = dieRef.current.rotation;
+          if (!groupRef.current) return;
+          const euler = groupRef.current.rotation;
           console.log(
             `Rotation: X=${THREE.MathUtils.radToDeg(euler.x).toFixed(2)}°, ` +
               `Y=${THREE.MathUtils.radToDeg(euler.y).toFixed(2)}°, ` +
@@ -20,12 +39,9 @@ export default function RotatableDie({ dieType, position }) {
           );
         }}
       />
-      <DieModel
-        ref={dieRef}
-        dieType={dieType}
-        scale={200}
-        position={position}
-      />
+      <group ref={groupRef} position={position} scale={200}>
+        <DieModel dieType={dieType} />
+      </group>
     </>
   );
 }
