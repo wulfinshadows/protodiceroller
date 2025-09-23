@@ -19,7 +19,7 @@ function getGridPosition(index, cols = 4, spacing = 3) {
   const col = index % cols;
   const x = col * spacing;
   const y = -row * spacing;
-  return [x, y, 0];
+  return [x - 6, y + 3, 0];
 }
 
 export default function DiceCanvas() {
@@ -35,7 +35,7 @@ export default function DiceCanvas() {
   useEffect(() => setMounted(true), []);
 
   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 426px)" });
   const xsBreakpoint = useMediaQuery({ query: "(max-width: 320px)" });
 
   const diceRefs = useRef({});
@@ -152,7 +152,7 @@ export default function DiceCanvas() {
           className="tray-image"
         />
         <div className="dice-select">
-          <Canvas>
+          <Canvas key={isMobile ? "mobile" : "desktop"}>
             <ambientLight />
             <OrthographicCamera
               makeDefault
@@ -165,7 +165,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={4}
               scale={250}
-              position={xsBreakpoint ? [-16, 3, 0] : [0, 0, 0]}
+              position={isMobile ? [-20, 1.5, 0] : [0, 0, 0]}
               onClick={(e) => {
                 handleAddDieClick(4, e);
               }}
@@ -181,7 +181,7 @@ export default function DiceCanvas() {
               dieType={6}
               dieValue={1}
               scale={250}
-              position={xsBreakpoint ? [-10, 3.5, 0] : [0, -6, 0]}
+              position={isMobile ? [-14.5, 2, 0] : [0, -6, 0]}
               onClick={(e) => {
                 handleAddDieClick(6, e);
               }}
@@ -196,7 +196,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={8}
               scale={250}
-              position={xsBreakpoint ? [-4, 3.5, 0] : [0, -12, 0]}
+              position={isMobile ? [-9.5, 2, 0] : [0, -12, 0]}
               onClick={(e) => {
                 handleAddDieClick(8, e);
               }}
@@ -211,7 +211,7 @@ export default function DiceCanvas() {
               dieType={10}
               isStatic={true}
               scale={250}
-              position={[0, -18, 0]}
+              position={isMobile ? [-4.5, 2, 0] : [0, -18, 0]}
               onClick={(e) => {
                 handleAddDieClick(10, e);
               }}
@@ -226,7 +226,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={12}
               scale={250}
-              position={[0, -24, 0]}
+              position={isMobile ? [1.5, 2, 0] : [0, -24, 0]}
               onClick={(e) => {
                 handleAddDieClick(12, e);
               }}
@@ -241,7 +241,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={20}
               scale={250}
-              position={[0, -30, 0]}
+              position={isMobile ? [8, 2, 0] : [0, -30, 0]}
               onClick={(e) => {
                 handleAddDieClick(20, e);
               }}
@@ -256,7 +256,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={100}
               scale={250}
-              position={[0, -36, 0]}
+              position={isMobile ? [14, 2, 0] : [0, -36, 0]}
               onClick={(e) => {
                 handleAddDieClick(100, e);
               }}
@@ -270,15 +270,15 @@ export default function DiceCanvas() {
           </Canvas>
         </div>
         <div className="selected-dice">
-          <Canvas>
+          <Canvas key={isMobile ? "mobile" : "desktop"}>
             <ambientLight />
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
               position={[6, -10, 20]}
-              zoom={16}
+              zoom={8}
             />
-            <RotatableDice dieType={6} position={[5, -5, 0]} />
+            {/* <RotatableDice dieType={6} position={[5, -5, 0]} /> */}
             {dice.map((die, idx) => (
               <DieModel
                 key={die.id}
@@ -287,8 +287,8 @@ export default function DiceCanvas() {
                 }}
                 dieType={die.getDieType()}
                 dieValue={die.getDieValue()}
-                scale={150}
-                position={getGridPosition(idx, cols, 3)}
+                scale={250}
+                position={getGridPosition(idx, cols, 6)}
                 onClick={(e) => {
                   handleRemoveDieClick(die.id, e);
                 }}

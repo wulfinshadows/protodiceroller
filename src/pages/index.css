@@ -86,22 +86,22 @@
   }
   /* Canvas Containers */
   .canvas-container {
-    @apply flex flex-col grow max-w-dvw max-h-[80dvh] mb-8 justify-around items-center w-screen h-full;
+    @apply flex flex-col grow max-w-dvw min-h-[80vh] mb-8 justify-around items-center w-screen h-fit;
     @apply landscape:flex-row landscape:mb-0 landscape:pl-8 landscape:pr-8;
   }
   .dice-tray {
-    @apply relative grow flex flex-col justify-start min-w-xs w-screen items-center object-contain;
+    @apply relative grow flex flex-col justify-start min-w-xs w-fit items-center object-contain;
     @apply landscape:flex-row;
   }
   .dice-tray .tray-image {
     @apply absolute min-w-xs max-h-fit aspect-[1080/1454] object-contain z-0;
   }
   .dice-tray .dice-select {
-    @apply flex-none w-fit h-16 mt-8 z-10;
+    @apply flex-none min-w-[300px] w-fit h-16 mt-6 z-10;
     @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pl-4 landscape:pt-12 landscape:pb-16;
   }
   .dice-tray .selected-dice {
-    @apply flex-1 w-full h-screen pt-2 z-10;
+    @apply w-fit max-h-screen min-h-fit h-[40vh] pt-2 z-10;
     @apply landscape:h-[80dvh] landscape:p-8 landscape:pr-16 landscape:pb-16 landscape:pt-12 landscape:overflow-y-auto;
   }
   .canvas-container .button-container {
