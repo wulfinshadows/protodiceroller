@@ -88,10 +88,15 @@
   .canvas-container {
     @apply flex flex-col grow max-w-dvw min-h-[80vh] mb-8 justify-around items-center w-screen h-fit;
     @apply landscape:flex-row landscape:mb-0 landscape:pl-8 landscape:pr-8;
+    @apply md:max-w-[90dvw] md:min-h-[20vh] md:max-h-[65vh] md:m-0 md:p-0;
+    @apply lg:max-h-[75vh] lg:justify-center;
+    @apply xl:max-w-[60dvw];
   }
   .dice-tray {
     @apply relative grow flex flex-col justify-start min-w-xs w-fit items-center object-contain;
     @apply landscape:flex-row;
+    @apply md:max-w-[85dvw] md:max-h-[65vh];
+    @apply lg:max-w-[60dvw];
   }
   .dice-tray .tray-image {
     @apply absolute min-w-xs max-h-fit aspect-[1080/1454] object-contain z-0;
@@ -99,14 +104,17 @@
   .dice-tray .dice-select {
     @apply flex-none min-w-[300px] w-fit h-16 mt-6 z-10;
     @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pl-4 landscape:pt-12 landscape:pb-16;
+    @apply md:min-w-[10vw] md:pt-10 md:pl-7 md:pb-12 md:h-[65vh];
   }
   .dice-tray .selected-dice {
     @apply w-fit max-h-screen min-h-fit h-[40vh] pt-2 z-10;
     @apply landscape:h-[80dvh] landscape:p-8 landscape:pr-16 landscape:pb-16 landscape:pt-12 landscape:overflow-y-auto;
+    @apply md:p-0 md:grow md:h-[65vh];
   }
   .canvas-container .button-container {
     @apply flex gap-x-4 justify-center w-full p-4;
     @apply landscape:flex-col landscape:h-full landscape:flex-1/5 landscape:gap-y-4 landscape:justify-around;
+    @apply md:max-w-[15dvw] md:max-h-[60vh];
   }
   .canvas-container .button-container .roll-button {
     @apply grow-2 bg-green-700 text-white rounded-md px-10 py-4 font-[TWBOZ] place-items-center;
