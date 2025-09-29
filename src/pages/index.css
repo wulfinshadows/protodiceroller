@@ -104,24 +104,24 @@
   .dice-tray .dice-select {
     @apply flex-none min-w-[300px] w-fit h-16 mt-6 z-10;
     @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pl-4 landscape:pt-12 landscape:pb-16;
-    @apply md:min-w-[10vw] md:pt-10 md:pl-7 md:pb-12 md:h-[65vh];
+    @apply landscape:min-w-[10vw] landscape:pt-10 landscape:pl-7 landscape:pb-12 landscape:h-[65vh];
   }
+  // make new class for isMobile && isPortrait
   .dice-tray .selected-dice {
     @apply w-fit max-h-screen min-h-fit h-[40vh] pt-2 z-10;
     @apply landscape:h-[80dvh] landscape:p-8 landscape:pr-16 landscape:pb-16 landscape:pt-12 landscape:overflow-y-auto;
-    @apply md:p-0 md:grow md:h-[65vh];
+    @apply landscape:p-0 landscape:grow landscape:h-[65vh];
   }
   .canvas-container .button-container {
     @apply flex gap-x-4 justify-center w-full p-4;
     @apply landscape:flex-col landscape:h-full landscape:flex-1/5 landscape:gap-y-4 landscape:justify-around;
-    @apply md:max-w-[15dvw] md:max-h-[60vh];
+    @apply landscape:max-w-[15dvw] landscape:max-h-[60vh];
   }
   .canvas-container .button-container .roll-button {
-    @apply grow-2 bg-green-700 text-white rounded-md px-10 py-4 font-[TWBOZ] place-items-center;
-    @apply landscape:py-10 landscape:px-2;
+    @apply grow-2 bg-green-700 text-white rounded-md px-10 py-4 font-[TWBOZ] place-items-center cursor-pointer hover:scale-105 active:scale-110 transition;
   }
   .canvas-container .button-container .reset-button {
-    @apply grow-1 bg-red-700 text-white rounded-md px-2 font-[TWBOZ] place-items-center;
+    @apply grow-1 bg-red-700 text-white rounded-md px-2 font-[TWBOZ] place-items-center cursor-pointer hover:scale-105 active:scale-110 transition;
   }
 }
 
@@ -138,7 +138,7 @@
 
 /* Desktop Canvas Dice Select and Tray Containers */
 
-.dice-canvas-container {
+/* .dice-canvas-container {
   @apply flex flex-col flex-1 w-full justify-center;
 }
 .dice-canvas-container .desktop-container {
@@ -164,11 +164,11 @@
 }
 .dice-canvas-container .desktop-container .selected-dice {
   @apply flex-col relative col-start-4 col-span-4 row-start-1 xl:h-[600px] lg:h-[600px] md:h-[450px] h-[500px] md:mt-14;
-}
+} */
 
 /* Roll and Reset Buttons */
 
-.dice-canvas-container .desktop-container .button-container {
+/* .dice-canvas-container .desktop-container .button-container {
   @apply xl:col-span-1 xl:col-start-8 xl:row-start-1 lg:col-start-9 lg:row-start-1 md:row-start-2 md:col-start-4 md:col-span-3;
 }
 .desktop-container .button-container .roll-button {
@@ -176,11 +176,11 @@
 }
 .desktop-container .button-container .reset-button {
   @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;
-}
+} */
 
 /* Mobile Canvas Dice Select and Tray Containers */
 
-.mobile-canvas-container {
+/* .mobile-canvas-container {
   @apply grid grid-rows-7 grid-cols-9 md:hidden;
 }
 .mobile-canvas-container .mobile-dice-tray {
@@ -191,11 +191,11 @@
 }
 .mobile-canvas-container .mobile-selected-dice {
   @apply row-start-2 col-start-3 row-span-4 col-span-5 overflow-y-auto max-[410px]:row-span-5 max-[410px]:col-span-7 max-[410px]:row-start-2 max-[410px]:col-start-2 h-[500px];
-}
+} */
 
 /* Mobile Roll and Reset Buttons */
 
-.mobile-canvas-container .mobile-button-container {
+/* .mobile-canvas-container .mobile-button-container {
   @apply flex row-start-5 col-start-4 col-span-3 mt-10 sm:row-start-5 max-[410px]:col-start-4 max-[410px]:col-span-3 justify-center items-center;
 }
 .mobile-canvas-container .mobile-button-container .roll-button {
@@ -203,7 +203,7 @@
 }
 .mobile-canvas-container .mobile-button-container .reset-button {
   @apply px-5 py-4 text-sm rounded-md h-fit text-white m-1 drop-shadow-lg transition font-[TWBOZ] place-items-center bg-red-700 hover:scale-105 active:scale-110 cursor-pointer;
-}
+} */
 
 /* Themes
 

@@ -106,20 +106,20 @@ export default function DiceCanvas() {
           className="tray-image"
         />
         <div className="dice-select">
-          <Canvas key={isMobile ? "mobile" : "desktop"}>
+          <Canvas key={isPortrait ? "mobile" : "desktop"}>
             <ambientLight />
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isMobile ? [-3, 0, 20] : [0, -18, 20]}
-              zoom={isMobile ? 6 : 8}
+              position={isPortrait ? [-3, 0, 20] : [2, -18, 20]}
+              zoom={isPortrait ? 6 : 9}
             />
 
             <DieModel
               isStatic={true}
               dieType={4}
               scale={250}
-              position={isMobile ? [-20, 1.5, 0] : [0, 0, 0]}
+              position={isPortrait ? [-20, 1.5, 0] : [0, 0, 0]}
               onClick={(e) => {
                 handleAddDieClick(4, e);
               }}
@@ -135,7 +135,7 @@ export default function DiceCanvas() {
               dieType={6}
               dieValue={1}
               scale={250}
-              position={isMobile ? [-14.5, 2, 0] : [0, -6, 0]}
+              position={isPortrait ? [-14.5, 2, 0] : [0, -6, 0]}
               onClick={(e) => {
                 handleAddDieClick(6, e);
               }}
@@ -150,7 +150,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={8}
               scale={250}
-              position={isMobile ? [-9.5, 2, 0] : [0, -12, 0]}
+              position={isPortrait ? [-9.5, 2, 0] : [0, -12, 0]}
               onClick={(e) => {
                 handleAddDieClick(8, e);
               }}
@@ -165,7 +165,7 @@ export default function DiceCanvas() {
               dieType={10}
               isStatic={true}
               scale={250}
-              position={isMobile ? [-4.5, 2, 0] : [0, -18, 0]}
+              position={isPortrait ? [-4.5, 2, 0] : [0, -18, 0]}
               onClick={(e) => {
                 handleAddDieClick(10, e);
               }}
@@ -180,7 +180,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={12}
               scale={250}
-              position={isMobile ? [1.5, 2, 0] : [0, -24, 0]}
+              position={isPortrait ? [1.5, 2, 0] : [0, -24, 0]}
               onClick={(e) => {
                 handleAddDieClick(12, e);
               }}
@@ -195,7 +195,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={20}
               scale={250}
-              position={isMobile ? [8, 2, 0] : [0, -30, 0]}
+              position={isPortrait ? [8, 2, 0] : [0, -30, 0]}
               onClick={(e) => {
                 handleAddDieClick(20, e);
               }}
@@ -210,7 +210,7 @@ export default function DiceCanvas() {
               isStatic={true}
               dieType={100}
               scale={250}
-              position={isMobile ? [14, 2, 0] : [0, -36, 0]}
+              position={isPortrait ? [14, 2, 0] : [0, -36, 0]}
               onClick={(e) => {
                 handleAddDieClick(100, e);
               }}
@@ -224,15 +224,14 @@ export default function DiceCanvas() {
           </Canvas>
         </div>
         <div className="selected-dice">
-          <Canvas key={isMobile ? "mobile" : "desktop"}>
+          <Canvas key={isPortrait ? "mobile" : "desktop"} style={isPortrait ? { width: "20rem", height: "22rem" } : { width: "35rem", height: "500px"}}>
             <ambientLight />
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isMobile ? [6, -10, 20] : [18, -15, 20]}
-              zoom={8}
+              position={isPortrait ? [6, -15, 20] : [15, -15, 20]}
+              zoom={isPortrait ? 8 : 10}
             />
-            {/* <RotatableDice dieType={6} position={[5, -5, 0]} /> */}
             {dice.map((die, idx) => (
               <DieModel
                 key={die.id}
@@ -243,8 +242,8 @@ export default function DiceCanvas() {
                 dieValue={die.getDieValue()}
                 scale={250}
                 position={
-                  isMobile
-                    ? getGridPosition(idx, 6, 6)
+                  isPortrait
+                    ? getGridPosition(idx, 5, 6)
                     : getGridPosition(idx, 8, 6)
                 }
                 onClick={(e) => {
