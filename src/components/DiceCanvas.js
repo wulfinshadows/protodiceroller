@@ -113,8 +113,8 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isPortrait ? [-3, 0, 20] : [2, -18, 20]}
-              zoom={isPortrait ? 6 : 9}
+              position={isPortrait ? [-3, 2, 20] : [2, -18, 20]}
+              zoom={isPortrait ? 8 : 9}
             />
 
             <DieModel
@@ -228,18 +228,18 @@ export default function DiceCanvas() {
         <div className="selected-dice">
           <Canvas
             key={isPortrait ? "mobile" : "desktop"}
-            style={
-              isPortrait
-                ? { width: "20rem", height: "22rem" }
-                : { width: "35rem", height: "500px" }
-            }
+            // style={
+            //   isPortrait
+            //     ? { width: "20rem", height: "22rem" }
+            //     : { width: "35rem", height: "500px" }
+            // }
           >
             <ambientLight />
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isPortrait ? [6, -15, 20] : [15, -15, 20]}
-              zoom={isPortrait ? 8 : 10}
+              position={isPortrait ? [6, -12, 20] : [15, -15, 20]}
+              zoom={isPortrait ? 10 : 10}
             />
             {dice.map((die, idx) => (
               <DieModel

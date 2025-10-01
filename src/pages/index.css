@@ -93,22 +93,22 @@
     @apply xl:max-w-[60dvw];
   }
   .dice-tray {
-    @apply relative grow flex flex-col justify-start min-w-xs w-fit items-center object-contain;
+    @apply relative grow flex flex-col justify-start min-w-xs w-screen items-center object-contain;
     @apply landscape:flex-row;
     @apply md:max-w-[85dvw] md:max-h-[65vh];
     @apply lg:max-w-[60dvw];
   }
   .dice-tray .tray-image {
-    @apply absolute min-w-xs max-h-fit aspect-[1080/1454] object-contain z-0;
+    @apply absolute min-w-xs w-max max-h-fit aspect-[1080/1454] object-contain z-0;
   }
   .dice-tray .dice-select {
-    @apply flex-none min-w-[300px] w-fit h-16 mt-6 z-10;
+    @apply flex-none min-w-[300px] w-screen h-16 mt-6 z-10;
     @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pl-4 landscape:pt-12 landscape:pb-16;
     @apply landscape:min-w-[10vw] landscape:pt-10 landscape:pl-7 landscape:pb-12 landscape:h-[65vh];
   }
-  // make new class for isMobile && isPortrait
+  /* make new class for isMobile && isPortrait */
   .dice-tray .selected-dice {
-    @apply w-fit max-h-screen min-h-fit h-[40vh] pt-2 z-10;
+    @apply w-screen max-h-[80vh] min-h-fit h-[50vh] pt-2 z-10 px-10;
     @apply landscape:h-[80dvh] landscape:p-8 landscape:pr-16 landscape:pb-16 landscape:pt-12 landscape:overflow-y-auto;
     @apply landscape:p-0 landscape:grow landscape:h-[65vh];
   }
