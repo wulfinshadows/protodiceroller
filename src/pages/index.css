@@ -20,11 +20,15 @@
 
 @layer base {
   @font-face {
-    font-family: TWBOZ;
-    src: url("/fonts/TheWildBreathOfZelda-15Lv.ttf");
+    font-family: Ghoulish;
+    src: url("/fonts/Ghoulish.ttf");
+  }
+  @font-face {
+    font-family: MetalMania;
+    src: url("/fonts/MetalMania-Regular.ttf");
   }
   :root {
-    --primary: #c23838;
+    --primary: #6a7282;
     --text-color: white;
     --bg: #0e102c;
     margin: 0;
@@ -50,7 +54,7 @@
     @apply w-12 sm:w-16 md:w-20 lg:w-24 ml-2;
   }
   .topbar-container .title-text {
-    @apply text-4xl md:text-6xl lg:text-8xl text-center flex-grow font-[TWBOZ] text-white;
+    @apply text-4xl md:text-6xl lg:text-8xl text-center flex-grow font-[Ghoulish] text-white;
   }
   .info-box {
     @apply flex flex-row items-center justify-end;
@@ -102,11 +106,10 @@
     @apply absolute min-w-xs w-max max-h-fit aspect-[1080/1454] object-contain z-0;
   }
   .dice-tray .dice-select {
-    @apply flex-none min-w-[300px] w-screen h-16 mt-6 z-10;
-    @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pl-4 landscape:pt-12 landscape:pb-16;
-    @apply landscape:min-w-[10vw] landscape:pt-10 landscape:pl-7 landscape:pb-12 landscape:h-[65vh];
+    @apply flex-none min-w-[300px] h-16 mt-6 z-10;
+    @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pt-12 landscape:pb-16;
+    @apply landscape:min-w-[10vw] landscape:pt-10 landscape:ml-[1rem] landscape:pb-12 landscape:h-[65vh];
   }
-  /* make new class for isMobile && isPortrait */
   .dice-tray .selected-dice {
     @apply w-screen max-h-[80vh] min-h-fit h-[50vh] pt-2 z-10 px-10;
     @apply landscape:h-[80dvh] landscape:p-8 landscape:pr-16 landscape:pb-16 landscape:pt-12 landscape:overflow-y-auto;
@@ -118,10 +121,10 @@
     @apply landscape:max-w-[15dvw] landscape:max-h-[60vh];
   }
   .canvas-container .button-container .roll-button {
-    @apply grow-2 bg-green-700 text-white rounded-md px-10 py-4 font-[TWBOZ] place-items-center cursor-pointer hover:scale-105 active:scale-110 transition;
+    @apply grow-2 bg-[#044F28] text-white rounded-md px-10 py-4 font-[Ghoulish] place-items-center cursor-pointer hover:scale-105 hover:bg-[#0cbf5d] active:scale-110 transition hover:drop-shadow-xl/50 hover:drop-shadow-[#0cbf5d] active:bg-[#0cbf5d];
   }
   .canvas-container .button-container .reset-button {
-    @apply grow-1 bg-red-700 text-white rounded-md px-2 font-[TWBOZ] place-items-center cursor-pointer hover:scale-105 active:scale-110 transition;
+    @apply grow-1 bg-[#530b2a] text-white rounded-md px-2 font-[Ghoulish] place-items-center cursor-pointer hover:scale-105 hover:bg-[#83124b] active:scale-110 transition hover:drop-shadow-xl/50 hover:drop-shadow-[#83124b] active:bg-[#83124b];
   }
 }
 

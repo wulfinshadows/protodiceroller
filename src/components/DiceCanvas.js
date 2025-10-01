@@ -33,7 +33,11 @@ export default function DiceCanvas() {
 
   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
   const isMobile = useMediaQuery({ query: "(max-width: 426px)" });
-  const xlBreakpoint = useMediaQuery({ query: "(max-width: 1280px)" });
+  const smBreakpoint = useMediaQuery({ query: "(min-width: 640px)" });
+  const mdBreakpoint = useMediaQuery({ query: "(min-width: 768px)" });
+  const lgBreakpoint = useMediaQuery({ query: "(min-width: 1024px)" });
+  const xlBreakpoint = useMediaQuery({ query: "(min-width: 1280px)" });
+  const xxlBreakpoint = useMediaQuery({ query: "(min-width: 1536px)" });
 
   const diceRefs = useRef({});
   const cameraRef = useRef();
@@ -113,7 +117,14 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isPortrait ? [-3, 2, 20] : [2, -18, 20]}
+              position={
+                isPortrait ? [-3, 2, 20] :
+                xxlBreakpoint ? [-5, -18, 20] :
+                xlBreakpoint ? [3, -18, 20] :
+                lgBreakpoint ? [1, -18, 20] :
+                mdBreakpoint ? [0, -18, 20] :
+                smBreakpoint ? [-2, -18, 20] :
+                [-3, -18, 20]}
               zoom={isPortrait ? 8 : 9}
             />
 
@@ -238,8 +249,8 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isPortrait ? [6, -12, 20] : [15, -15, 20]}
-              zoom={isPortrait ? 10 : 10}
+              position={isPortrait ? [6, -12, 20] : [17, -15, 20]}
+              zoom={isPortrait ? 10 : 9}
             />
             {dice.map((die, idx) => (
               <DieModel

@@ -2,7 +2,7 @@ export default function HowTo({ onExit = () => {} }) {
   return (
     <div className="how-to-container">
       <div>
-        <h2 className="font-[TWBOZ]">HOW TO PLAY</h2>
+        <h2 className="font-[MetalMania]">HOW TO PLAY</h2>
         <hr></hr>
         <li>Click on a dice to add it to the dice tray</li>
         <li>Click the “Roll” button to roll</li>

@@ -18,21 +18,21 @@ const RSidebar = ({ isOpen, toggleSidebar, history }) => {
       <div className="absolute justify-end p-4 top-5/12 xl:-left-36 lg:-left-32 md:-left-28 -left-28 rotate-90">
         <button
           onClick={toggleSidebar}
-          className="sidebar-container-button text-white xl:text-4xl lg:text-3xl md:text-2xl text-2xl px-10 py-4 rounded-md font-[TWBOZ] hover:scale-105 transition cursor-pointer"
+          className="sidebar-container-button text-white xl:text-4xl lg:text-3xl md:text-2xl text-2xl px-10 py-4 rounded-md font-[MetalMania] hover:scale-105 transition cursor-pointer"
         >
           HISTORY
         </button>
       </div>
 
       <div className="p-8 text-white">
-        <h2 className="text-5xl font-bold font-[TWBOZ] flex justify-end">
+        <h2 className="text-5xl font-[MetalMania] flex justify-end">
           HISTORY
         </h2>
         <div
           className="max-h-[75vh] overflow-y-auto
           [&::-webkit-scrollbar]:w-2
-        [&::-webkit-scrollbar-track]:bg-red-200
-        [&::-webkit-scrollbar-thumb]:bg-rose-700
+        [&::-webkit-scrollbar-track]:bg-gray-200
+        [&::-webkit-scrollbar-thumb]:bg-gray-700
           [&::-webkit-scrollbar-track]:rounded-full
           [&::-webkit-scrollbar-thumb]:rounded-full"
         >
