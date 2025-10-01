@@ -6,10 +6,9 @@ import { OrthographicCamera } from "@react-three/drei";
 import { DieContext } from "../context/DieProvider";
 import { useCollectHistory } from "../hooks/useCollectHistory";
 import { useMediaQuery } from "react-responsive";
-import RotatableDice from "./RotatableDice";
+import { useShakeDetector } from "./../hooks/useShakeDetector";
 import Image from "next/image";
 import DieModel from "./DieModel";
-import degToRad from "../domain/functions/degToRad";
 import RSidebar from "./RSidebar";
 
 function getGridPosition(index, cols = 4, spacing = 3) {
@@ -84,6 +83,9 @@ export default function DiceCanvas() {
     updateHistoryJson(updatedDice);
     updateHistoryState();
   };
+  useShakeDetector(() => {
+    handleRollDiceClick();
+  }, 20);
 
   if (!mounted) return null;
 
@@ -224,7 +226,14 @@ export default function DiceCanvas() {
           </Canvas>
         </div>
         <div className="selected-dice">
-          <Canvas key={isPortrait ? "mobile" : "desktop"} style={isPortrait ? { width: "20rem", height: "22rem" } : { width: "35rem", height: "500px"}}>
+          <Canvas
+            key={isPortrait ? "mobile" : "desktop"}
+            style={
+              isPortrait
+                ? { width: "20rem", height: "22rem" }
+                : { width: "35rem", height: "500px" }
+            }
+          >
             <ambientLight />
             <OrthographicCamera
               makeDefault
