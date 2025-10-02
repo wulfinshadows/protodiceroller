@@ -62,14 +62,16 @@ export default function DiceCanvas() {
 
   const handleAddDieClick = (dieType, e) => {
     e.stopPropagation();
-    handleAddDie(dieType);
-    console.log(dice);
+    if (dice.length < 16 && isPortrait) {
+      handleAddDie(dieType);
+    } else if (dice.length > 56 && !isPortrait) {
+      handleAddDie(dieType);
+    }
   };
 
   const handleRemoveDieClick = (index, e) => {
     e.stopPropagation();
     handleRemoveDie(index);
-    console.log(dice);
   };
 
   const handleRollDiceClick = async () => {
@@ -118,13 +120,20 @@ export default function DiceCanvas() {
               makeDefault
               ref={cameraRef}
               position={
-                isPortrait ? [-3, 2, 20] :
-                xxlBreakpoint ? [-5, -18, 20] :
-                xlBreakpoint ? [3, -18, 20] :
-                lgBreakpoint ? [1, -18, 20] :
-                mdBreakpoint ? [0, -18, 20] :
-                smBreakpoint ? [-2, -18, 20] :
-                [-3, -18, 20]}
+                isPortrait
+                  ? [-3, 2, 20]
+                  : xxlBreakpoint
+                  ? [-5, -18, 20]
+                  : xlBreakpoint
+                  ? [3, -18, 20]
+                  : lgBreakpoint
+                  ? [1, -18, 20]
+                  : mdBreakpoint
+                  ? [0, -18, 20]
+                  : smBreakpoint
+                  ? [-2, -18, 20]
+                  : [-3, -18, 20]
+              }
               zoom={isPortrait ? 8 : 9}
             />
 
@@ -249,8 +258,8 @@ export default function DiceCanvas() {
             <OrthographicCamera
               makeDefault
               ref={cameraRef}
-              position={isPortrait ? [6, -12, 20] : [17, -15, 20]}
-              zoom={isPortrait ? 10 : 9}
+              position={isPortrait ? [2.5, -7, 20] : [17, -15, 20]}
+              zoom={isPortrait ? 13 : 9}
             />
             {dice.map((die, idx) => (
               <DieModel
@@ -263,7 +272,7 @@ export default function DiceCanvas() {
                 scale={250}
                 position={
                   isPortrait
-                    ? getGridPosition(idx, 5, 6)
+                    ? getGridPosition(idx, 4, 6)
                     : getGridPosition(idx, 8, 6)
                 }
                 onClick={(e) => {

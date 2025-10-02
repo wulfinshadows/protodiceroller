@@ -106,7 +106,7 @@
     @apply absolute min-w-xs w-max max-h-fit aspect-[1080/1454] object-contain z-0;
   }
   .dice-tray .dice-select {
-    @apply flex-none min-w-[300px] h-16 mt-6 z-10;
+    @apply flex-none min-w-[320px] h-16 mt-6 z-10;
     @apply landscape:mt-0 landscape:ml-0 landscape:h-[80dvh] landscape:w-24 landscape:p-2 landscape:pt-12 landscape:pb-16;
     @apply landscape:min-w-[10vw] landscape:pt-10 landscape:ml-[1rem] landscape:pb-12 landscape:h-[65vh];
   }
